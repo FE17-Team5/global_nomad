@@ -1,0 +1,93 @@
+@import 'tailwindcss';
+@import 'pretendard/dist/web/variable/pretendardvariable.css';
+
+/* === Typography (px → rem) === */
+@theme {
+  --text-3xl: 2rem;        /* 32px */
+  --text-3xl--line-height: 2.625rem; /* 42px */
+
+  --text-2xl: 1.5rem;      /* 24px */
+  --text-2xl--line-height: 2rem;     /* 32px */
+
+  --text-xl: 1.25rem;      /* 20px */
+  --text-xl--line-height: 2rem;      /* 32px */
+
+  --text-2lg: 1.125rem;    /* 18px */
+  --text-2lg--line-height: 1.625rem; /* 26px */
+
+  --text-lg: 1rem;         /* 16px */
+  --text-lg--line-height: 1.625rem;  /* 26px */
+
+  --text-md: 0.875rem;     /* 14px */
+  --text-md--line-height: 1.5rem;    /* 24px */
+
+  --text-sm: 0.8125rem;    /* 13px */
+  --text-sm--line-height: 1.375rem;  /* 22px */
+
+  --text-xs: 0.75rem;      /* 12px */
+  --text-xs--line-height: 1.125rem;  /* 18px */
+
+  /* 폰트 토큰 */
+  --font-pretendard: 'Pretendard Variable', Pretendard;
+}
+
+/* === Colors (시안값 그대로 매핑) === */
+@theme {
+  --color-black: #1B1B1B;
+  --color-black-nomad: #112211;
+
+  --color-green-1: #0B3B2D;
+  --color-green-2: #00AC07;
+  --color-green-3: #CED8D5;
+
+  --color-red-1: #FF472E;
+  --color-red-2: #FFC2BA;
+  --color-red-3: #FFE4E0;
+
+  --color-orange-1: #FF7C1D;
+  --color-orange-2: #FFF4E8;
+
+  --color-yellow-1: #FFC23D;
+
+  --color-blue-1: #0085FF;
+  --color-blue-2: #2EB4FF;
+  --color-blue-3: #E5F3FF;
+
+  /* Gray 단계(진→연) */
+  --color-gray-1: #4B4B4B;
+  --color-gray-2: #79747E;
+  --color-gray-3: #A1A1A1;
+  --color-gray-4: #A4A1AA;
+  --color-gray-5: #ADAEB8;
+  --color-gray-6: #CBC9CF;
+  --color-gray-7: #DDDDDD;
+  --color-gray-8: #EEEEEE;
+  --color-gray-9: #FAFAFA;
+}
+
+/* 데스크탑 우선 */
+@theme { --breakpoint-*: initial; }
+@custom-variant tablet (@media (max-width: 80rem)); /* 1280px */
+@custom-variant mobile (@media (max-width: 48rem)); /* 768px */
+
+@utility flex-between {
+  display: flex; align-items: center; justify-content: space-between;
+}
+
+@utility flex-col-center {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+}
+
+@utility text-center {
+  text-align: center;
+}
+
+@utility absolute-center {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+}
+
+@utility visually-hidden {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+}
+
+body { font-family: var(--font-pretendard); }
