@@ -6,26 +6,30 @@
  * - 제목 (32px, 볼드)
  * - 별점 + 리뷰 수
  * - 지도 아이콘 + 주소
- * - 우측 더보기(케밥) 버튼
+ * - 우측 더보기(케밥) 버튼 (소유자만 표시)
  */
 
 import iconMap from "../../assets/icon/icon_map.svg";
-import iconMore from "../../assets/icon/icon_more.svg";
+import KebabMenu from "./kebab-menu";
 
 interface ActivityHeaderProps {
+  id: number;
   category: string;
   title: string;
   rating: number;
   reviewCount: number;
   address: string;
+  isOwner?: boolean;
 }
 
 const ActivityHeader = ({
+  id,
   category,
   title,
   rating,
   reviewCount,
   address,
+  isOwner = false,
 }: ActivityHeaderProps) => {
   return (
     <div className="flex items-center justify-between">
@@ -69,9 +73,8 @@ const ActivityHeader = ({
         </p>
       </div>
 
-      <button className="ml-4" aria-label="더보기">
-        <img className="w-10 h-10" src={iconMore} alt="" />
-      </button>
+      {/* 소유자일 때만 케밥 메뉴 표시 */}
+      {isOwner && <KebabMenu activityId={id} />}
     </div>
   );
 };

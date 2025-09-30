@@ -1,5 +1,6 @@
 // mockActivityDetail.ts
 export const mockActivityDetail = {
+  id: 7,
   category: "투어",
   title: "함께 배우면 즐거운 스트릿댄스",
   description: "안녕하세요! 저희 스트릿 댄스 체험을 소개합니다. 저희는 신나고 재미있는 스트릿 댄스 스타일을 가르칩니다. 크럼프는 세계적으로 인기 있는 댄스 스타일로, 어디서든 춤출 수 있습니다. 저희 체험에서는 새로운 스타일을 접할 수 있고, 즐거운 시간을 보낼 수 있습니다. 저희는 초보자부터 전문가까지 어떤 수준의 춤추는 사람도 가르칠 수 있도록 준비해놓았습니다. 저희와 함께 즐길 수 있는 시간을 기대해주세요! 각종 음악에 적합한 스타일로, 저희는 크럼프 외에도 전통적인 스트릿 댄스 스타일과 최신 스트릿 댄스 스타일까지 가르칠 수 있습니다. 저희 체험에서는 전문가가 직접 강사로 참여하기 때문에, 저희가 제공하는 코스는 어떤 수준의 춤추는 사람도 쉽게 이해할 수 있도록 준비해놓았습니다. 저희 체험을 참가하게 된다면, 즐거운 시간 뿐만 아니라 새로운 스타일을 접할 수 있을 것입니다.",
@@ -58,7 +59,7 @@ export const mockActivityReviews = {
       id: 1,
       user: {
         profileImageUrl:
-          "https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/globalnomad/profile/user1.png",
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTiDJFZppYH3gokfWy8BzxbV1R9HY7MC-SPAQ&s",
         nickname: "김태현",
       },
       content:
@@ -69,7 +70,7 @@ export const mockActivityReviews = {
       id: 2,
       user: {
         profileImageUrl:
-          "https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/globalnomad/profile/user2.png",
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTiDJFZppYH3gokfWy8BzxbV1R9HY7MC-SPAQ&s",
         nickname: "조민지",
       },
       content:
@@ -80,7 +81,7 @@ export const mockActivityReviews = {
       id: 3,
       user: {
         profileImageUrl:
-          "https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/globalnomad/profile/user3.png",
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTiDJFZppYH3gokfWy8BzxbV1R9HY7MC-SPAQ&s",
         nickname: "박영수",
       },
       content:
@@ -91,7 +92,7 @@ export const mockActivityReviews = {
       id: 4,
       user: {
         profileImageUrl:
-          "https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/globalnomad/profile/user4.png",
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTiDJFZppYH3gokfWy8BzxbV1R9HY7MC-SPAQ&s",
         nickname: "이은지",
       },
       content:
@@ -102,7 +103,7 @@ export const mockActivityReviews = {
       id: 5,
       user: {
         profileImageUrl:
-          "https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/globalnomad/profile/user1.png",
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTiDJFZppYH3gokfWy8BzxbV1R9HY7MC-SPAQ&s",
         nickname: "최민수",
       },
       content:
@@ -113,7 +114,7 @@ export const mockActivityReviews = {
       id: 6,
       user: {
         profileImageUrl:
-          "https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/globalnomad/profile/user2.png",
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTiDJFZppYH3gokfWy8BzxbV1R9HY7MC-SPAQ&s",
         nickname: "한지우",
       },
       content:
@@ -124,7 +125,7 @@ export const mockActivityReviews = {
       id: 7,
       user: {
         profileImageUrl:
-          "https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/globalnomad/profile/user3.png",
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTiDJFZppYH3gokfWy8BzxbV1R9HY7MC-SPAQ&s",
         nickname: "정서연",
       },
       content:
@@ -135,7 +136,7 @@ export const mockActivityReviews = {
       id: 8,
       user: {
         profileImageUrl:
-          "https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/globalnomad/profile/user4.png",
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTiDJFZppYH3gokfWy8BzxbV1R9HY7MC-SPAQ&s",
         nickname: "이도현",
       },
       content:
@@ -146,7 +147,7 @@ export const mockActivityReviews = {
       id: 9,
       user: {
         profileImageUrl:
-          "https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/globalnomad/profile/user1.png",
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTiDJFZppYH3gokfWy8BzxbV1R9HY7MC-SPAQ&s",
         nickname: "강예린",
       },
       content:
@@ -157,7 +158,7 @@ export const mockActivityReviews = {
       id: 10,
       user: {
         profileImageUrl:
-          "https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/globalnomad/profile/user2.png",
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTiDJFZppYH3gokfWy8BzxbV1R9HY7MC-SPAQ&s",
         nickname: "박준호",
       },
       content:
@@ -168,7 +169,7 @@ export const mockActivityReviews = {
       id: 11,
       user: {
         profileImageUrl:
-          "https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/globalnomad/profile/user3.png",
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTiDJFZppYH3gokfWy8BzxbV1R9HY7MC-SPAQ&s",
         nickname: "윤서진",
       },
       content:
@@ -179,7 +180,7 @@ export const mockActivityReviews = {
       id: 12,
       user: {
         profileImageUrl:
-          "https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/globalnomad/profile/user4.png",
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTiDJFZppYH3gokfWy8BzxbV1R9HY7MC-SPAQ&s",
         nickname: "김하은",
       },
       content:
@@ -190,7 +191,7 @@ export const mockActivityReviews = {
       id: 13,
       user: {
         profileImageUrl:
-          "https://sprint-fe-project.s3.ap-northeast-2.amazonaws.com/globalnomad/profile/user1.png",
+          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTiDJFZppYH3gokfWy8BzxbV1R9HY7MC-SPAQ&s",
         nickname: "송민재",
       },
       content:

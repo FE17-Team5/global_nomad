@@ -1,4 +1,5 @@
 import { mockActivityDetail, mockActivityReviews } from "./mockdata";
+import { useParams } from "react-router-dom";
 import ActivityHeader from "../../components/Detail/activity-header";
 import ImageGallery from "../../components/Detail/image-gallery";
 import ActivityDescription from "../../components/Detail/activity-description";
@@ -7,18 +8,28 @@ import ReviewSection from "../../components/Detail/review-section";
 import ReservationSidebar from "../../components/Detail/reservation-sidebar";
 
 const DetailPage = () => {
+  const { id } = useParams();
   const activity = mockActivityDetail;
+  
+  // 임시 로그인 유저 ID (테스트용)
+  // 추후 localStorage.getItem('userId') 또는 Context로 교체
+  const MOCK_LOGGED_IN_USER_ID = 21;
+  
+  // URL ID가 21일 때만 소유자로 판단 (테스트용)
+  const isOwner = Number(id) === MOCK_LOGGED_IN_USER_ID;
 
   return (
     <div className="w-full" style={{ backgroundColor: "var(--color-gray-9)", minHeight: "100vh" }}>
       <div className="pt-[78px] max-w-[1200px] mx-auto px-6">
         {/* 첫 번째 컨테이너: 상단 정보 */}
         <ActivityHeader
+          id={activity.id}
           category={activity.category}
           title={activity.title}
           rating={activity.rating}
           reviewCount={activity.reviewCount}
           address={activity.address}
+          isOwner={isOwner}
         />
 
         {/* 두 번째 컨테이너: 이미지 갤러리 */}
