@@ -31,24 +31,59 @@ export const mockActivityDetail = {
         "https://i.namu.wiki/i/CXK4Orme23P1CFxspGEKrAA1JDGSg6gtxJgCHr6bbi1UD57L50wJ1ywW0oMeZGMQ5E5dzjRwFeuYMhLGHVPFz0oAmhledWMebhJSe7g2hFifXprx3TEqhC-H_MJXc_4YzOQXbNcavqE89_xh5RDyBw.webp",
     },
   ],
-  schedules: [
-    {
-      id: 1,
-      date: "2023-12-01",
-      startTime: "12:00",
-      endTime: "13:00",
-    },
-    {
-      id: 2,
-      date: "2023-12-05",
-      startTime: "12:00",
-      endTime: "13:00",
-    },
-  ],
   reviewCount: 5,
   rating: 4.74,
   createdAt: "2023-12-31T21:28:50.589Z",
 };
+
+// 체험 예약 가능일 조회 mockdata
+export const mockAvailableSchedule = [
+  {
+    date: "2025-10-15",
+    times: [
+      {
+        id: 1,
+        startTime: "10:00",
+        endTime: "11:00",
+      },
+      {
+        id: 2,
+        startTime: "14:00",
+        endTime: "15:00",
+      },
+    ],
+  },
+  {
+    date: "2025-10-16",
+    times: [
+      {
+        id: 3,
+        startTime: "09:30",
+        endTime: "10:30",
+      },
+      {
+        id: 4,
+        startTime: "13:00",
+        endTime: "14:00",
+      },
+      {
+        id: 5,
+        startTime: "16:00",
+        endTime: "17:00",
+      },
+    ],
+  },
+  {
+    date: "2025-10-18",
+    times: [
+      {
+        id: 6,
+        startTime: "11:00",
+        endTime: "12:00",
+      },
+    ],
+  },
+];
 
 // mockActivityReviews.ts
 export const mockActivityReviews = {

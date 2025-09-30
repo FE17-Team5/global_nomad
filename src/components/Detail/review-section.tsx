@@ -3,7 +3,7 @@
  * 
  * 체험 후기 전체 영역 (페이지네이션 포함)
  * - "후기" 제목
- * - 평균 평점 (50px 큰 숫자) + "매우 만족" + 총 후기 수
+ * - 평균 평점 (32px 큰 숫자) + "매우 만족" + 총 후기 수
  * - 리뷰 아이템 리스트 (한 페이지당 3개)
  * - 페이지네이션 (5개 단위 블록)
  * - 상태 관리: 현재 페이지, 리뷰 필터링
@@ -49,76 +49,57 @@ const ReviewSection = ({ averageRating, totalCount, reviews }: ReviewSectionProp
   }, [currentPage, reviews]);
 
   return (
-    <section className="mt-[40px] mb-[413px] max-w-[790px]">
+    <section className="mt-[40px] mb-[180px]">
       {/* 후기 제목 */}
-      <h2
-        style={{
-          fontSize: "var(--text-2lg)",
-          lineHeight: "var(--text-2lg--line-height)",
-          color: "var(--color-black-nomad)",
-          fontWeight: "700",
-        }}
-      >
-        후기
-      </h2>
+      <div className="flex items-center gap-2">
+        <h2 className="ty-18_B" style={{ color: "var(--color-gray-950)" }}>
+          체험 후기
+        </h2>
+        <span className="ty-16_B" style={{ color: "#79747E" }}>
+          {totalCount}개
+        </span>
+      </div>
 
       {/* 평점 정보 */}
-      <div className="mt-[24px] flex justify-between items-center max-w-[187px]">
+      <div className="mt-2 flex flex-col items-center">
         {/* 평균 평점 */}
-        <div
-          style={{
-            fontSize: "50px",
-            fontWeight: "600",
-            color: "var(--color-black-nomad)",
-          }}
-        >
+        <div className="ty-32_B" style={{ color: "var(--color-gray-950)" }}>
           {averageRating}
         </div>
 
-        {/* 만족도 및 후기 수 */}
-        <div className="flex flex-col items-end">
-          <p
-            style={{
-              fontSize: "var(--text-2lg)",
-              lineHeight: "var(--text-2lg--line-height)",
-              color: "var(--color-black-nomad)",
-            }}
-          >
-            매우 만족
-          </p>
-          <p
-            style={{
-              fontSize: "var(--text-md)",
-              lineHeight: "var(--text-md--line-height)",
-              color: "var(--color-black)",
-            }}
-          >
-            <span style={{ color: "var(--color-yellow-1)" }}>★</span> {totalCount}개 후기
-          </p>
-        </div>
+        {/* 만족도 */}
+        <p className="mt-1 ty-16_B" style={{ color: "var(--color-gray-950)" }}>
+          매우 만족
+        </p>
+
+        {/* 총 후기 수 */}
+        <p className="mt-[6px] ty-14_M" style={{ color: "var(--color-gray-200)" }}>
+          <span style={{ color: "var(--color-yellow-star)" }}>★</span> {totalCount}개 후기
+        </p>
       </div>
 
       {/* 리뷰 리스트 */}
-      <div className="mt-[24px]">
-        {currentReviews.map((review, index) => (
+      <div className="mt-[30px] flex flex-col gap-5">
+        {currentReviews.map((review) => (
           <ReviewItem
             key={review.id}
             user={review.user}
             content={review.content}
             createdAt={review.createdAt}
-            showDivider={index < currentReviews.length - 1}
           />
         ))}
       </div>
 
       {/* 페이지네이션 */}
-      {totalPages > 1 && (
-        <Pagination
-          currentPage={currentPage}
-          totalPages={totalPages}
-          onPageChange={setCurrentPage}
-        />
-      )}
+      <div className="mt-10">
+        {totalPages > 1 && (
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={setCurrentPage}
+          />
+        )}
+      </div>
     </section>
   );
 };

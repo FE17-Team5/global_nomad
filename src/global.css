@@ -1,39 +1,68 @@
-@import 'tailwindcss';
-@import 'pretendard/dist/web/variable/pretendardvariable.css';
+@import "tailwindcss";
+@import "pretendard/dist/web/variable/pretendardvariable.css";
 
-/* === Typography (px → rem) === */
+/* =========================================
+   🎨 Design Tokens (Tailwind v4 @theme)
+   ========================================= */
 @theme {
-  --text-3xl: 2rem;        /* 32px */
-  --text-3xl--line-height: 2.625rem; /* 42px */
+  /* ===== 시안 2: 폰트 ===== */
+  --font-sans: "Pretendard Variable", Pretendard
+              
 
-  --text-2xl: 1.5rem;      /* 24px */
-  --text-2xl--line-height: 2rem;     /* 32px */
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
 
-  --text-xl: 1.25rem;      /* 20px */
-  --text-xl--line-height: 2rem;      /* 32px */
+  /* ===== 시안 2: 색상 팔레트 ===== */
+  --color-white: #ffffff;
+  --color-black: #000000;
 
-  --text-2lg: 1.125rem;    /* 18px */
-  --text-2lg--line-height: 1.625rem; /* 26px */
+  --color-gray-25:  #f8f8f8;
+  --color-gray-50:  #edeef2;
+  --color-gray-100: #e0e0e5;
+  --color-gray-200: #c6c8cf;
+  --color-gray-300: #b3b4bc;
+  --color-gray-400: #9fa0a7;
+  --color-gray-500: #84858c;
+  --color-gray-600: #707177;
+  --color-gray-700: #5d5d61;
+  --color-gray-800: #49494c;
+  --color-gray-900: #323236;
+  --color-gray-950: #1f1f22;
 
-  --text-lg: 1rem;         /* 16px */
-  --text-lg--line-height: 1.625rem;  /* 26px */
+  --color-primary-100: #e5f3ff;
+  --color-primary-500: #3d9ef2;
 
-  --text-md: 0.875rem;     /* 14px */
-  --text-md--line-height: 1.5rem;    /* 24px */
+  --color-red-500: #ff2727;
 
-  --text-sm: 0.8125rem;    /* 13px */
-  --text-sm--line-height: 1.375rem;  /* 22px */
+  --color-yellow-star: #ffcb02;
 
-  --text-xs: 0.75rem;      /* 12px */
-  --text-xs--line-height: 1.125rem;  /* 18px */
+  /* ===== 시안 2: 타이포 사이즈 (px → rem) ===== */
+  --text-11: 0.6875rem;  /* 11px */
+  --text-12: 0.75rem;    /* 12px */
+  --text-13: 0.8125rem;  /* 13px */
+  --text-14: 0.875rem;   /* 14px */
+  --text-16: 1rem;       /* 16px */
+  --text-18: 1.125rem;   /* 18px */
+  --text-20: 1.25rem;    /* 20px */
+  --text-24: 1.5rem;     /* 24px */
+  --text-32: 2rem;       /* 32px */
 
-  /* 폰트 토큰 */
-  --font-pretendard: 'Pretendard Variable', Pretendard;
-}
+  /* ===== 시안 2: 본문(body) 전용 line-height 포함 ===== */
+  --text-14-body: 0.875rem;  /* 14px */
+  --text-14-body--line-height: 1.8;
 
-/* === Colors (시안값 그대로 매핑) === */
-@theme {
-  --color-black: #1B1B1B;
+  --text-16-body: 1rem;      /* 16px */
+  --text-16-body--line-height: 1.8;
+
+  --text-18-body: 1.125rem;  /* 18px */
+  --text-18-body--line-height: 1.4;
+
+  --text-20-body: 1.25rem;   /* 20px */
+  --text-20-body--line-height: 1.6;
+
+
+  /* 시안 1: 기존 색상 (하위 호환성 - Header/Footer 등 다른 페이지에서 사용) */
   --color-black-nomad: #112211;
 
   --color-green-1: #0B3B2D;
@@ -47,8 +76,6 @@
   --color-orange-1: #FF7C1D;
   --color-orange-2: #FFF4E8;
 
-  --color-yellow-1: #FFC23D;
-
   --color-blue-1: #0085FF;
   --color-blue-2: #2EB4FF;
   --color-blue-3: #E5F3FF;
@@ -57,10 +84,8 @@
   --color-gray-1: #4B4B4B;
   --color-gray-2: #79747E;
   --color-gray-3: #A1A1A1;
-  --color-gray-4: #A4A1AA;
   --color-gray-5: #ADAEB8;
   --color-gray-6: #CBC9CF;
-  --color-gray-7: #DDDDDD;
   --color-gray-8: #EEEEEE;
   --color-gray-9: #FAFAFA;
 }
@@ -69,6 +94,51 @@
 @theme { --breakpoint-*: initial; }
 @custom-variant tablet (@media (max-width: 80rem)); /* 1280px */
 @custom-variant mobile (@media (max-width: 48rem)); /* 768px */
+
+/* =========================================
+   🅰️ 시안 2: Typography 유틸리티
+   - _M = Medium(500), _B = Bold(700)
+   - Heading: line-height = normal
+   - Body: 이미지 기준 line-height 값 고정
+========================================= */
+@layer utilities {
+  /* ===== Heading ===== */
+  .ty-11_M { font-size: var(--text-11); line-height: normal; font-weight: var(--font-weight-medium); }
+  .ty-11_B { font-size: var(--text-11); line-height: normal; font-weight: var(--font-weight-bold); }
+
+  .ty-12_M { font-size: var(--text-12); line-height: normal; font-weight: var(--font-weight-medium); }
+  .ty-12_B { font-size: var(--text-12); line-height: normal; font-weight: var(--font-weight-bold); }
+
+  .ty-13_M { font-size: var(--text-13); line-height: normal; font-weight: var(--font-weight-medium); }
+  .ty-13_B { font-size: var(--text-13); line-height: normal; font-weight: var(--font-weight-bold); }
+
+  .ty-14_M { font-size: var(--text-14); line-height: normal; font-weight: var(--font-weight-medium); }
+  .ty-14_B { font-size: var(--text-14); line-height: normal; font-weight: var(--font-weight-bold); }
+
+  .ty-16_M { font-size: var(--text-16); line-height: normal; font-weight: var(--font-weight-medium); }
+  .ty-16_B { font-size: var(--text-16); line-height: normal; font-weight: var(--font-weight-bold); }
+
+  .ty-18_M { font-size: var(--text-18); line-height: normal; font-weight: var(--font-weight-medium); }
+  .ty-18_B { font-size: var(--text-18); line-height: normal; font-weight: var(--font-weight-bold); }
+
+  .ty-20_M { font-size: var(--text-20); line-height: normal; font-weight: var(--font-weight-medium); }
+  .ty-20_B { font-size: var(--text-20); line-height: normal; font-weight: var(--font-weight-bold); }
+
+  .ty-24_M { font-size: var(--text-24); line-height: normal; font-weight: var(--font-weight-medium); }
+  .ty-24_B { font-size: var(--text-24); line-height: normal; font-weight: var(--font-weight-bold); }
+
+  .ty-32_M { font-size: var(--text-32); line-height: normal; font-weight: var(--font-weight-medium); }
+  .ty-32_B { font-size: var(--text-32); line-height: normal; font-weight: var(--font-weight-bold); }
+
+  /* ===== Body ===== */
+  .body-14_M { font-size: var(--text-14-body); line-height: var(--text-14-body--line-height); font-weight: var(--font-weight-medium); }
+  .body-16_M { font-size: var(--text-16-body); line-height: var(--text-16-body--line-height); font-weight: var(--font-weight-medium); }
+  .body-18_B { font-size: var(--text-18-body); line-height: var(--text-18-body--line-height); font-weight: var(--font-weight-bold); }
+  .body-20_B { font-size: var(--text-20-body); line-height: var(--text-20-body--line-height); font-weight: var(--font-weight-bold); }
+
+  /* ===== Semibold 추가 ===== */
+  .ty-14_SB { font-size: var(--text-14); line-height: normal; font-weight: var(--font-weight-semibold); }
+}
 
 @utility flex-between {
   display: flex; align-items: center; justify-content: space-between;
@@ -90,4 +160,10 @@
   position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
 }
 
-body { font-family: var(--font-pretendard); }
+/* === Base === */
+html, body, #__next { height: 100%; }
+body {
+  font-family: var(--font-sans);
+  color: var(--color-gray-950);
+  background: #ffffff;
+}

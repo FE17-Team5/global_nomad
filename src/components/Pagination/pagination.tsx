@@ -13,8 +13,7 @@
  */
 
 import { useMemo } from "react";
-import iconArrowLeft from "../../assets/icon/icon_alt arrow_left.svg";
-import iconArrowRight from "../../assets/icon/icon_alt arrow_right.svg";
+import iconChevron from "../../assets/icon/icon_chevron_down.svg";
 
 const PAGE_BLOCK_SIZE = 5;
 
@@ -51,7 +50,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }: PaginationProps) 
 
   return (
     <nav 
-      className="mt-[72px] flex items-center justify-center gap-[10px]"
+      className="flex items-center justify-center gap-1"
       role="navigation"
       aria-label="페이지네이션"
     >
@@ -59,17 +58,16 @@ const Pagination = ({ currentPage, totalPages, onPageChange }: PaginationProps) 
       <button
         onClick={handlePrevBlock}
         disabled={isFirstBlock}
-        className="w-[55px] h-[55px] rounded-xl flex items-center justify-center"
+        className="w-10 h-10 flex items-center justify-center"
         style={{
-          border: `1px solid ${isFirstBlock ? "#A1A1A1" : "var(--color-green-1)"}`,
           cursor: isFirstBlock ? "not-allowed" : "pointer",
         }}
         aria-label="이전 페이지 블록"
       >
         <img
-          src={iconArrowLeft}
+          src={iconChevron}
           alt=""
-          className="w-5 h-5"
+          className="w-5 h-5 rotate-90"
           style={{
             filter: isFirstBlock
               ? "brightness(0) saturate(100%) invert(68%) sepia(0%) saturate(0%) hue-rotate(169deg) brightness(92%) contrast(88%)"
@@ -86,14 +84,10 @@ const Pagination = ({ currentPage, totalPages, onPageChange }: PaginationProps) 
           <button
             key={num}
             onClick={() => onPageChange(num)}
-            className="w-[55px] h-[55px] rounded-xl flex items-center justify-center"
+            className="w-10 h-10 flex items-center justify-center ty-14_B"
             style={{
-              border: "1px solid var(--color-green-1)",
-              backgroundColor: isActive ? "var(--color-green-1)" : "#FFFFFF",
-              color: isActive ? "#FFFFFF" : "var(--color-green-1)",
-              fontSize: "var(--text-2lg)",
-              lineHeight: "var(--text-2lg--line-height)",
-              fontWeight: "600",
+              color: isActive ? "var(--color-gray-950)" : "var(--color-gray-300)",
+              borderBottom: isActive ? "2px solid var(--color-primary-500)" : "none",
               cursor: "pointer",
             }}
             aria-label={`${num}페이지로 이동`}
@@ -108,17 +102,16 @@ const Pagination = ({ currentPage, totalPages, onPageChange }: PaginationProps) 
       <button
         onClick={handleNextBlock}
         disabled={isLastBlock}
-        className="w-[55px] h-[55px] rounded-xl flex items-center justify-center"
+        className="w-10 h-10 flex items-center justify-center"
         style={{
-          border: `1px solid ${isLastBlock ? "#A1A1A1" : "var(--color-green-1)"}`,
           cursor: isLastBlock ? "not-allowed" : "pointer",
         }}
         aria-label="다음 페이지 블록"
       >
         <img
-          src={iconArrowRight}
+          src={iconChevron}
           alt=""
-          className="w-5 h-5"
+          className="w-5 h-5 -rotate-90"
           style={{
             filter: isLastBlock
               ? "brightness(0) saturate(100%) invert(68%) sepia(0%) saturate(0%) hue-rotate(169deg) brightness(92%) contrast(88%)"

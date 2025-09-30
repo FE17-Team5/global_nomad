@@ -93,12 +93,12 @@ const KebabMenu = ({ activityId, onDelete }: KebabMenuProps) => {
       {/* 케밥 버튼 */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="ml-4 cursor-pointer"
+        className="cursor-pointer"
         aria-label="더보기"
         aria-expanded={isOpen}
         aria-haspopup="true"
       >
-        <img className="w-10 h-10" src={iconMore} alt="" />
+        <img className="w-7 h-7" src={iconMore} alt="" />
       </button>
 
       {/* 드롭다운 메뉴 */}

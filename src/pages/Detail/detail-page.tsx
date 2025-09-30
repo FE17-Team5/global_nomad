@@ -1,4 +1,4 @@
-import { mockActivityDetail, mockActivityReviews } from "./mockdata";
+import { mockActivityDetail, mockActivityReviews, mockAvailableSchedule } from "./mockdata";
 import { useParams } from "react-router-dom";
 import ActivityHeader from "../../components/Detail/activity-header";
 import ImageGallery from "../../components/Detail/image-gallery";
@@ -19,32 +19,23 @@ const DetailPage = () => {
   const isOwner = Number(id) === MOCK_LOGGED_IN_USER_ID;
 
   return (
-    <div className="w-full" style={{ backgroundColor: "var(--color-gray-9)", minHeight: "100vh" }}>
-      <div className="pt-[78px] max-w-[1200px] mx-auto px-6">
-        {/* 첫 번째 컨테이너: 상단 정보 */}
-        <ActivityHeader
-          id={activity.id}
-          category={activity.category}
-          title={activity.title}
-          rating={activity.rating}
-          reviewCount={activity.reviewCount}
-          address={activity.address}
-          isOwner={isOwner}
-        />
-
-        {/* 두 번째 컨테이너: 이미지 갤러리 */}
-        <ImageGallery
-          bannerImageUrl={activity.bannerImageUrl}
-          subImages={activity.subImages}
-          title={activity.title}
-        />
-
-        {/* 좌우 레이아웃: 좌측(컨텐츠) + 우측(사이드바) */}
-        <div className="mt-[85px] flex gap-[24px]">
+    <div className="w-full bg-white" style={{ minHeight: "100vh" }}>
+      <div className="pt-[88px] max-w-[1200px] mx-auto px-10">
+        {/* 좌우 레이아웃: 좌측(컨텐츠) + 우측(예약 정보) */}
+        <div className="flex gap-10">
           {/* 좌측 컨텐츠 영역 */}
-          <div className="max-w-[790px]">
+          <div className="max-w-[670px]">
+            {/* 이미지 갤러리 */}
+            <ImageGallery
+              bannerImageUrl={activity.bannerImageUrl}
+              subImages={activity.subImages}
+              title={activity.title}
+            />
+
             {/* 체험 설명 */}
-            <ActivityDescription description={activity.description} />
+            <div className="mt-10">
+              <ActivityDescription description={activity.description} />
+            </div>
 
             {/* 지도 */}
             <ActivityLocation address={activity.address} />
@@ -57,8 +48,24 @@ const DetailPage = () => {
             />
           </div>
 
-          {/* 우측 사이드바 */}
-          <ReservationSidebar />
+          {/* 우측 영역 */}
+          <div className="max-w-[410px] flex-shrink-0 flex flex-col">
+            {/* 상단 정보 */}
+            <ActivityHeader
+              id={activity.id}
+              category={activity.category}
+              title={activity.title}
+              rating={activity.rating}
+              reviewCount={activity.reviewCount}
+              address={activity.address}
+              isOwner={isOwner}
+            />
+
+            {/* 예약 카드 (소유자가 아닐 때만 표시) */}
+            {!isOwner && (
+              <ReservationSidebar price={activity.price} availableSchedules={mockAvailableSchedule} />
+            )}
+          </div>
         </div>
       </div>
     </div>

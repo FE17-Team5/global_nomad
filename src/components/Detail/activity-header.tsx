@@ -19,6 +19,7 @@ interface ActivityHeaderProps {
   rating: number;
   reviewCount: number;
   address: string;
+  subtitle?: string;
   isOwner?: boolean;
 }
 
@@ -29,52 +30,45 @@ const ActivityHeader = ({
   rating,
   reviewCount,
   address,
+  subtitle,
   isOwner = false,
 }: ActivityHeaderProps) => {
   return (
-    <div className="flex items-center justify-between">
+    <div className="flex justify-between">
       <div className="flex flex-col">
-        <p
-          style={{
-            fontSize: "var(--text-md)",
-            lineHeight: "var(--text-md--line-height)",
-            color: "var(--color-black-nomad)",
-          }}
-        >
+        <p className="ty-14_M" style={{ color: "var(--color-gray-950)" }}>
           {category}
         </p>
 
-        <h1
-          className="mt-[10px] mb-[16px]"
-          style={{
-            fontSize: "var(--text-3xl)",
-            lineHeight: "var(--text-3xl--line-height)",
-            color: "var(--color-black-nomad)",
-            fontWeight: "700",
-          }}
-        >
+        <h1 className="mt-2 mb-[17px] ty-24_B" style={{ color: "var(--color-gray-950)" }}>
           {title}
         </h1>
 
-        <p
-          className="flex items-center gap-1"
-          style={{
-            fontSize: "var(--text-md)",
-            lineHeight: "var(--text-md--line-height)",
-            color: "var(--color-black-nomad)",
-          }}
-        >
-          <span style={{ color: "var(--color-yellow-1)" }}>★</span>
+        <p className="flex items-center gap-1 ty-14_M mb-[10px]" style={{ color: "var(--color-gray-700)" }}>
+          <span style={{ color: "var(--color-yellow-star)" }}>★</span>
           <span>
             {rating} ({reviewCount})
           </span>
-          <img src={iconMap} alt="map" className="w-4 h-4 inline-block ml-2" />
+        </p>
+
+        <p className="flex items-center gap-1 ty-14_M mb-[17px]" style={{ color: "var(--color-gray-700)" }}>
+          <img src={iconMap} alt="map" className="w-4 h-4" />
           <span>{address}</span>
         </p>
+
+        {subtitle && (
+          <p className="body-16_M mb-[68px]" style={{ color: "var(--color-gray-1)" }}>
+            {subtitle}
+          </p>
+        )}
       </div>
 
       {/* 소유자일 때만 케밥 메뉴 표시 */}
-      {isOwner && <KebabMenu activityId={id} />}
+      {isOwner && (
+        <div className="self-start">
+          <KebabMenu activityId={id} />
+        </div>
+      )}
     </div>
   );
 };

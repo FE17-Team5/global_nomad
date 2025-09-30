@@ -1,7 +1,7 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import App from "./App.tsx";
-// import "./reset.css";  // Tailwind Preflight과 충돌하여 임시 제거
+// import "./reset.css";  // Tailwind과 충돌하여 임시 제거
 import './global.css'
 
 createRoot(document.getElementById("root")!).render(

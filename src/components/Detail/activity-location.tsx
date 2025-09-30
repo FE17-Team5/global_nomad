@@ -2,11 +2,12 @@
  * ActivityLocation 컴포넌트
  * 
  * 체험 장소의 위치 정보 섹션
- * - 카카오 지도 (790px × 450px)
+ * - "오시는 길" 제목 (18px, 볼드)
+ * - 지도 아이콘 + 주소 텍스트 (제목과 8px 간격)
+ * - 카카오 지도 (670px × 450px, 주소와 8px 간격)
  * - 주소 기반 Geocoding으로 좌표 변환
  * - 마커 표시
- * - 지도 아이콘 + 주소 텍스트
- * - 하단 수평선
+ * - 하단 테두리 (1px solid #E0E0E5, 지도와 40px 간격)
  */
 
 import { useEffect, useRef } from "react";
@@ -67,32 +68,28 @@ const ActivityLocation = ({ address }: ActivityLocationProps) => {
   }, [address]);
 
   return (
-    <section className="mt-[40px]">
-      {/* 카카오 지도 */}
-      <div
-        ref={mapContainer}
-        className="w-full h-[450px] rounded-lg"
-        style={{ border: "1px solid var(--color-gray-7)" }}
-      />
+    <section
+      className="mt-[40px] pb-10"
+      style={{ borderBottom: "1px solid var(--color-gray-100)" }}
+    >
+      {/* 제목 */}
+      <h2 className="ty-18_B" style={{ color: "var(--color-gray-950)" }}>
+        오시는 길
+      </h2>
 
       {/* 주소 */}
-      <div className="mt-4 flex items-center gap-1">
+      <div className="mt-2 flex items-center gap-1">
         <img src={iconMap} alt="" className="w-4 h-4" />
-        <span
-          style={{
-            fontSize: "var(--text-lg)",
-            lineHeight: "var(--text-lg--line-height)",
-            color: "var(--color-black-nomad)",
-          }}
-        >
+        <span className="ty-14_SB">
           {address}
         </span>
       </div>
 
-      {/* 하단 수평선 */}
+      {/* 카카오 지도 */}
       <div
-        className="mt-[40px] h-[1px]"
-        style={{ backgroundColor: "var(--color-black-nomad)" }}
+        ref={mapContainer}
+        className="mt-2 w-full h-[450px] rounded-3xl"
+        style={{ border: "1px solid var(--color-gray-7)" }}
       />
     </section>
   );

@@ -2,10 +2,9 @@
  * ActivityDescription 컴포넌트
  * 
  * 체험에 대한 상세 설명 섹션
- * - 상단 수평선 (구분선)
- * - "체험 설명" 제목 (20px, 볼드)
- * - 설명 본문 (16px, 줄바꿈 포함)
- * - 하단 수평선
+ * - "체험 설명" 제목 (18px, 볼드)
+ * - 설명 본문 (16px, 1.8 행간, 제목과 8px 간격)
+ * - 하단 테두리 (1px solid #E0E0E5, 본문과 40px 간격)
  */
 
 interface ActivityDescriptionProps {
@@ -14,39 +13,16 @@ interface ActivityDescriptionProps {
 
 const ActivityDescription = ({ description }: ActivityDescriptionProps) => {
   return (
-    <section>
-      {/* 수평선 */}
-      <div className="h-[1px]" style={{ backgroundColor: "var(--color-black-nomad)" }} />
-
-      {/* 설명 내용 */}
-      <div className="mt-[40px]">
-        <h2
-          style={{
-            fontSize: "var(--text-xl)",
-            lineHeight: "var(--text-xl--line-height)",
-            color: "var(--color-black-nomad)",
-            fontWeight: "700",
-          }}
-        >
-          체험 설명
-        </h2>
-        <p
-          className="mt-[16px]"
-          style={{
-            fontSize: "var(--text-lg)",
-            lineHeight: "var(--text-lg--line-height)",
-            color: "var(--color-black-nomad)",
-          }}
-        >
-          {description}
-        </p>
-      </div>
-
-      {/* 하단 수평선 */}
-      <div
-        className="mt-[34px] h-[1px]"
-        style={{ backgroundColor: "var(--color-black-nomad)" }}
-      />
+    <section
+      className="pb-10"
+      style={{ borderBottom: "1px solid var(--color-gray-100)" }}
+    >
+      <h2 className="ty-18_B" style={{ color: "var(--color-gray-950)" }}>
+        체험 설명
+      </h2>
+      <p className="mt-2 body-16_M" style={{ color: "var(--color-gray-950)" }}>
+        {description}
+      </p>
     </section>
   );
 };

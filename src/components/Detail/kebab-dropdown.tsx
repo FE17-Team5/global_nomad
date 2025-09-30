@@ -16,7 +16,7 @@ interface KebabDropdownProps {
 const KebabDropdown = ({ onEdit, onDelete }: KebabDropdownProps) => {
   return (
     <div
-      className="absolute right-0 top-full w-[160px] bg-white rounded-lg z-50"
+      className="absolute right-0 top-full w-[95px] bg-white rounded-lg z-50"
       style={{
         border: "1px solid #DDDDDD",
         backgroundColor: "#FFFFFF",
@@ -25,27 +25,17 @@ const KebabDropdown = ({ onEdit, onDelete }: KebabDropdownProps) => {
     >
       <button
         onClick={onEdit}
-        className="w-full h-[58px] hover:bg-gray-9 rounded-t-lg transition-colors flex items-center justify-center"
-        style={{
-          fontSize: "var(--text-2lg)",
-          lineHeight: "var(--text-sm--line-height)",
-          color: "var(--color-gray-1)",
-        }}
+        className="w-full h-[55px] hover:bg-gray-9 rounded-t-lg transition-colors flex items-center justify-center ty-16_M"
+        style={{ color: "var(--color-gray-950)" }}
         role="menuitem"
       >
         수정하기
       </button>
 
-      <div className="h-[1px]" style={{ backgroundColor: "#DDDDDD" }} />
-
       <button
         onClick={onDelete}
-        className="w-full h-[58px] hover:bg-gray-9 rounded-b-lg transition-colors flex items-center justify-center"
-        style={{
-          fontSize: "var(--text-2lg)",
-          lineHeight: "var(--text-sm--line-height)",
-          color: "var(--color-gray-1)",
-        }}
+        className="w-full h-[55px] hover:bg-gray-9 rounded-b-lg transition-colors flex items-center justify-center ty-16_M"
+        style={{ color: "var(--color-gray-950)" }}
         role="menuitem"
       >
         삭제하기
