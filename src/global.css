@@ -84,10 +84,17 @@
   --color-gray-1: #4B4B4B;
   --color-gray-2: #79747E;
   --color-gray-3: #A1A1A1;
+  --color-gray-4: #A4A1AA;
   --color-gray-5: #ADAEB8;
   --color-gray-6: #CBC9CF;
   --color-gray-8: #EEEEEE;
   --color-gray-9: #FAFAFA;
+
+  /* 추가 색상 (Detail Page용) */
+  --color-border-light: #DDDDDD;
+  
+  /* Shadow 색상 */
+  --shadow-blue-light: rgba(156, 180, 202, 0.2);
 }
 
 /* 데스크탑 우선 */

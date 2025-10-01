@@ -110,8 +110,8 @@ const ReservationSidebar = ({
     <aside
       className="max-w-full min-h-[746px] bg-white rounded-3xl p-[30px]"
       style={{
-        border: "1px solid #DDDDDD",
-        boxShadow: "0px 4px 24px 0px #9CB4CA33",
+        border: "1px solid var(--color-border-light)",
+        boxShadow: "0px 4px 24px 0px var(--shadow-blue-light)",
       }}
       aria-label="예약 정보"
     >
@@ -237,15 +237,15 @@ const ReservationSidebar = ({
                   style={{
                     border:
                       selectedTimeId === schedule.id
-                        ? "2px solid #3D9EF2"
+                        ? "2px solid var(--color-primary-500)"
                         : "1px solid var(--color-gray-300)",
                     backgroundColor:
                       selectedTimeId === schedule.id
-                        ? "#E5F3FF"
+                        ? "var(--color-primary-100)"
                         : "transparent",
                     color:
                       selectedTimeId === schedule.id
-                        ? "#3D9EF2"
+                        ? "var(--color-primary-500)"
                         : "var(--color-gray-950)",
                     cursor: !selectedDate ? "not-allowed" : "pointer",
                     opacity: !selectedDate ? 0.5 : 1,
@@ -268,13 +268,13 @@ const ReservationSidebar = ({
         </div>
 
         {/* 하단 컨테이너 - 총 합계 및 예약 버튼 */}
-        <div
+        <div 
           className="mt-[33px] h-20 flex items-center justify-between pt-6"
-          style={{ borderTop: "1px solid #DDDDDD" }}
+          style={{ borderTop: "1px solid var(--color-border-light)" }}
         >
           {/* 좌측: 총 합계 */}
           <div className="flex flex-col gap-1">
-            <span className="ty-20_M" style={{ color: "#79747E" }}>
+            <span className="ty-20_M" style={{ color: "var(--color-gray-2)" }}>
               총 합계
             </span>
             <span
@@ -295,8 +295,8 @@ const ReservationSidebar = ({
               backgroundColor:
                 !selectedDate || !selectedTimeId
                   ? "var(--color-gray-300)"
-                  : "#3D9EF2",
-              color: "#FFFFFF",
+                  : "var(--color-primary-500)",
+              color: "var(--color-white)",
               cursor:
                 !selectedDate || !selectedTimeId ? "not-allowed" : "pointer",
             }}

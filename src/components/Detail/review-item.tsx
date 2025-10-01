@@ -31,7 +31,7 @@ const ReviewItem = ({ user, content, createdAt }: ReviewItemProps) => {
   return (
     <article
       className="flex gap-4 p-6 bg-white rounded-3xl"
-      style={{ boxShadow: "0px 4px 24px 0px #9CB4CA33" }}
+      style={{ boxShadow: "0px 4px 24px 0px var(--shadow-blue-light)" }}
     >
       {/* 좌측: 프로필 이미지 */}
       <img
@@ -49,7 +49,7 @@ const ReviewItem = ({ user, content, createdAt }: ReviewItemProps) => {
             {user.nickname}
           </span>
           <span style={{ color: "var(--color-gray-4)" }}>|</span>
-          <span className="ty-14_M" style={{ color: "#A4A1AA" }}>
+          <span className="ty-14_M" style={{ color: "var(--color-gray-4)" }}>
             {formatDate(createdAt)}
           </span>
         </div>

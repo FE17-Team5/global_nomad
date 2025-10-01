@@ -108,7 +108,7 @@ const ActivityLocation = ({ address }: ActivityLocationProps) => {
       <div
         ref={mapContainer}
         className="mt-2 w-full h-[450px] rounded-3xl"
-        style={{ border: "1px solid var(--color-gray-7)" }}
+        style={{ border: "1px solid var(--color-gray-8)" }}
       />
     </section>
   );

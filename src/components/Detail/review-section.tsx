@@ -59,7 +59,7 @@ const ReviewSection = ({
         <h2 className="ty-18_B" style={{ color: "var(--color-gray-950)" }}>
           체험 후기
         </h2>
-        <span className="ty-16_B" style={{ color: "#79747E" }}>
+        <span className="ty-16_B" style={{ color: "var(--color-gray-2)" }}>
           {totalCount}개
         </span>
       </div>

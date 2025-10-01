@@ -18,8 +18,8 @@ const KebabDropdown = ({ onEdit, onDelete }: KebabDropdownProps) => {
     <div
       className="absolute right-0 top-full w-[95px] bg-white rounded-lg z-50"
       style={{
-        border: "1px solid #DDDDDD",
-        backgroundColor: "#FFFFFF",
+        border: "1px solid var(--color-border-light)",
+        backgroundColor: "var(--color-white)",
       }}
       role="menu"
     >
