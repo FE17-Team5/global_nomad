@@ -17,7 +17,7 @@ import type {
 // 내 체험 리스트 조회
 export async function getMyActivitiesList(
   query: MyActivitiesListQuery,
-  authToken: string
+  authToken: string,
 ): Promise<MyActivitiesListResponse> {
   return apiFetch<MyActivitiesListResponse>(`/${TEAM_ID}/my-activities`, {
     query,
@@ -29,14 +29,14 @@ export async function getMyActivitiesList(
 export async function getReservationDashboard(
   activityId: number,
   query: ReservationDashboardQuery,
-  authToken: string
+  authToken: string,
 ): Promise<ReservationDashboardResponse> {
   return apiFetch<ReservationDashboardResponse>(
     `/${TEAM_ID}/my-activities/${activityId}/reservation-dashboard`,
     {
       query,
       authToken,
-    }
+    },
   );
 }
 
@@ -44,14 +44,14 @@ export async function getReservationDashboard(
 export async function getReservedSchedule(
   activityId: number,
   query: ReservedScheduleQuery,
-  authToken: string
+  authToken: string,
 ): Promise<ReservedScheduleResponse> {
   return apiFetch<ReservedScheduleResponse>(
     `/${TEAM_ID}/my-activities/${activityId}/reserved-schedule`,
     {
       query,
       authToken,
-    }
+    },
   );
 }
 
@@ -59,14 +59,14 @@ export async function getReservedSchedule(
 export async function getActivityReservations(
   activityId: number,
   query: ActivityReservationsQuery,
-  authToken: string
+  authToken: string,
 ): Promise<ActivityReservationsResponse> {
   return apiFetch<ActivityReservationsResponse>(
     `/${TEAM_ID}/my-activities/${activityId}/reservations`,
     {
       query,
       authToken,
-    }
+    },
   );
 }
 
@@ -75,7 +75,7 @@ export async function updateReservationStatus(
   activityId: number,
   reservationId: number,
   body: UpdateReservationStatusBody,
-  authToken: string
+  authToken: string,
 ): Promise<UpdateReservationStatusResponse> {
   return apiFetch<UpdateReservationStatusResponse>(
     `/${TEAM_ID}/my-activities/${activityId}/reservations/${reservationId}`,
@@ -83,12 +83,15 @@ export async function updateReservationStatus(
       method: "PATCH",
       body,
       authToken,
-    }
+    },
   );
 }
 
 // 내 체험 삭제
-export async function deleteMyActivity(activityId: number, authToken: string): Promise<void> {
+export async function deleteMyActivity(
+  activityId: number,
+  authToken: string,
+): Promise<void> {
   return apiFetch<void>(`/${TEAM_ID}/my-activities/${activityId}`, {
     method: "DELETE",
     authToken,
@@ -99,11 +102,14 @@ export async function deleteMyActivity(activityId: number, authToken: string): P
 export async function updateMyActivity(
   activityId: number,
   body: UpdateMyActivityBody,
-  authToken: string
+  authToken: string,
 ): Promise<MyActivityWithSchedules> {
-  return apiFetch<MyActivityWithSchedules>(`/${TEAM_ID}/my-activities/${activityId}`, {
-    method: "PATCH",
-    body,
-    authToken,
-  });
+  return apiFetch<MyActivityWithSchedules>(
+    `/${TEAM_ID}/my-activities/${activityId}`,
+    {
+      method: "PATCH",
+      body,
+      authToken,
+    },
+  );
 }

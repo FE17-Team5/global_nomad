@@ -25,7 +25,7 @@ export async function getMyProfile(authToken: string): Promise<User> {
 // 내 정보 수정
 export async function updateMyProfile(
   body: UpdateMyProfileBody,
-  authToken: string
+  authToken: string,
 ): Promise<User> {
   return apiFetch<User>(`/${TEAM_ID}/users/me`, {
     method: "PATCH",
@@ -37,7 +37,7 @@ export async function updateMyProfile(
 // 프로필 이미지 업로드
 export async function uploadProfileImage(
   imageFile: File,
-  authToken: string
+  authToken: string,
 ): Promise<UploadProfileImageResponse> {
   const formData = new FormData();
   formData.append("image", imageFile);

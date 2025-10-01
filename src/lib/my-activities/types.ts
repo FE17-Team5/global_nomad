@@ -17,7 +17,10 @@ export type MyActivity = {
 
 export type MyActivityWithSchedules = MyActivity & {
   subImages: { imageUrl: string; id: number }[];
-  schedules: { date: string; times: { id: number; startTime: string; endTime: string }[] }[];
+  schedules: {
+    date: string;
+    times: { id: number; startTime: string; endTime: string }[];
+  }[];
 };
 
 // 요청 타입
