@@ -1,11 +1,11 @@
 import { apiFetch, TEAM_ID } from "../apiClient";
 import type {
-  MyReservationsListQuery,
-  MyReservationsListResponse,
   CancelMyReservationBody,
   CancelMyReservationResponse,
   CreateReservationReviewBody,
   CreateReservationReviewResponse,
+  MyReservationsListQuery,
+  MyReservationsListResponse,
 } from "./types";
 
 // 내 예약 리스트 조회

@@ -1,6 +1,6 @@
 /**
  * ReviewItem 컴포넌트
- * 
+ *
  * 개별 리뷰 하나를 표시하는 아이템 카드
  * - 프로필 이미지 (45px × 45px, 둥근 모양)
  * - 닉네임 (볼드) | 작성일 (회색)
@@ -55,7 +55,10 @@ const ReviewItem = ({ user, content, createdAt }: ReviewItemProps) => {
         </div>
 
         {/* 리뷰 내용 */}
-        <p className="mt-2 body-16_M" style={{ color: "var(--color-gray-950)" }}>
+        <p
+          className="mt-2 body-16_M"
+          style={{ color: "var(--color-gray-950)" }}
+        >
           {content}
         </p>
       </div>

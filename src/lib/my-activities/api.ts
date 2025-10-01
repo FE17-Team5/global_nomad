@@ -1,17 +1,17 @@
 import { apiFetch, TEAM_ID } from "../apiClient";
 import type {
+  ActivityReservationsQuery,
+  ActivityReservationsResponse,
   MyActivitiesListQuery,
   MyActivitiesListResponse,
+  MyActivityWithSchedules,
   ReservationDashboardQuery,
   ReservationDashboardResponse,
   ReservedScheduleQuery,
   ReservedScheduleResponse,
-  ActivityReservationsQuery,
-  ActivityReservationsResponse,
+  UpdateMyActivityBody,
   UpdateReservationStatusBody,
   UpdateReservationStatusResponse,
-  UpdateMyActivityBody,
-  MyActivityWithSchedules,
 } from "./types";
 
 // 내 체험 리스트 조회

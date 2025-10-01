@@ -1,11 +1,11 @@
 import { apiFetch, TEAM_ID } from "../apiClient";
 import type {
-  RegisterOAuthAppBody,
-  RegisterOAuthAppResponse,
-  OAuthSignUpBody,
-  OAuthSignUpResponse,
   OAuthSignInBody,
   OAuthSignInResponse,
+  OAuthSignUpBody,
+  OAuthSignUpResponse,
+  RegisterOAuthAppBody,
+  RegisterOAuthAppResponse,
 } from "./types";
 
 // OAuth App 등록/수정

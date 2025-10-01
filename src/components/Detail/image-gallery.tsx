@@ -1,6 +1,6 @@
 /**
  * ImageGallery 컴포넌트
- * 
+ *
  * 체험 이미지들을 갤러리 형식으로 표시
  * - 좌측: 배너 이미지 (329px × 400px)
  * - 우측: 서브 이미지 2×2 그리드 (각 158.5px × 194px)
@@ -19,7 +19,11 @@ interface ImageGalleryProps {
   title: string;
 }
 
-const ImageGallery = ({ bannerImageUrl, subImages, title }: ImageGalleryProps) => {
+const ImageGallery = ({
+  bannerImageUrl,
+  subImages,
+  title,
+}: ImageGalleryProps) => {
   return (
     <div className="flex gap-3 overflow-hidden rounded-3xl">
       {/* 좌측: 배너 이미지 */}

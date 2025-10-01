@@ -1,6 +1,6 @@
 /**
  * Pagination 컴포넌트
- * 
+ *
  * 재사용 가능한 페이지네이션 (5개 블록 단위)
  * - 좌측 화살표: 이전 5페이지 블록으로 이동
  * - 페이지 번호: 최대 5개씩 표시 (1~5, 6~10, ...)
@@ -23,7 +23,11 @@ interface PaginationProps {
   onPageChange: (page: number) => void;
 }
 
-const Pagination = ({ currentPage, totalPages, onPageChange }: PaginationProps) => {
+const Pagination = ({
+  currentPage,
+  totalPages,
+  onPageChange,
+}: PaginationProps) => {
   // 현재 페이지 블록 계산 (1~5, 6~10, 11~15...)
   const { startPage, endPage, pageNumbers } = useMemo(() => {
     const currentBlock = Math.floor((currentPage - 1) / PAGE_BLOCK_SIZE);
@@ -31,9 +35,9 @@ const Pagination = ({ currentPage, totalPages, onPageChange }: PaginationProps) 
     const end = Math.min(start + PAGE_BLOCK_SIZE - 1, totalPages);
     const numbers = Array.from(
       { length: end - start + 1 },
-      (_, i) => start + i
+      (_, i) => start + i,
     );
-    
+
     return { startPage: start, endPage: end, pageNumbers: numbers };
   }, [currentPage, totalPages]);
 
@@ -49,7 +53,7 @@ const Pagination = ({ currentPage, totalPages, onPageChange }: PaginationProps) 
   const isLastBlock = endPage === totalPages;
 
   return (
-    <nav 
+    <nav
       className="flex items-center justify-center gap-1"
       role="navigation"
       aria-label="페이지네이션"
@@ -86,8 +90,12 @@ const Pagination = ({ currentPage, totalPages, onPageChange }: PaginationProps) 
             onClick={() => onPageChange(num)}
             className="w-10 h-10 flex items-center justify-center ty-14_B"
             style={{
-              color: isActive ? "var(--color-gray-950)" : "var(--color-gray-300)",
-              borderBottom: isActive ? "2px solid var(--color-primary-500)" : "none",
+              color: isActive
+                ? "var(--color-gray-950)"
+                : "var(--color-gray-300)",
+              borderBottom: isActive
+                ? "2px solid var(--color-primary-500)"
+                : "none",
               cursor: "pointer",
             }}
             aria-label={`${num}페이지로 이동`}

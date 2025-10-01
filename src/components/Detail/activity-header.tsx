@@ -1,6 +1,6 @@
 /**
  * ActivityHeader 컴포넌트
- * 
+ *
  * 체험 상세 페이지 최상단에 표시되는 헤더 영역
  * - 카테고리 (예: "투어", "스포츠")
  * - 제목 (32px, 볼드)
@@ -40,24 +40,36 @@ const ActivityHeader = ({
           {category}
         </p>
 
-        <h1 className="mt-2 mb-[17px] ty-24_B" style={{ color: "var(--color-gray-950)" }}>
+        <h1
+          className="mt-2 mb-[17px] ty-24_B"
+          style={{ color: "var(--color-gray-950)" }}
+        >
           {title}
         </h1>
 
-        <p className="flex items-center gap-1 ty-14_M mb-[10px]" style={{ color: "var(--color-gray-700)" }}>
+        <p
+          className="flex items-center gap-1 ty-14_M mb-[10px]"
+          style={{ color: "var(--color-gray-700)" }}
+        >
           <span style={{ color: "var(--color-yellow-star)" }}>★</span>
           <span>
             {rating} ({reviewCount})
           </span>
         </p>
 
-        <p className="flex items-center gap-1 ty-14_M mb-[17px]" style={{ color: "var(--color-gray-700)" }}>
+        <p
+          className="flex items-center gap-1 ty-14_M mb-[17px]"
+          style={{ color: "var(--color-gray-700)" }}
+        >
           <img src={iconMap} alt="map" className="w-4 h-4" />
           <span>{address}</span>
         </p>
 
         {subtitle && (
-          <p className="body-16_M mb-[68px]" style={{ color: "var(--color-gray-1)" }}>
+          <p
+            className="body-16_M mb-[68px]"
+            style={{ color: "var(--color-gray-1)" }}
+          >
             {subtitle}
           </p>
         )}

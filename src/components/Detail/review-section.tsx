@@ -1,6 +1,6 @@
 /**
  * ReviewSection 컴포넌트
- * 
+ *
  * 체험 후기 전체 영역 (페이지네이션 포함)
  * - "후기" 제목
  * - 평균 평점 (32px 큰 숫자) + "매우 만족" + 총 후기 수
@@ -10,9 +10,9 @@
  * - 성능 최적화: useMemo로 리뷰 계산 캐싱
  */
 
-import { useState, useMemo } from "react";
-import ReviewItem from "./review-item";
+import { useMemo, useState } from "react";
 import Pagination from "../Pagination/pagination";
+import ReviewItem from "./review-item";
 
 const REVIEWS_PER_PAGE = 3;
 
@@ -35,7 +35,11 @@ interface ReviewSectionProps {
   reviews: Review[];
 }
 
-const ReviewSection = ({ averageRating, totalCount, reviews }: ReviewSectionProps) => {
+const ReviewSection = ({
+  averageRating,
+  totalCount,
+  reviews,
+}: ReviewSectionProps) => {
   const [currentPage, setCurrentPage] = useState(1);
 
   // 총 페이지 수 계산
@@ -73,8 +77,12 @@ const ReviewSection = ({ averageRating, totalCount, reviews }: ReviewSectionProp
         </p>
 
         {/* 총 후기 수 */}
-        <p className="mt-[6px] ty-14_M" style={{ color: "var(--color-gray-200)" }}>
-          <span style={{ color: "var(--color-yellow-star)" }}>★</span> {totalCount}개 후기
+        <p
+          className="mt-[6px] ty-14_M"
+          style={{ color: "var(--color-gray-200)" }}
+        >
+          <span style={{ color: "var(--color-yellow-star)" }}>★</span>{" "}
+          {totalCount}개 후기
         </p>
       </div>
 

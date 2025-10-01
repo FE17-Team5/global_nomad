@@ -1,6 +1,6 @@
 /**
  * KebabMenu 컴포넌트
- * 
+ *
  * 케밥 버튼 클릭 시 드롭다운 메뉴 표시
  * - 수정하기: 수정 페이지로 이동
  * - 삭제하기: 삭제 확인 후 메인 페이지로 이동
@@ -8,7 +8,7 @@
  * - ESC 키로 닫기
  */
 
-import { useState, useRef, useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import iconMore from "../../assets/icon/icon_more.svg";
 import KebabDropdown from "./kebab-dropdown";
@@ -64,7 +64,7 @@ const KebabMenu = ({ activityId, onDelete }: KebabMenuProps) => {
 
   const handleDelete = async () => {
     setIsOpen(false);
-    
+
     if (!window.confirm("정말 삭제하시겠습니까?")) {
       return;
     }
@@ -73,13 +73,13 @@ const KebabMenu = ({ activityId, onDelete }: KebabMenuProps) => {
       // 삭제 API 호출 (추후 구현)
       // const authToken = localStorage.getItem('accessToken');
       // await deleteMyActivity(activityId, authToken);
-      
+
       if (onDelete) {
         onDelete();
       }
-      
+
       alert("삭제되었습니다.");
-      
+
       // 메인 페이지로 이동
       navigate("/");
     } catch (error) {
@@ -92,6 +92,7 @@ const KebabMenu = ({ activityId, onDelete }: KebabMenuProps) => {
     <div className="relative" ref={menuRef}>
       {/* 케밥 버튼 */}
       <button
+        type="button"
         onClick={() => setIsOpen(!isOpen)}
         className="cursor-pointer"
         aria-label="더보기"
