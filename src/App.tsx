@@ -1,13 +1,13 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import LoginPage from "./pages/Login/login-page";
-import SignupPage from "./pages/Signup/signup-page";
 import MainLayout from "./main-layout";
-import MainPage from "./pages/Main/main-page";
-import DetailPage from "./pages/Detail/detail-page";
-import MyProfilePage from "./pages/MyProfile/myprofile-page";
 import AddExperiencesPage from "./pages/AddExperiences/add-experiences-page";
-import UpdateExperiencesPage from "./pages/UpdateExperiences/update-experiences-page";
+import DetailPage from "./pages/Detail/detail-page";
+import LoginPage from "./pages/Login/login-page";
+import MainPage from "./pages/Main/main-page";
+import MyProfilePage from "./pages/MyProfile/myprofile-page";
 import NotFoundPage from "./pages/NotFound/notfound";
+import SignupPage from "./pages/Signup/signup-page";
+import UpdateExperiencesPage from "./pages/UpdateExperiences/update-experiences-page";
 
 function App() {
   return (
