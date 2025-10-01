@@ -53,13 +53,19 @@ const ReviewSection = ({
   }, [currentPage, reviews]);
 
   return (
-    <section className="mt-[40px] mb-[180px]">
+    <section className="mt-[40px] mobile:mt-5 mb-[200px] mobile:mb-[75px]">
       {/* 후기 제목 */}
       <div className="flex items-center gap-2">
-        <h2 className="ty-18_B" style={{ color: "var(--color-gray-950)" }}>
+        <h2
+          className="ty-18_B mobile:ty-16_B"
+          style={{ color: "var(--color-gray-950)" }}
+        >
           체험 후기
         </h2>
-        <span className="ty-16_B" style={{ color: "var(--color-gray-2)" }}>
+        <span
+          className="ty-16_B mobile:ty-14_SB"
+          style={{ color: "var(--color-gray-2)" }}
+        >
           {totalCount}개
         </span>
       </div>
@@ -67,12 +73,18 @@ const ReviewSection = ({
       {/* 평점 정보 */}
       <div className="mt-2 flex flex-col items-center">
         {/* 평균 평점 */}
-        <div className="ty-32_B" style={{ color: "var(--color-gray-950)" }}>
+        <div
+          className="ty-32_B mobile:ty-24_SB"
+          style={{ color: "var(--color-gray-950)" }}
+        >
           {averageRating}
         </div>
 
         {/* 만족도 */}
-        <p className="mt-1 ty-16_B" style={{ color: "var(--color-gray-950)" }}>
+        <p
+          className="mt-1 ty-16_B mobile:ty-14_B"
+          style={{ color: "var(--color-gray-950)" }}
+        >
           매우 만족
         </p>
 
@@ -87,7 +99,7 @@ const ReviewSection = ({
       </div>
 
       {/* 리뷰 리스트 */}
-      <div className="mt-[30px] flex flex-col gap-5">
+      <div className="mt-[30px] flex flex-col gap-5 mobile:gap-10">
         {currentReviews.map((review) => (
           <ReviewItem
             key={review.id}
@@ -99,7 +111,7 @@ const ReviewSection = ({
       </div>
 
       {/* 페이지네이션 */}
-      <div className="mt-10">
+      <div className="mt-10 mobile:mt-[30px]">
         {totalPages > 1 && (
           <Pagination
             currentPage={currentPage}

@@ -16,7 +16,7 @@ export const mockActivityDetail = {
       imageUrl:
         "https://i.namu.wiki/i/Qs6Fj0ur7vuNLurCXePgIxXKO0YaykayvogSeafmPojgLrxkPD3PCs3C-WoTwrKFFch0FNhtxJlt8wJegJy35DzetERgxbdJv_XGe37zfsttAQOBwFL6lMID8Una_NvYF-Q_8nBtVQzNcArMNK1u7w.webp",
     },
-    {
+{
       id: 2,
       imageUrl:
         "https://i.namu.wiki/i/7xxIzeIN7eDm8lYam5urgqkt9sm5Pou21clXGm2tgOCOGC0-C6y7mOE-rMDKdDGTxr3W5ReHvGFGJjVQOn9A7jfM2Ix6hdZ0RT8uSQlCaZlKQvCzYQRd8x-TUaLhTZOCWaac20Eg5RNhGH4aG8hRYA.webp",
@@ -31,6 +31,9 @@ export const mockActivityDetail = {
       imageUrl:
         "https://i.namu.wiki/i/CXK4Orme23P1CFxspGEKrAA1JDGSg6gtxJgCHr6bbi1UD57L50wJ1ywW0oMeZGMQ5E5dzjRwFeuYMhLGHVPFz0oAmhledWMebhJSe7g2hFifXprx3TEqhC-H_MJXc_4YzOQXbNcavqE89_xh5RDyBw.webp",
     },
+
+
+  
   ],
   reviewCount: 5,
   rating: 4.74,
@@ -44,13 +47,38 @@ export const mockAvailableSchedule = [
     times: [
       {
         id: 1,
+        startTime: "09:00",
+        endTime: "10:00",
+      },
+      {
+        id: 2,
         startTime: "10:00",
         endTime: "11:00",
       },
       {
-        id: 2,
+        id: 101,
+        startTime: "11:00",
+        endTime: "12:00",
+      },
+      {
+        id: 102,
+        startTime: "13:00",
+        endTime: "14:00",
+      },
+      {
+        id: 103,
         startTime: "14:00",
         endTime: "15:00",
+      },
+      {
+        id: 104,
+        startTime: "15:00",
+        endTime: "16:00",
+      },
+      {
+        id: 105,
+        startTime: "16:00",
+        endTime: "17:00",
       },
     ],
   },
