@@ -22,7 +22,10 @@ export type ActivityDetail = Activity & {
 
 export type ActivityWithSchedules = Activity & {
   subImages: { imageUrl: string; id: number }[];
-  schedules: { date: string; times: { id: number; startTime: string; endTime: string }[] }[];
+  schedules: {
+    date: string;
+    times: { id: number; startTime: string; endTime: string }[];
+  }[];
 };
 
 // 요청 타입

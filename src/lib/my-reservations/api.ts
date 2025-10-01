@@ -11,7 +11,7 @@ import type {
 // 내 예약 리스트 조회
 export async function getMyReservationsList(
   query: MyReservationsListQuery,
-  authToken: string
+  authToken: string,
 ): Promise<MyReservationsListResponse> {
   return apiFetch<MyReservationsListResponse>(`/${TEAM_ID}/my-reservations`, {
     query,
@@ -23,20 +23,23 @@ export async function getMyReservationsList(
 export async function cancelMyReservation(
   reservationId: number,
   body: CancelMyReservationBody,
-  authToken: string
+  authToken: string,
 ): Promise<CancelMyReservationResponse> {
-  return apiFetch<CancelMyReservationResponse>(`/${TEAM_ID}/my-reservations/${reservationId}`, {
-    method: "PATCH",
-    body,
-    authToken,
-  });
+  return apiFetch<CancelMyReservationResponse>(
+    `/${TEAM_ID}/my-reservations/${reservationId}`,
+    {
+      method: "PATCH",
+      body,
+      authToken,
+    },
+  );
 }
 
 // 내 예약 리뷰 작성
 export async function createReservationReview(
   reservationId: number,
   body: CreateReservationReviewBody,
-  authToken: string
+  authToken: string,
 ): Promise<CreateReservationReviewResponse> {
   return apiFetch<CreateReservationReviewResponse>(
     `/${TEAM_ID}/my-reservations/${reservationId}/reviews`,
@@ -44,6 +47,6 @@ export async function createReservationReview(
       method: "POST",
       body,
       authToken,
-    }
+    },
   );
 }

@@ -19,7 +19,7 @@ type ApiOptions = {
  */
 export async function apiFetch<T>(
   path: string,
-  { method = "GET", query, body, headers = {}, authToken }: ApiOptions = {}
+  { method = "GET", query, body, headers = {}, authToken }: ApiOptions = {},
 ): Promise<T> {
   const url = new URL(`${BASE_URL}${path.startsWith("/") ? "" : "/"}${path}`);
   if (query) {
@@ -38,7 +38,11 @@ export async function apiFetch<T>(
       ...(authToken ? { Authorization: `Bearer ${authToken}` } : {}),
       ...headers,
     },
-    body: body ? (isForm ? (body as FormData) : JSON.stringify(body)) : undefined,
+    body: body
+      ? isForm
+        ? (body as FormData)
+        : JSON.stringify(body)
+      : undefined,
   });
 
   if (!res.ok) {
@@ -48,7 +52,10 @@ export async function apiFetch<T>(
     } catch {
       err = { message: res.statusText };
     }
-    throw { status: res.status, ...(typeof err === "object" ? err : { message: String(err) }) };
+    throw {
+      status: res.status,
+      ...(typeof err === "object" ? err : { message: String(err) }),
+    };
   }
 
   if (res.status === 204) return undefined as T;
