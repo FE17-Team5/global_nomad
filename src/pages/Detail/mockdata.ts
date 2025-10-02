@@ -38,6 +38,8 @@ export const mockActivityDetail = {
   reviewCount: 5,
   rating: 4.74,
   createdAt: "2023-12-31T21:28:50.589Z",
+  updatedAt: "2023-12-31T21:28:50.589Z",
+  schedules: [],
 };
 
 // 체험 예약 가능일 조회 mockdata
@@ -122,24 +124,32 @@ export const mockActivityReviews = {
     {
       id: 1,
       user: {
+        id: 1,
         profileImageUrl:
           "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTiDJFZppYH3gokfWy8BzxbV1R9HY7MC-SPAQ&s",
         nickname: "김태현",
       },
+      activityId: 7,
+      rating: 5,
       content:
         "스트릿 댄스 체험에 참가했는데 정말 즐거운 시간이었어요. 강사님도 친절하시고 초보자도 쉽게 배울 수 있었습니다!",
       createdAt: "2023-12-04T10:00:00.000Z",
+      updatedAt: "2023-12-04T10:00:00.000Z",
     },
     {
       id: 2,
       user: {
+        id: 2,
         profileImageUrl:
           "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTiDJFZppYH3gokfWy8BzxbV1R9HY7MC-SPAQ&s",
         nickname: "조민지",
       },
+      activityId: 7,
+      rating: 5,
       content:
         "새로운 사람들과 함께 춤추면서 친해질 수 있어서 좋았어요. 재밌고 활기찬 분위기였습니다.",
       createdAt: "2023-12-10T15:30:00.000Z",
+      updatedAt: "2023-12-10T15:30:00.000Z",
     },
     {
       id: 3,
@@ -261,5 +271,11 @@ export const mockActivityReviews = {
         "마지막 리뷰입니다. 정말 멋진 경험이었고, 모든 분들께 추천합니다!",
       createdAt: "2024-01-18T11:30:00.000Z",
     },
-  ].slice(0, 12),
+  ].map((review, index) => ({
+    ...review,
+    user: { id: index + 1, ...review.user },
+    activityId: 7,
+    rating: 5,
+    updatedAt: review.createdAt,
+  })).slice(0, 12),
 };

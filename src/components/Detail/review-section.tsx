@@ -70,8 +70,16 @@ const ReviewSection = ({
         </span>
       </div>
 
-      {/* 평점 정보 */}
-      <div className="mt-2 flex flex-col items-center">
+      {/* 후기가 없을 때 */}
+      {totalCount === 0 || reviews.length === 0 ? (
+        <div className="mt-10 flex flex-col items-center justify-center py-20 border border-gray-200 rounded-lg">
+          <p className="ty-16_M text-gray-400">아직 후기가 없습니다.</p>
+          <p className="ty-14_M text-gray-300 mt-2">첫 번째 후기를 남겨보세요!</p>
+        </div>
+      ) : (
+        <>
+          {/* 평점 정보 */}
+          <div className="mt-2 flex flex-col items-center">
         {/* 평균 평점 */}
         <div
           className="ty-32_B mobile:ty-24_SB"
@@ -110,16 +118,18 @@ const ReviewSection = ({
         ))}
       </div>
 
-      {/* 페이지네이션 */}
-      <div className="mt-10 mobile:mt-[30px]">
-        {totalPages > 1 && (
-          <Pagination
-            currentPage={currentPage}
-            totalPages={totalPages}
-            onPageChange={setCurrentPage}
-          />
-        )}
-      </div>
+          {/* 페이지네이션 */}
+          <div className="mt-10 mobile:mt-[30px]">
+            {totalPages > 1 && (
+              <Pagination
+                currentPage={currentPage}
+                totalPages={totalPages}
+                onPageChange={setCurrentPage}
+              />
+            )}
+          </div>
+        </>
+      )}
     </section>
   );
 };

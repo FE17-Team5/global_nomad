@@ -15,9 +15,11 @@
  */
 
 import { useState, useMemo, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import iconMinus from "../../../assets/icon/icon_minus.svg";
 import iconPlus from "../../../assets/icon/icon_plus.svg";
 import CustomCalendar from "../../Calendar/custom-calendar";
+import { Modal } from "../../Modal";
 import type { AvailableSchedule } from "./types";
 import {
   MAX_HEAD_COUNT,
@@ -25,6 +27,9 @@ import {
   DEFAULT_HEAD_COUNT,
 } from "./types";
 import { getAvailableTimesForDate } from "./utils";
+// TODO: API 연동 시 주석 해제
+// import { createReservation } from "../../../lib/activities/api";
+// import { getAuthToken } from "../../../utils/auth";
 
 interface ReservationSidebarProps {
   price: number;
@@ -35,9 +40,11 @@ const ReservationSidebar = ({
   price,
   availableSchedules,
 }: ReservationSidebarProps) => {
+  const { id: activityId } = useParams();
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [headCount, setHeadCount] = useState(DEFAULT_HEAD_COUNT);
   const [selectedTimeId, setSelectedTimeId] = useState<number | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleDecrease = () => {
     if (headCount > MIN_HEAD_COUNT) {
@@ -58,29 +65,54 @@ const ReservationSidebar = ({
   };
 
   // 예약하기 핸들러
-  const handleReservation = () => {
+  const handleReservation = async () => {
     if (!selectedDate || !selectedTimeId) {
       alert("날짜와 시간을 선택해주세요.");
       return;
     }
 
-    // TODO: API 호출
-    // const requestBody = {
-    //   scheduleId: selectedTimeId,
-    //   headCount: headCount
-    // };
-    // await createReservation(teamId, activityId, requestBody);
+    // TODO: API 연동 (테스트 완료)
+    /*
+    if (!activityId) return;
 
+    try {
+      const token = getAuthToken();
+
+      await createReservation(
+        Number(activityId),
+        {
+          scheduleId: selectedTimeId,
+          headCount: headCount,
+        },
+        token
+      );
+
+      console.log("예약 성공:", {
+        scheduleId: selectedTimeId,
+        headCount: headCount,
+        totalPrice: price * headCount,
+      });
+
+      setIsModalOpen(true);
+    } catch (error) {
+      console.error("예약 실패:", error);
+      alert("예약에 실패했습니다. 다시 시도해주세요.");
+    }
+    */
+
+    // Mock 테스트
     console.log("예약 요청:", {
       scheduleId: selectedTimeId,
       headCount: headCount,
       totalPrice: price * headCount,
     });
+    setIsModalOpen(true);
+  };
 
-    alert(
-      `예약이 완료되었습니다!\n총 금액: ₩${(price * headCount).toLocaleString()}`,
-    );
-
+  // 모달 닫기 핸들러
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+    
     // 예약 완료 후 상태 초기화 (#6)
     setSelectedDate(null);
     setSelectedTimeId(null);
@@ -317,6 +349,13 @@ const ReservationSidebar = ({
             예약하기
           </button>
         </div>
+
+        {/* 예약 완료 모달 */}
+        <Modal
+          isOpen={isModalOpen}
+          onClose={handleModalClose}
+          message="예약이 완료되었습니다."
+        />
       </div>
     </aside>
   );

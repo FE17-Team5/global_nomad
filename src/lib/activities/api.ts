@@ -18,14 +18,14 @@ import type {
 export async function getActivitiesList(
   query: ActivitiesListQuery,
 ): Promise<ActivitiesListResponse> {
-  return apiFetch<ActivitiesListResponse>(`/${TEAM_ID}/activities`, { query });
+  return apiFetch<ActivitiesListResponse>(`/activities`, { query });
 }
 
 // 체험 상세 조회
 export async function getActivityDetail(
   activityId: number,
 ): Promise<ActivityDetail> {
-  return apiFetch<ActivityDetail>(`/${TEAM_ID}/activities/${activityId}`);
+  return apiFetch<ActivityDetail>(`/activities/${activityId}`);
 }
 
 // 체험 등록
@@ -33,7 +33,7 @@ export async function createActivity(
   body: CreateActivityBody,
   authToken: string,
 ): Promise<ActivityWithSchedules> {
-  return apiFetch<ActivityWithSchedules>(`/${TEAM_ID}/activities`, {
+  return apiFetch<ActivityWithSchedules>(`/activities`, {
     method: "POST",
     body,
     authToken,
@@ -46,7 +46,7 @@ export async function getAvailableSchedule(
   query: AvailableScheduleQuery,
 ): Promise<AvailableScheduleResponse> {
   return apiFetch<AvailableScheduleResponse>(
-    `/${TEAM_ID}/activities/${activityId}/available-schedule`,
+    `/activities/${activityId}/available-schedule`,
     {
       query,
     },
@@ -59,7 +59,7 @@ export async function getActivityReviews(
   query: ActivityReviewsQuery = {},
 ): Promise<ActivityReviewsResponse> {
   return apiFetch<ActivityReviewsResponse>(
-    `/${TEAM_ID}/activities/${activityId}/reviews`,
+    `/activities/${activityId}/reviews`,
     {
       query,
     },
@@ -73,7 +73,7 @@ export async function createReservation(
   authToken: string,
 ): Promise<CreateReservationResponse> {
   return apiFetch<CreateReservationResponse>(
-    `/${TEAM_ID}/activities/${activityId}/reservations`,
+    `/activities/${activityId}/reservations`,
     {
       method: "POST",
       body,
@@ -90,7 +90,7 @@ export async function uploadActivityImage(
   const formData = new FormData();
   formData.append("image", imageFile);
 
-  return apiFetch<UploadImageResponse>(`/${TEAM_ID}/activities/image`, {
+  return apiFetch<UploadImageResponse>(`/activities/image`, {
     method: "POST",
     body: formData,
     authToken,

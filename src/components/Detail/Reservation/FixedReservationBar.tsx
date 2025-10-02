@@ -7,7 +7,9 @@
  */
 
 import { useState, useMemo, useEffect } from "react";
+import { useParams } from "react-router-dom";
 import CustomCalendar from "../../Calendar/custom-calendar";
+import { Modal } from "../../Modal";
 import iconMinus from "../../../assets/icon/icon_minus.svg";
 import iconPlus from "../../../assets/icon/icon_plus.svg";
 import iconBack from "../../../assets/icon/icon_back.svg";
@@ -17,9 +19,12 @@ import {
   MIN_HEAD_COUNT,
   DEFAULT_HEAD_COUNT,
 } from "./types";
-import { RESERVATION_UI_HEIGHTS } from "./constants";
+import { RESERVATION_UI_HEIGHTS, BREAKPOINTS } from "./constants";
 import { getAvailableTimesForDate, getTimeById } from "./utils";
 import { formatDateShort } from "../../../utils/date";
+// TODO: API 연동 시 주석 해제
+// import { createReservation } from "../../../lib/activities/api";
+// import { getAuthToken } from "../../../utils/auth";
 
 interface FixedReservationBarProps {
   price: number;
@@ -30,11 +35,13 @@ const FixedReservationBar = ({
   price,
   availableSchedules,
 }: FixedReservationBarProps) => {
+  const { id: activityId } = useParams();
   const [isExpanded, setIsExpanded] = useState(false);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [selectedTimeId, setSelectedTimeId] = useState<number | null>(null);
   const [headCount, setHeadCount] = useState(DEFAULT_HEAD_COUNT);
   const [showHeadCountSelector, setShowHeadCountSelector] = useState(false); // 모바일 인원 선택 모드
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   // 선택된 날짜의 예약 가능한 시간 조회 - 유틸 함수 사용 (#1, #4, #9)
   const availableTimes = useMemo(
@@ -73,7 +80,7 @@ const FixedReservationBar = ({
   useEffect(() => {
     const handleResize = () => {
       // 태블릿 breakpoint: 744px (46.5rem)
-      const isTablet = window.innerWidth <= 744;
+      const isTablet = window.innerWidth <= BREAKPOINTS.TABLET;
 
       // PC 화면으로 전환되면 상태 초기화
       if (!isTablet && isExpanded) {
@@ -104,7 +111,7 @@ const FixedReservationBar = ({
       setShowHeadCountSelector(true);
     } else {
       // 태블릿 또는 모바일 인원 선택 완료 → 닫기
-      setIsExpanded(false);
+    setIsExpanded(false);
       setShowHeadCountSelector(false);
     }
   };
@@ -129,24 +136,58 @@ const FixedReservationBar = ({
   };
 
   // 예약하기 버튼 클릭
-  const handleReservation = () => {
+  const handleReservation = async () => {
     if (!selectedDate || !selectedTimeId) {
       alert("날짜와 시간을 선택해주세요.");
       return;
     }
 
+    // TODO: API 연동 (테스트 완료)
+    /*
+    if (!activityId) return;
+
+    try {
+      const token = getAuthToken();
+
+      await createReservation(
+        Number(activityId),
+        {
+          scheduleId: selectedTimeId,
+          headCount: headCount,
+        },
+        token
+      );
+
+      console.log("예약 성공:", {
+        scheduleId: selectedTimeId,
+        headCount: headCount,
+      });
+
+      setIsModalOpen(true);
+    } catch (error) {
+      console.error("예약 실패:", error);
+      alert("예약에 실패했습니다. 다시 시도해주세요.");
+    }
+    */
+
+    // Mock 테스트
     console.log("예약 요청:", {
       scheduleId: selectedTimeId,
       headCount: headCount,
     });
+    setIsModalOpen(true);
+  };
 
-    alert("예약이 완료되었습니다.");
+  // 모달 닫기 핸들러
+  const handleModalClose = () => {
+    setIsModalOpen(false);
 
     // 예약 완료 후 상태 초기화 (#6)
     setSelectedDate(null);
     setSelectedTimeId(null);
     setHeadCount(DEFAULT_HEAD_COUNT);
     setIsExpanded(false);
+    setShowHeadCountSelector(false);
   };
 
   // 날짜 포맷팅 (22/11/14 14:00 ~ 15:00) - 유틸 함수 사용 (#7)
@@ -370,7 +411,7 @@ const FixedReservationBar = ({
                 </div>
 
                 {/* 우측: 예약 가능한 시간 (태블릿 전용) */}
-                <div 
+                <div
                   className="hidden tablet:flex mobile:hidden max-w-[301px] flex-1 p-6 rounded-2xl flex-col"
                   style={{
                     boxShadow: "0px 4px 24px 0px rgba(156, 180, 202, 0.2)",
@@ -607,6 +648,13 @@ const FixedReservationBar = ({
           </>
         )}
       </div>
+
+      {/* 예약 완료 모달 */}
+      <Modal
+        isOpen={isModalOpen}
+        onClose={handleModalClose}
+        message="예약이 완료되었습니다."
+      />
     </>
   );
 };

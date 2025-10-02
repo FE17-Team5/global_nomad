@@ -19,7 +19,7 @@ export async function getMyActivitiesList(
   query: MyActivitiesListQuery,
   authToken: string,
 ): Promise<MyActivitiesListResponse> {
-  return apiFetch<MyActivitiesListResponse>(`/${TEAM_ID}/my-activities`, {
+  return apiFetch<MyActivitiesListResponse>(`/my-activities`, {
     query,
     authToken,
   });
@@ -32,7 +32,7 @@ export async function getReservationDashboard(
   authToken: string,
 ): Promise<ReservationDashboardResponse> {
   return apiFetch<ReservationDashboardResponse>(
-    `/${TEAM_ID}/my-activities/${activityId}/reservation-dashboard`,
+    `/my-activities/${activityId}/reservation-dashboard`,
     {
       query,
       authToken,
@@ -47,7 +47,7 @@ export async function getReservedSchedule(
   authToken: string,
 ): Promise<ReservedScheduleResponse> {
   return apiFetch<ReservedScheduleResponse>(
-    `/${TEAM_ID}/my-activities/${activityId}/reserved-schedule`,
+    `/my-activities/${activityId}/reserved-schedule`,
     {
       query,
       authToken,
@@ -62,7 +62,7 @@ export async function getActivityReservations(
   authToken: string,
 ): Promise<ActivityReservationsResponse> {
   return apiFetch<ActivityReservationsResponse>(
-    `/${TEAM_ID}/my-activities/${activityId}/reservations`,
+    `/my-activities/${activityId}/reservations`,
     {
       query,
       authToken,
@@ -78,7 +78,7 @@ export async function updateReservationStatus(
   authToken: string,
 ): Promise<UpdateReservationStatusResponse> {
   return apiFetch<UpdateReservationStatusResponse>(
-    `/${TEAM_ID}/my-activities/${activityId}/reservations/${reservationId}`,
+    `/my-activities/${activityId}/reservations/${reservationId}`,
     {
       method: "PATCH",
       body,
@@ -92,7 +92,7 @@ export async function deleteMyActivity(
   activityId: number,
   authToken: string,
 ): Promise<void> {
-  return apiFetch<void>(`/${TEAM_ID}/my-activities/${activityId}`, {
+  return apiFetch<void>(`/my-activities/${activityId}`, {
     method: "DELETE",
     authToken,
   });
@@ -105,7 +105,7 @@ export async function updateMyActivity(
   authToken: string,
 ): Promise<MyActivityWithSchedules> {
   return apiFetch<MyActivityWithSchedules>(
-    `/${TEAM_ID}/my-activities/${activityId}`,
+    `/my-activities/${activityId}`,
     {
       method: "PATCH",
       body,
