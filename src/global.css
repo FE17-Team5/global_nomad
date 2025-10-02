@@ -6,8 +6,7 @@
    ========================================= */
 @theme {
   /* ===== 시안 2: 폰트 ===== */
-  --font-sans: "Pretendard Variable", Pretendard
-              
+  --font-sans: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
 
   --font-weight-medium: 500;
   --font-weight-semibold: 600;
@@ -102,6 +101,28 @@
 @custom-variant tablet (@media (max-width: 80rem)); /* 1280px */
 @custom-variant mobile (@media (max-width: 48rem)); /* 768px */
 
+/* 세밀한 제어를 위한 추가 브레이크포인트 */
+@custom-variant sm-tablet (@media (max-width: 46.5rem)); /* 744px - 작은 태블릿 */
+@custom-variant sm-mobile (@media (max-width: 23.4375rem)); /* 375px - 작은 모바일 */
+
+ /* =========================================
+   🔔 Modal Styles
+   ========================================= */
+@layer components {
+  /* 모바일 모달 패딩 조정 */
+  @media (max-width: 23.4375rem) { /* 375px - 기존 작업물 유지 */
+    .modal-container {
+      padding-top: 34px !important;
+      padding-bottom: 30px !important;
+    }
+    
+    /* 확인 모달 하단 패딩 조정 */
+    .confirm-modal-container {
+      padding-bottom: 24px !important;
+    }
+  }
+}
+
 /* =========================================
    🅰️ 시안 2: Typography 유틸리티
    - _M = Medium(500), _B = Bold(700)
@@ -137,14 +158,15 @@
   .ty-32_M { font-size: var(--text-32); line-height: normal; font-weight: var(--font-weight-medium); }
   .ty-32_B { font-size: var(--text-32); line-height: normal; font-weight: var(--font-weight-bold); }
 
+  /* ===== Semibold 추가 ===== */
+  .ty-14_SB { font-size: var(--text-14); line-height: normal; font-weight: var(--font-weight-semibold); }
+  .ty-24_SB { font-size: var(--text-24); line-height: normal; font-weight: var(--font-weight-semibold); }
+
   /* ===== Body ===== */
   .body-14_M { font-size: var(--text-14-body); line-height: var(--text-14-body--line-height); font-weight: var(--font-weight-medium); }
   .body-16_M { font-size: var(--text-16-body); line-height: var(--text-16-body--line-height); font-weight: var(--font-weight-medium); }
   .body-18_B { font-size: var(--text-18-body); line-height: var(--text-18-body--line-height); font-weight: var(--font-weight-bold); }
   .body-20_B { font-size: var(--text-20-body); line-height: var(--text-20-body--line-height); font-weight: var(--font-weight-bold); }
-
-  /* ===== Semibold 추가 ===== */
-  .ty-14_SB { font-size: var(--text-14); line-height: normal; font-weight: var(--font-weight-semibold); }
 }
 
 @utility flex-between {
@@ -173,4 +195,211 @@ body {
   font-family: var(--font-sans);
   color: var(--color-gray-950);
   background: #ffffff;
+}
+
+/* =========================================
+   📅 Custom Calendar Styles
+   ========================================= */
+@layer components {
+  /* Calendar Container */
+  .calendar-container .react-calendar {
+    width: 100%;
+    max-width: 100%;
+    border: none;
+    background: transparent;
+    font-family: var(--font-sans);
+    padding: 0;
+  }
+  
+  
+  /* Navigation */
+  .calendar-container .react-calendar__navigation {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: auto;
+    margin-bottom: 0;
+  }
+  
+  .calendar-container .react-calendar__navigation__label {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--color-gray-950);
+    pointer-events: none;
+    flex-grow: 0;
+    order: -1;
+    text-align: left;
+    padding: 0;
+  }
+  
+  .calendar-container .react-calendar__navigation__label:hover {
+    background: transparent;
+  }
+  
+  .calendar-container .react-calendar__navigation__arrow {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    min-width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .calendar-container .react-calendar__navigation__arrow:hover {
+    background: transparent;
+  }
+  
+  .calendar-container .react-calendar__navigation__arrow:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+  }
+  
+  .calendar-container .react-calendar__navigation__prev-button {
+    order: 2;
+    margin-right: 24px;
+  }
+  
+  .calendar-container .react-calendar__navigation__next-button {
+    order: 3;
+  }
+  
+  /* Weekdays */
+  .calendar-container .react-calendar__month-view__weekdays {
+    display: flex;
+    gap: 4px;
+    margin-top: 8px;
+    margin-bottom: 4px;
+  }
+  
+  @media (max-width: 46.5rem) {
+    .calendar-container .react-calendar__month-view__weekdays {
+      margin-bottom: 37px;
+    }
+  }
+  
+  @media (max-width: 23.4375rem) {
+    .calendar-container .react-calendar__month-view__weekdays {
+      gap: 0;
+      margin-bottom: 4px;
+    }
+  }
+  
+  .calendar-container .react-calendar__month-view__weekdays__weekday {
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-gray-800);
+    width: 46px !important;
+    min-width: 46px !important;
+    max-width: 46px !important;
+    height: 46px;
+    flex-shrink: 0;
+    flex-grow: 0;
+    flex-basis: 46px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    padding: 0 !important;
+    margin: 0;
+    text-decoration: none;
+    text-transform: uppercase;
+    box-sizing: border-box;
+  }
+  
+  .calendar-container .react-calendar__month-view__weekdays__weekday abbr {
+    text-decoration: none;
+  }
+  
+  /* Days Grid */
+  .calendar-container .react-calendar__month-view__days {
+    display: grid !important;
+    grid-template-columns: repeat(7, 46px);
+    grid-template-rows: repeat(5, 46px);
+    gap: 4px;
+    overflow: hidden;
+    max-height: calc(46px * 5 + 4px * 4);
+  }
+  
+  @media (max-width: 46.5rem) {
+    .calendar-container .react-calendar__month-view__days {
+      row-gap: 37px;
+      max-height: calc(46px * 5 + 37px * 4);
+    }
+  }
+  
+  @media (max-width: 23.4375rem) {
+    .calendar-container .react-calendar__month-view__days {
+      column-gap: 0;
+      row-gap: 4px;
+      max-height: calc(46px * 5 + 4px * 4);
+    }
+  }
+  
+  /* Day Tiles */
+  .calendar-container .react-calendar__tile {
+    width: 46px;
+    height: 46px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--color-gray-800) !important;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: all 0.2s;
+  }
+  
+  .calendar-container .react-calendar__tile:hover:not(:disabled) {
+    background: var(--color-gray-50);
+  }
+  
+  .calendar-container .react-calendar__tile:disabled {
+    color: var(--color-gray-300) !important;
+    font-weight: 500;
+    cursor: not-allowed;
+    opacity: 1;
+  }
+  
+  .calendar-container .react-calendar__month-view__days__day--neighboringMonth {
+    color: var(--color-gray-300) !important;
+    font-weight: 500;
+    visibility: visible;
+  }
+  
+  /* Today */
+  .calendar-container .react-calendar__tile--now {
+    background: var(--color-primary-100);
+    color: var(--color-primary-500) !important;
+    font-weight: 500;
+  }
+  
+  .calendar-container .react-calendar__tile--now:disabled {
+    background: var(--color-primary-100);
+    color: var(--color-primary-500) !important;
+    font-weight: 500;
+    cursor: not-allowed;
+  }
+  
+  /* Selected */
+  .calendar-container .react-calendar__tile--active,
+  .calendar-container .react-calendar__tile--active:hover {
+    background: var(--color-primary-500) !important;
+    color: #ffffff !important;
+    font-weight: 700;
+  }
+  
+  /* Hide Year/Decade/Century Views */
+  .calendar-container .react-calendar__year-view,
+  .calendar-container .react-calendar__decade-view,
+  .calendar-container .react-calendar__century-view {
+    display: none;
+  }
 }

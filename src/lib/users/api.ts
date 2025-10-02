@@ -1,4 +1,4 @@
-import { apiFetch, TEAM_ID } from "../apiClient";
+import { apiFetch } from "../apiClient";
 import type {
   SignUpBody,
   SignUpResponse,
@@ -9,7 +9,7 @@ import type {
 
 // 회원가입
 export async function signUp(body: SignUpBody): Promise<SignUpResponse> {
-  return apiFetch<SignUpResponse>(`/${TEAM_ID}/users`, {
+  return apiFetch<SignUpResponse>(`/users`, {
     method: "POST",
     body,
   });
@@ -17,7 +17,7 @@ export async function signUp(body: SignUpBody): Promise<SignUpResponse> {
 
 // 내 정보 조회
 export async function getMyProfile(authToken: string): Promise<User> {
-  return apiFetch<User>(`/${TEAM_ID}/users/me`, {
+  return apiFetch<User>(`/users/me`, {
     authToken,
   });
 }
@@ -27,7 +27,7 @@ export async function updateMyProfile(
   body: UpdateMyProfileBody,
   authToken: string,
 ): Promise<User> {
-  return apiFetch<User>(`/${TEAM_ID}/users/me`, {
+  return apiFetch<User>(`/users/me`, {
     method: "PATCH",
     body,
     authToken,
@@ -42,7 +42,7 @@ export async function uploadProfileImage(
   const formData = new FormData();
   formData.append("image", imageFile);
 
-  return apiFetch<UploadProfileImageResponse>(`/${TEAM_ID}/users/me/image`, {
+  return apiFetch<UploadProfileImageResponse>(`/users/me/image`, {
     method: "POST",
     body: formData,
     authToken,

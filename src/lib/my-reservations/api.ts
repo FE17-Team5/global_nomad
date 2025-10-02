@@ -1,4 +1,4 @@
-import { apiFetch, TEAM_ID } from "../apiClient";
+import { apiFetch } from "../apiClient";
 import type {
   CancelMyReservationBody,
   CancelMyReservationResponse,
@@ -13,7 +13,7 @@ export async function getMyReservationsList(
   query: MyReservationsListQuery,
   authToken: string,
 ): Promise<MyReservationsListResponse> {
-  return apiFetch<MyReservationsListResponse>(`/${TEAM_ID}/my-reservations`, {
+  return apiFetch<MyReservationsListResponse>(`/my-reservations`, {
     query,
     authToken,
   });
@@ -26,7 +26,7 @@ export async function cancelMyReservation(
   authToken: string,
 ): Promise<CancelMyReservationResponse> {
   return apiFetch<CancelMyReservationResponse>(
-    `/${TEAM_ID}/my-reservations/${reservationId}`,
+    `/my-reservations/${reservationId}`,
     {
       method: "PATCH",
       body,
@@ -42,7 +42,7 @@ export async function createReservationReview(
   authToken: string,
 ): Promise<CreateReservationReviewResponse> {
   return apiFetch<CreateReservationReviewResponse>(
-    `/${TEAM_ID}/my-reservations/${reservationId}/reviews`,
+    `/my-reservations/${reservationId}/reviews`,
     {
       method: "POST",
       body,

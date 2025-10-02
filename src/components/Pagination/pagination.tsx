@@ -62,7 +62,7 @@ const Pagination = ({
       <button
         onClick={handlePrevBlock}
         disabled={isFirstBlock}
-        className="w-10 h-10 flex items-center justify-center"
+        className="w-10 h-10 flex items-center justify-center rounded-md transition-all duration-200 ease-out hover:bg-gray-100 hover:shadow-md hover:scale-105 disabled:hover:bg-transparent disabled:hover:shadow-none disabled:hover:scale-100"
         style={{
           cursor: isFirstBlock ? "not-allowed" : "pointer",
         }}
@@ -88,7 +88,7 @@ const Pagination = ({
           <button
             key={num}
             onClick={() => onPageChange(num)}
-            className="w-10 h-10 flex items-center justify-center ty-14_B"
+            className="w-10 h-10 flex items-center justify-center ty-14_B rounded-md transition-all duration-200 ease-out hover:bg-gray-100 hover:shadow-md hover:scale-105"
             style={{
               color: isActive
                 ? "var(--color-gray-950)"
@@ -110,7 +110,7 @@ const Pagination = ({
       <button
         onClick={handleNextBlock}
         disabled={isLastBlock}
-        className="w-10 h-10 flex items-center justify-center"
+        className="w-10 h-10 flex items-center justify-center rounded-md transition-all duration-200 ease-out hover:bg-gray-100 hover:shadow-md hover:scale-105 disabled:hover:bg-transparent disabled:hover:shadow-none disabled:hover:scale-100"
         style={{
           cursor: isLastBlock ? "not-allowed" : "pointer",
         }}

@@ -21,6 +21,7 @@ interface ActivityHeaderProps {
   address: string;
   subtitle?: string;
   isOwner?: boolean;
+  hideSubtitle?: boolean;
 }
 
 const ActivityHeader = ({
@@ -32,16 +33,20 @@ const ActivityHeader = ({
   address,
   subtitle,
   isOwner = false,
+  hideSubtitle = false,
 }: ActivityHeaderProps) => {
   return (
     <div className="flex justify-between">
       <div className="flex flex-col">
-        <p className="ty-14_M" style={{ color: "var(--color-gray-950)" }}>
+        <p
+          className="ty-14_M mobile:ty-13_M"
+          style={{ color: "var(--color-gray-950)" }}
+        >
           {category}
         </p>
 
         <h1
-          className="mt-2 mb-[17px] ty-24_B"
+          className="mt-2 mobile:mt-1 mb-[17px] ty-24_B mobile:ty-18_B"
           style={{ color: "var(--color-gray-950)" }}
         >
           {title}
@@ -65,7 +70,7 @@ const ActivityHeader = ({
           <span>{address}</span>
         </p>
 
-        {subtitle && (
+        {subtitle && !hideSubtitle && (
           <p
             className="body-16_M mb-[68px]"
             style={{ color: "var(--color-gray-1)" }}

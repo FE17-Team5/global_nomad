@@ -76,11 +76,22 @@ const ActivityLocation = ({ address }: ActivityLocationProps) => {
     if (window.kakao && window.kakao.maps) {
       initMap();
     } else {
-      // SDK 로드 대기
+      // SDK 로드 대기 (최대 5초)
+      let retryCount = 0;
+      const MAX_RETRIES = 50; // 100ms × 50 = 5초
+
       const checkKakao = setInterval(() => {
         if (window.kakao && window.kakao.maps) {
           clearInterval(checkKakao);
           initMap();
+        } else {
+          retryCount++;
+          if (retryCount >= MAX_RETRIES) {
+            clearInterval(checkKakao);
+            console.error(
+              "Kakao Maps SDK 로드 실패: 5초 내에 로드되지 않았습니다.",
+            );
+          }
         }
       }, 100);
 
@@ -90,16 +101,19 @@ const ActivityLocation = ({ address }: ActivityLocationProps) => {
 
   return (
     <section
-      className="mt-[40px] pb-10"
+      className="mt-[40px] mobile:mt-0 pb-10 mobile:pb-5"
       style={{ borderBottom: "1px solid var(--color-gray-100)" }}
     >
       {/* 제목 */}
-      <h2 className="ty-18_B" style={{ color: "var(--color-gray-950)" }}>
+      <h2
+        className="ty-18_B mobile:ty-16_B"
+        style={{ color: "var(--color-gray-950)" }}
+      >
         오시는 길
       </h2>
 
       {/* 주소 */}
-      <div className="mt-2 flex items-center gap-1">
+      <div className="mt-2 mobile:mt-2 flex items-center gap-1">
         <img src={iconMap} alt="" className="w-4 h-4" />
         <span className="ty-14_SB">{address}</span>
       </div>

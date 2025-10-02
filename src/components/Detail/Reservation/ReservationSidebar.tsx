@@ -14,21 +14,22 @@
  *   · 예약하기 버튼
  */
 
-import { useState } from "react";
-import iconMinus from "../../assets/icon/icon_minus.svg";
-import iconPlus from "../../assets/icon/icon_plus.svg";
-import CustomCalendar from "../Calendar/custom-calendar";
-
-interface TimeSlot {
-  id: number;
-  startTime: string;
-  endTime: string;
-}
-
-interface AvailableSchedule {
-  date: string;
-  times: TimeSlot[];
-}
+import { useState, useMemo, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import iconMinus from "../../../assets/icon/icon_minus.svg";
+import iconPlus from "../../../assets/icon/icon_plus.svg";
+import CustomCalendar from "../../Calendar/custom-calendar";
+import { Modal } from "../../Modal";
+import type { AvailableSchedule } from "./types";
+import {
+  MAX_HEAD_COUNT,
+  MIN_HEAD_COUNT,
+  DEFAULT_HEAD_COUNT,
+} from "./types";
+import { getAvailableTimesForDate } from "./utils";
+// TODO: API 연동 시 주석 해제
+// import { createReservation } from "../../../lib/activities/api";
+// import { getAuthToken } from "../../../utils/auth";
 
 interface ReservationSidebarProps {
   price: number;
@@ -39,14 +40,14 @@ const ReservationSidebar = ({
   price,
   availableSchedules,
 }: ReservationSidebarProps) => {
+  const { id: activityId } = useParams();
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
-  const [headCount, setHeadCount] = useState(1);
+  const [headCount, setHeadCount] = useState(DEFAULT_HEAD_COUNT);
   const [selectedTimeId, setSelectedTimeId] = useState<number | null>(null);
-
-  const MAX_HEAD_COUNT = 10;
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleDecrease = () => {
-    if (headCount > 1) {
+    if (headCount > MIN_HEAD_COUNT) {
       setHeadCount(headCount - 1);
     }
   };
@@ -64,47 +65,81 @@ const ReservationSidebar = ({
   };
 
   // 예약하기 핸들러
-  const handleReservation = () => {
+  const handleReservation = async () => {
     if (!selectedDate || !selectedTimeId) {
       alert("날짜와 시간을 선택해주세요.");
       return;
     }
 
-    // TODO: API 호출
-    // const requestBody = {
-    //   scheduleId: selectedTimeId,
-    //   headCount: headCount
-    // };
-    // await createReservation(teamId, activityId, requestBody);
+    // TODO: API 연동 (테스트 완료)
+    /*
+    if (!activityId) return;
 
+    try {
+      const token = getAuthToken();
+
+      await createReservation(
+        Number(activityId),
+        {
+          scheduleId: selectedTimeId,
+          headCount: headCount,
+        },
+        token
+      );
+
+      console.log("예약 성공:", {
+        scheduleId: selectedTimeId,
+        headCount: headCount,
+        totalPrice: price * headCount,
+      });
+
+      setIsModalOpen(true);
+    } catch (error) {
+      console.error("예약 실패:", error);
+      alert("예약에 실패했습니다. 다시 시도해주세요.");
+    }
+    */
+
+    // Mock 테스트
     console.log("예약 요청:", {
       scheduleId: selectedTimeId,
       headCount: headCount,
       totalPrice: price * headCount,
     });
-
-    alert(
-      `예약이 완료되었습니다!\n총 금액: ₩${(price * headCount).toLocaleString()}`,
-    );
+    setIsModalOpen(true);
   };
 
-  // 예약 가능한 날짜 추출 (캘린더용)
-  const schedulesForCalendar = availableSchedules.flatMap((schedule) =>
-    schedule.times.map((time) => ({
-      id: time.id,
-      date: schedule.date,
-      startTime: time.startTime,
-      endTime: time.endTime,
-    })),
+  // 모달 닫기 핸들러
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+    
+    // 예약 완료 후 상태 초기화 (#6)
+    setSelectedDate(null);
+    setSelectedTimeId(null);
+    setHeadCount(DEFAULT_HEAD_COUNT);
+  };
+
+  // 예약 가능한 날짜 추출 (캘린더용) - useMemo로 최적화 (#10)
+  const schedulesForCalendar = useMemo(
+    () => availableSchedules.map((schedule) => schedule.date),
+    [availableSchedules],
   );
 
-  // 선택된 날짜의 예약 가능한 시간 필터링
-  const availableTimes = selectedDate
-    ? availableSchedules.find((schedule) => {
-        const scheduleDate = new Date(schedule.date);
-        return scheduleDate.toDateString() === selectedDate.toDateString();
-      })?.times || []
-    : [];
+  // 선택된 날짜의 예약 가능한 시간 필터링 - 유틸 함수 사용 (#1, #9)
+  const availableTimes = useMemo(
+    () => getAvailableTimesForDate(selectedDate, availableSchedules),
+    [selectedDate, availableSchedules],
+  );
+
+  // 선택된 시간이 유효한지 검증 (#22)
+  useEffect(() => {
+    if (selectedTimeId !== null && availableTimes.length > 0) {
+      const isValid = availableTimes.some((time) => time.id === selectedTimeId);
+      if (!isValid) {
+        setSelectedTimeId(null);
+      }
+    }
+  }, [availableTimes, selectedTimeId]);
 
   return (
     <aside
@@ -136,8 +171,8 @@ const ReservationSidebar = ({
         <div className="mt-[10px]">
           <CustomCalendar
             schedules={schedulesForCalendar}
-            onDateSelect={handleDateSelect}
             selectedDate={selectedDate}
+            onDateSelect={handleDateSelect}
           />
         </div>
 
@@ -157,12 +192,14 @@ const ReservationSidebar = ({
             <button
               type="button"
               onClick={handleDecrease}
-              disabled={!selectedDate || headCount <= 1}
+              disabled={!selectedDate || headCount <= MIN_HEAD_COUNT}
               className="max-w-10 max-h-10 w-10 h-10 flex items-center justify-center"
               style={{
                 cursor:
-                  !selectedDate || headCount <= 1 ? "not-allowed" : "pointer",
-                opacity: !selectedDate || headCount <= 1 ? 0.3 : 1,
+                  !selectedDate || headCount <= MIN_HEAD_COUNT
+                    ? "not-allowed"
+                    : "pointer",
+                opacity: !selectedDate || headCount <= MIN_HEAD_COUNT ? 0.3 : 1,
               }}
               aria-label="인원 감소"
             >
@@ -172,7 +209,7 @@ const ReservationSidebar = ({
                 className="w-6 h-6"
                 style={{
                   filter:
-                    !selectedDate || headCount <= 1
+                    !selectedDate || headCount <= MIN_HEAD_COUNT
                       ? "brightness(0) saturate(100%) invert(80%) sepia(0%) saturate(0%)"
                       : "none",
                 }}
@@ -224,8 +261,15 @@ const ReservationSidebar = ({
             예약 가능한 시간
           </h3>
 
-          {/* 시간 버튼 리스트 */}
-          <div className="mt-[14px] flex flex-col gap-3">
+          {/* 시간 버튼 리스트 - 스크롤 가능 */}
+          <div
+            className="mt-[14px] flex flex-col gap-3 overflow-y-auto"
+            style={{
+              maxHeight: "200px", // 버튼 3개 정도 높이 (46px × 3 + 12px × 2 = 162px + 여유)
+              scrollbarWidth: "thin",
+              scrollbarColor: "var(--color-gray-300) transparent",
+            }}
+          >
             {availableTimes.length > 0 ? (
               availableTimes.map((schedule) => (
                 <button
@@ -233,7 +277,7 @@ const ReservationSidebar = ({
                   key={schedule.id}
                   onClick={() => setSelectedTimeId(schedule.id)}
                   disabled={!selectedDate}
-                  className="w-full h-[46px] flex items-center justify-center rounded-md ty-16_M transition-colors"
+                  className="w-full h-[46px] flex items-center justify-center rounded-md ty-16_M transition-colors flex-shrink-0"
                   style={{
                     border:
                       selectedTimeId === schedule.id
@@ -305,6 +349,13 @@ const ReservationSidebar = ({
             예약하기
           </button>
         </div>
+
+        {/* 예약 완료 모달 */}
+        <Modal
+          isOpen={isModalOpen}
+          onClose={handleModalClose}
+          message="예약이 완료되었습니다."
+        />
       </div>
     </aside>
   );

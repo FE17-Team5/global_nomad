@@ -16,7 +16,7 @@ export const mockActivityDetail = {
       imageUrl:
         "https://i.namu.wiki/i/Qs6Fj0ur7vuNLurCXePgIxXKO0YaykayvogSeafmPojgLrxkPD3PCs3C-WoTwrKFFch0FNhtxJlt8wJegJy35DzetERgxbdJv_XGe37zfsttAQOBwFL6lMID8Una_NvYF-Q_8nBtVQzNcArMNK1u7w.webp",
     },
-    {
+{
       id: 2,
       imageUrl:
         "https://i.namu.wiki/i/7xxIzeIN7eDm8lYam5urgqkt9sm5Pou21clXGm2tgOCOGC0-C6y7mOE-rMDKdDGTxr3W5ReHvGFGJjVQOn9A7jfM2Ix6hdZ0RT8uSQlCaZlKQvCzYQRd8x-TUaLhTZOCWaac20Eg5RNhGH4aG8hRYA.webp",
@@ -31,10 +31,15 @@ export const mockActivityDetail = {
       imageUrl:
         "https://i.namu.wiki/i/CXK4Orme23P1CFxspGEKrAA1JDGSg6gtxJgCHr6bbi1UD57L50wJ1ywW0oMeZGMQ5E5dzjRwFeuYMhLGHVPFz0oAmhledWMebhJSe7g2hFifXprx3TEqhC-H_MJXc_4YzOQXbNcavqE89_xh5RDyBw.webp",
     },
+
+
+  
   ],
   reviewCount: 5,
   rating: 4.74,
   createdAt: "2023-12-31T21:28:50.589Z",
+  updatedAt: "2023-12-31T21:28:50.589Z",
+  schedules: [],
 };
 
 // 체험 예약 가능일 조회 mockdata
@@ -44,13 +49,38 @@ export const mockAvailableSchedule = [
     times: [
       {
         id: 1,
+        startTime: "09:00",
+        endTime: "10:00",
+      },
+      {
+        id: 2,
         startTime: "10:00",
         endTime: "11:00",
       },
       {
-        id: 2,
+        id: 101,
+        startTime: "11:00",
+        endTime: "12:00",
+      },
+      {
+        id: 102,
+        startTime: "13:00",
+        endTime: "14:00",
+      },
+      {
+        id: 103,
         startTime: "14:00",
         endTime: "15:00",
+      },
+      {
+        id: 104,
+        startTime: "15:00",
+        endTime: "16:00",
+      },
+      {
+        id: 105,
+        startTime: "16:00",
+        endTime: "17:00",
       },
     ],
   },
@@ -94,24 +124,32 @@ export const mockActivityReviews = {
     {
       id: 1,
       user: {
+        id: 1,
         profileImageUrl:
           "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTiDJFZppYH3gokfWy8BzxbV1R9HY7MC-SPAQ&s",
         nickname: "김태현",
       },
+      activityId: 7,
+      rating: 5,
       content:
         "스트릿 댄스 체험에 참가했는데 정말 즐거운 시간이었어요. 강사님도 친절하시고 초보자도 쉽게 배울 수 있었습니다!",
       createdAt: "2023-12-04T10:00:00.000Z",
+      updatedAt: "2023-12-04T10:00:00.000Z",
     },
     {
       id: 2,
       user: {
+        id: 2,
         profileImageUrl:
           "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTiDJFZppYH3gokfWy8BzxbV1R9HY7MC-SPAQ&s",
         nickname: "조민지",
       },
+      activityId: 7,
+      rating: 5,
       content:
         "새로운 사람들과 함께 춤추면서 친해질 수 있어서 좋았어요. 재밌고 활기찬 분위기였습니다.",
       createdAt: "2023-12-10T15:30:00.000Z",
+      updatedAt: "2023-12-10T15:30:00.000Z",
     },
     {
       id: 3,
@@ -233,5 +271,11 @@ export const mockActivityReviews = {
         "마지막 리뷰입니다. 정말 멋진 경험이었고, 모든 분들께 추천합니다!",
       createdAt: "2024-01-18T11:30:00.000Z",
     },
-  ].slice(0, 12),
+  ].map((review, index) => ({
+    ...review,
+    user: { id: index + 1, ...review.user },
+    activityId: 7,
+    rating: 5,
+    updatedAt: review.createdAt,
+  })).slice(0, 12),
 };
