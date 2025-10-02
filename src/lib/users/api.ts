@@ -2,9 +2,9 @@ import { apiFetch, TEAM_ID } from "../apiClient";
 import type {
   SignUpBody,
   SignUpResponse,
-  User,
   UpdateMyProfileBody,
   UploadProfileImageResponse,
+  User,
 } from "./types";
 
 // 회원가입
