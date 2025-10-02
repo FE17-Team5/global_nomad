@@ -1,4 +1,4 @@
-import { apiFetch, TEAM_ID } from "../apiClient";
+import { apiFetch } from "../apiClient";
 import type {
   MyNotificationsListQuery,
   MyNotificationsListResponse,
@@ -9,7 +9,7 @@ export async function getMyNotificationsList(
   query: MyNotificationsListQuery,
   authToken: string,
 ): Promise<MyNotificationsListResponse> {
-  return apiFetch<MyNotificationsListResponse>(`/${TEAM_ID}/my-notifications`, {
+  return apiFetch<MyNotificationsListResponse>(`/my-notifications`, {
     query,
     authToken,
   });
@@ -20,7 +20,7 @@ export async function deleteMyNotification(
   notificationId: number,
   authToken: string,
 ): Promise<void> {
-  return apiFetch<void>(`/${TEAM_ID}/my-notifications/${notificationId}`, {
+  return apiFetch<void>(`/my-notifications/${notificationId}`, {
     method: "DELETE",
     authToken,
   });

@@ -1,4 +1,4 @@
-import { apiFetch, TEAM_ID } from "../apiClient";
+import { apiFetch } from "../apiClient";
 import type {
   OAuthSignInBody,
   OAuthSignInResponse,
@@ -12,7 +12,7 @@ import type {
 export async function registerOAuthApp(
   body: RegisterOAuthAppBody,
 ): Promise<RegisterOAuthAppResponse> {
-  return apiFetch<RegisterOAuthAppResponse>(`/${TEAM_ID}/oauth/apps`, {
+  return apiFetch<RegisterOAuthAppResponse>(`/oauth/apps`, {
     method: "POST",
     body,
   });
@@ -24,7 +24,7 @@ export async function oauthSignUp(
   body: OAuthSignUpBody,
 ): Promise<OAuthSignUpResponse> {
   return apiFetch<OAuthSignUpResponse>(
-    `/${TEAM_ID}/oauth/sign-up/${provider}`,
+    `/oauth/sign-up/${provider}`,
     {
       method: "POST",
       body,
@@ -38,7 +38,7 @@ export async function oauthSignIn(
   body: OAuthSignInBody,
 ): Promise<OAuthSignInResponse> {
   return apiFetch<OAuthSignInResponse>(
-    `/${TEAM_ID}/oauth/sign-in/${provider}`,
+    `/oauth/sign-in/${provider}`,
     {
       method: "POST",
       body,

@@ -1,4 +1,4 @@
-import { apiFetch, TEAM_ID } from "../apiClient";
+import { apiFetch } from "../apiClient";
 import type { LoginBody, LoginResponse, RefreshTokensResponse } from "./types";
 
 // 로그인

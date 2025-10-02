@@ -1,5 +1,4 @@
 export const BASE_URL = "https://sp-globalnomad-api.vercel.app/17-5";
-export const TEAM_ID = "17-5";
 
 type HttpMethod = "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
 
