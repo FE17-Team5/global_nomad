@@ -1,13 +1,15 @@
 import { HeroSection } from "../../components/Main/HeroSection";
 import { SearchSection } from "../../components/Main/SearchSection";
+import { PopularActivities } from "../../components/Main/PopularActivities";
+import { AllActivities } from "../../components/Main/AllActivities";
 
 const MainPage = () => {
   return (
     <div className="min-h-screen">
       <HeroSection />
       <SearchSection />
-      {/* TODO: PopularActivities 섹션 추가 예정 */}
-      {/* TODO: AllActivities 섹션 추가 예정 */}
+      <PopularActivities />
+      <AllActivities />
     </div>
   );
 };
