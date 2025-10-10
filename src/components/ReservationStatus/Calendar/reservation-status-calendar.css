@@ -1,0 +1,107 @@
+@import "tailwindcss";
+
+@layer components {
+  .calendar_container {
+    padding: 20px 0 10px;
+    border-radius: 24px;
+    box-shadow: 0 4px 24px 0 #9cb4ca33;
+  }
+
+  .calendar_container .react-calendar {
+    display: flex;
+    flex-direction: column;
+    max-width: 100%;
+    align-items: center;
+    gap: 30px;
+  }
+
+  .calendar_container .react-calendar__navigation {
+    display: flex;
+    gap: 30px;
+  }
+
+  .calendar_container .react-calendar__navigation span {
+    font-size: 20px;
+    font-weight: 700;
+  }
+
+  .calendar_container .react-calendar__navigation button {
+    cursor: pointer;
+  }
+
+  .calendar_container .react-calendar__viewContainer {
+    width: 100%;
+  }
+
+  .calendar_container .react-calendar__month-view__weekdays {
+    display: flex;
+    width: 100%;
+    border-bottom: 1px solid var(--color-gray-100);
+  }
+
+  .calendar_container
+    .react-calendar__month-view__weekdays__weekday:first-child
+    abbr {
+    color: red;
+  }
+
+  .calendar_container
+    .react-calendar__month-view__weekdays__weekday:last-child
+    abbr {
+    color: blue;
+  }
+
+  .calendar_container .react-calendar__month-view__weekdays__weekday {
+    padding: 12px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 700;
+  }
+
+  .calendar_container .react-calendar__month-view__weekdays__weekday abbr {
+    text-decoration: none;
+  }
+
+  .calendar_container .react-calendar__tile {
+    display: flex;
+    max-width: 100%;
+    height: 124px;
+    padding: 18px 12px 10px;
+    flex-direction: column;
+    gap: 5px;
+    border-bottom: 1px solid var(--color-gray-50);
+  }
+
+  .calendar_container .react-calendar__tile:nth-last-child(-n + 7) {
+    border-bottom: none;
+  }
+
+  .calendar_container
+    .react-calendar__month-view__days__day--weekend:nth-child(7n + 1) {
+    color: red;
+  }
+
+  .calendar_container
+    .react-calendar__month-view__days__day--weekend:nth-child(7n) {
+    color: blue;
+  }
+
+  .calendar_container .react-calendar__month-view__days__day--neighboringMonth {
+    color: var(--color-gray-300);
+  }
+
+  .calendar_container
+    .react-calendar__month-view__days__day--weekend.react-calendar__month-view__days__day--neighboringMonth {
+    color: var(--color-gray-300);
+  }
+
+  .calendar_container .react-calendar__tile:disabled {
+    cursor: not-allowed;
+  }
+
+  .calendar_container .react-calendar__tile:enabled:hover,
+  .calendar_container .react-calendar__tile:enabled:focus {
+    cursor: pointer;
+    background-color: var(--color-primary-100);
+  }
+}

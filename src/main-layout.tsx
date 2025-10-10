@@ -7,9 +7,9 @@ const MainLayout = () => {
   const isMainPage = location.pathname === "/";
 
   return (
-    <div className={isMainPage ? "min-h-screen bg-main-gradient" : ""}>
+    <div className={`flex flex-col min-h-screen ${isMainPage ? "bg-main-gradient" : ""}`}>
       <Header />
-      <main>
+      <main className="flex-1">
         <Outlet />
       </main>
       <Footer />
