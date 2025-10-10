@@ -32,7 +32,7 @@ const Header = () => {
   ];
 
   return (
-    <header className="h-20 sm-mobile:h-12 bg-white py-[26px] sm-mobile:py-[10px] px-[30px] sm-mobile:px-6 flex justify-center">
+    <header className="h-20 sm-mobile:h-12 bg-transparent py-[26px] sm-mobile:py-[10px] px-[30px] sm-mobile:px-6 flex justify-center">
       <div className="max-w-[1520px] w-full flex items-center justify-between">
         {/* 왼쪽: 로고 */}
         <Link to="/" className="w-[174px] sm-mobile:w-7 h-[28px] sm-mobile:h-7" aria-label="메인 페이지로 이동">
