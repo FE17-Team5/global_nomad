@@ -189,6 +189,10 @@
   position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
 }
 
+@utility bg-main-gradient {
+  background: linear-gradient(180deg, #BBDDFF -6.85%, #F7FBFF 22.43%, #FFFFFF 100%);
+}
+
 /* === Base === */
 html, body, #__next { height: 100%; }
 body {
@@ -401,5 +405,18 @@ body {
   .calendar-container .react-calendar__decade-view,
   .calendar-container .react-calendar__century-view {
     display: none;
+  }
+}
+
+/* =========================================
+   🔄 Scroll Utilities
+   ========================================= */
+@layer utilities {
+  .scrollbar-hide {
+    -ms-overflow-style: none;  /* Internet Explorer 10+ */
+    scrollbar-width: none;  /* Firefox */
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;  /* Safari and Chrome */
   }
 }
