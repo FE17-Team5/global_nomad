@@ -8,7 +8,9 @@ interface ActivityCardProps {
 
 const ActivityCard = ({ activity, className = "" }: ActivityCardProps) => {
   return (
-    <div className={`relative w-full h-[22.875rem] rounded-[2rem] overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-200 ${className}`}>
+    <div
+      className={`relative w-full h-[22.875rem] rounded-[2rem] overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-200 ${className}`}
+    >
       {/* Background Image */}
       <img
         src={activity.bannerImageUrl}
@@ -22,12 +24,7 @@ const ActivityCard = ({ activity, className = "" }: ActivityCardProps) => {
 
       {/* Rating Badge */}
       <div className="absolute top-[1.125rem] right-[1.125rem] bg-black/60 text-white rounded-full px-2 py-1 flex items-center gap-1">
-        <img
-          src={starIcon}
-          alt=""
-          role="presentation"
-          className="w-3 h-3"
-        />
+        <img src={starIcon} alt="" role="presentation" className="w-3 h-3" />
         <span className="ty-12_M">{activity.rating}</span>
       </div>
 

@@ -48,7 +48,8 @@ const NotificationModal = ({ isOpen, onClose }: NotificationModalProps) => {
       id: 1,
       teamId: "team1",
       userId: 1,
-      content: "함께하면 즐거운 스트릿 댄스\n(2023-01-14 15:00~18:00)\n예약이 승인되었어요.",
+      content:
+        "함께하면 즐거운 스트릿 댄스\n(2023-01-14 15:00~18:00)\n예약이 승인되었어요.",
       createdAt: new Date(Date.now() - 60000).toISOString(), // 1분 전
       updatedAt: new Date().toISOString(),
       deletedAt: "",
@@ -57,7 +58,8 @@ const NotificationModal = ({ isOpen, onClose }: NotificationModalProps) => {
       id: 2,
       teamId: "team1",
       userId: 1,
-      content: "전통 도자기 만들기 원데이클래스\n(2023-01-15 10:00~12:00)\n예약이 거절되었어요.",
+      content:
+        "전통 도자기 만들기 원데이클래스\n(2023-01-15 10:00~12:00)\n예약이 거절되었어요.",
       createdAt: new Date(Date.now() - 420000).toISOString(), // 7분 전
       updatedAt: new Date().toISOString(),
       deletedAt: "",
@@ -66,7 +68,8 @@ const NotificationModal = ({ isOpen, onClose }: NotificationModalProps) => {
       id: 3,
       teamId: "team1",
       userId: 1,
-      content: "한강 자전거 투어\n(2023-01-16 14:00~16:00)\n예약이 승인되었어요.",
+      content:
+        "한강 자전거 투어\n(2023-01-16 14:00~16:00)\n예약이 승인되었어요.",
       createdAt: new Date(Date.now() - 3600000).toISOString(), // 1시간 전
       updatedAt: new Date().toISOString(),
       deletedAt: "",
@@ -75,7 +78,8 @@ const NotificationModal = ({ isOpen, onClose }: NotificationModalProps) => {
       id: 4,
       teamId: "team1",
       userId: 1,
-      content: "전통 차 문화 체험\n(2023-01-17 11:00~13:00)\n예약이 거절되었어요.",
+      content:
+        "전통 차 문화 체험\n(2023-01-17 11:00~13:00)\n예약이 거절되었어요.",
       createdAt: new Date(Date.now() - 7200000).toISOString(), // 2시간 전
       updatedAt: new Date().toISOString(),
       deletedAt: "",
@@ -84,7 +88,8 @@ const NotificationModal = ({ isOpen, onClose }: NotificationModalProps) => {
       id: 5,
       teamId: "team1",
       userId: 1,
-      content: "와인 테이스팅 클래스\n(2023-01-18 18:00~20:00)\n예약이 승인되었어요.",
+      content:
+        "와인 테이스팅 클래스\n(2023-01-18 18:00~20:00)\n예약이 승인되었어요.",
       createdAt: new Date(Date.now() - 86400000).toISOString(), // 1일 전
       updatedAt: new Date().toISOString(),
       deletedAt: "",
@@ -93,7 +98,8 @@ const NotificationModal = ({ isOpen, onClose }: NotificationModalProps) => {
       id: 6,
       teamId: "team1",
       userId: 1,
-      content: "제주도 올레길 트레킹\n(2023-01-19 09:00~17:00)\n예약이 승인되었어요.",
+      content:
+        "제주도 올레길 트레킹\n(2023-01-19 09:00~17:00)\n예약이 승인되었어요.",
       createdAt: new Date(Date.now() - 172800000).toISOString(), // 2일 전
       updatedAt: new Date().toISOString(),
       deletedAt: "",
@@ -143,7 +149,9 @@ const NotificationModal = ({ isOpen, onClose }: NotificationModalProps) => {
       if (startIndex + displayCount < totalCount) {
         setLoading(true);
         setTimeout(() => {
-          setDisplayCount((prev) => Math.min(prev + 2, totalCount - startIndex));
+          setDisplayCount((prev) =>
+            Math.min(prev + 2, totalCount - startIndex),
+          );
           setLoading(false);
         }, 300);
       }
@@ -173,7 +181,10 @@ const NotificationModal = ({ isOpen, onClose }: NotificationModalProps) => {
 
   if (!isOpen) return null;
 
-  const displayedNotifications = notifications.slice(startIndex, startIndex + displayCount);
+  const displayedNotifications = notifications.slice(
+    startIndex,
+    startIndex + displayCount,
+  );
 
   return (
     <div

@@ -1,6 +1,6 @@
 /**
  * FixedReservationBar 컴포넌트 (태블릿 전용)
- * 
+ *
  * 하단에 고정되는 예약 UI
  * - 기본 상태: 124px (가격 표시 + 예약하기 버튼)
  * - 확장 상태: 675px (날짜 선택 + 캘린더 + 시간 선택)
@@ -14,11 +14,7 @@ import iconMinus from "../../../assets/icon/icon_minus.svg";
 import iconPlus from "../../../assets/icon/icon_plus.svg";
 import iconBack from "../../../assets/icon/icon_back.svg";
 import type { AvailableSchedule } from "./types";
-import {
-  MAX_HEAD_COUNT,
-  MIN_HEAD_COUNT,
-  DEFAULT_HEAD_COUNT,
-} from "./types";
+import { MAX_HEAD_COUNT, MIN_HEAD_COUNT, DEFAULT_HEAD_COUNT } from "./types";
 import { RESERVATION_UI_HEIGHTS, BREAKPOINTS } from "./constants";
 import { getAvailableTimesForDate, getTimeById } from "./utils";
 import { formatDateShort } from "../../../utils/date";
@@ -106,16 +102,16 @@ const FixedReservationBar = ({
   const handleConfirm = () => {
     // 모바일에서 날짜/시간 선택 완료 → 인원 선택 모드로
     const isMobile = window.innerWidth <= 375;
-    
+
     if (isMobile && !showHeadCountSelector) {
       setShowHeadCountSelector(true);
     } else {
       // 태블릿 또는 모바일 인원 선택 완료 → 닫기
-    setIsExpanded(false);
+      setIsExpanded(false);
       setShowHeadCountSelector(false);
     }
   };
-  
+
   // 뒤로가기 (모바일 인원 선택 → 날짜 선택)
   const handleBack = () => {
     setShowHeadCountSelector(false);
@@ -210,14 +206,14 @@ const FixedReservationBar = ({
 
       {/* 하단 픽스 UI */}
       <div
-        className="hidden tablet:flex mobile:flex fixed bottom-0 left-0 right-0 bg-white z-50 flex-col transition-all duration-300"
+        className="hidden sm-tablet:flex sm-mobile:flex fixed bottom-0 left-0 right-0 bg-white z-50 flex-col transition-all duration-300"
         style={{
           height: isExpanded
             ? showHeadCountSelector
               ? "auto" // 모바일 인원 선택 모드: 동적 높이
               : window.innerWidth <= 375
-              ? "auto" // 모바일 날짜 선택 모드: 동적 높이
-              : `${RESERVATION_UI_HEIGHTS.EXPANDED}px` // 태블릿 날짜 선택 모드: 고정 높이
+                ? "auto" // 모바일 날짜 선택 모드: 동적 높이
+                : `${RESERVATION_UI_HEIGHTS.EXPANDED}px` // 태블릿 날짜 선택 모드: 고정 높이
             : `${RESERVATION_UI_HEIGHTS.COLLAPSED}px`,
           borderRadius: isExpanded ? "16px 16px 0 0" : "0",
           boxShadow: "0px -4px 16px 0px rgba(0, 0, 0, 0.1)",
@@ -286,7 +282,10 @@ const FixedReservationBar = ({
               >
                 <img src={iconBack} alt="뒤로" className="w-6 h-6" />
               </button>
-              <h2 className="ty-18_B" style={{ color: "var(--color-gray-950)" }}>
+              <h2
+                className="ty-18_B"
+                style={{ color: "var(--color-gray-950)" }}
+              >
                 인원
               </h2>
             </div>
@@ -387,19 +386,19 @@ const FixedReservationBar = ({
           // ======= 확장 상태: 날짜 선택 모드 (태블릿 680px / 모바일 동적) =======
           <>
             {/* 상단 콘텐츠 영역 */}
-            <div className="px-[30px] mobile:px-6 pt-6 mobile:pt-[18px] flex-1">
+            <div className="px-[30px] sm-mobile:px-6 pt-6 sm-mobile:pt-[18px] flex-1">
               {/* 제목 */}
               <h2
-                className="ty-20_B mobile:ty-18_B mb-6 mobile:mb-2"
+                className="ty-20_B sm-mobile:ty-18_B mb-6 sm-mobile:mb-2"
                 style={{ color: "var(--color-gray-950)" }}
               >
                 날짜
               </h2>
 
               {/* 캘린더 + 예약 가능한 시간 */}
-              <div className="flex mobile:flex-col justify-between gap-6">
+              <div className="flex sm-mobile:flex-col justify-between gap-6">
                 {/* 좌측/상단: 캘린더 */}
-                <div className="max-w-[359px] mobile:max-w-full flex-shrink-0 mobile:flex-shrink">
+                <div className="max-w-[359px] sm-mobile:max-w-full flex-shrink-0 sm-mobile:flex-shrink">
                   <CustomCalendar
                     selectedDate={selectedDate}
                     onDateSelect={(date) => {
@@ -412,7 +411,7 @@ const FixedReservationBar = ({
 
                 {/* 우측: 예약 가능한 시간 (태블릿 전용) */}
                 <div
-                  className="hidden tablet:flex mobile:hidden max-w-[301px] flex-1 p-6 rounded-2xl flex-col"
+                  className="hidden sm-tablet:flex sm-mobile:hidden max-w-[301px] flex-1 p-6 rounded-2xl flex-col"
                   style={{
                     boxShadow: "0px 4px 24px 0px rgba(156, 180, 202, 0.2)",
                     height: `${RESERVATION_UI_HEIGHTS.CALENDAR_CONTAINER}px`,
@@ -443,7 +442,8 @@ const FixedReservationBar = ({
                     </p>
                   ) : (
                     // 시간 선택 UI
-                    <div className="mt-5 flex flex-col flex-1 overflow-y-auto"
+                    <div
+                      className="mt-5 flex flex-col flex-1 overflow-y-auto"
                       style={{
                         scrollbarWidth: "thin",
                         scrollbarColor: "var(--color-gray-300) transparent",
@@ -559,7 +559,7 @@ const FixedReservationBar = ({
                 </div>
 
                 {/* 모바일 전용: 예약 가능한 시간 */}
-                <div className="hidden mobile:block mt-6">
+                <div className="hidden sm-mobile:block mt-6">
                   <h3
                     className="ty-16_B mb-[14px]"
                     style={{ color: "var(--color-gray-950)" }}
@@ -582,11 +582,15 @@ const FixedReservationBar = ({
                       예약 가능한 시간이 없습니다.
                     </p>
                   ) : (
-                    <div 
+                    <div
                       className="flex flex-col gap-3"
                       style={{
-                        maxHeight: availableTimes.length > 2 ? "calc(51px * 2 + 12px)" : "none",
-                        overflowY: availableTimes.length > 2 ? "auto" : "visible",
+                        maxHeight:
+                          availableTimes.length > 2
+                            ? "calc(51px * 2 + 12px)"
+                            : "none",
+                        overflowY:
+                          availableTimes.length > 2 ? "auto" : "visible",
                       }}
                     >
                       {availableTimes.map((time) => (
@@ -623,7 +627,7 @@ const FixedReservationBar = ({
             </div>
 
             {/* 하단: 확인 버튼 */}
-            <div className="px-[30px] mobile:px-6 pb-[21px] mobile:pb-[18px] pt-10 mobile:pt-10">
+            <div className="px-[30px] sm-mobile:px-6 pb-[21px] sm-mobile:pb-[18px] pt-10 sm-mobile:pt-10">
               <button
                 type="button"
                 onClick={handleConfirm}
@@ -660,4 +664,3 @@ const FixedReservationBar = ({
 };
 
 export default FixedReservationBar;
-

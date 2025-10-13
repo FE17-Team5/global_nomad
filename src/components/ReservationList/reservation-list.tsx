@@ -12,7 +12,7 @@ const ReservationList = () => {
   >(null);
 
   const handleBadgeClick = (
-    status: components["schemas"]["ReservationStatus"] | null
+    status: components["schemas"]["ReservationStatus"] | null,
   ) => {
     if (selectedBadge === status) {
       setSelectedBadge(null);
@@ -21,8 +21,8 @@ const ReservationList = () => {
       setSelectedBadge(status);
       setReservations(
         reservationMockData.filter(
-          (reservation) => reservation.status === status
-        )
+          (reservation) => reservation.status === status,
+        ),
       );
     }
   };

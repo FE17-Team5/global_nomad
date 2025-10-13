@@ -101,19 +101,19 @@ const ActivityLocation = ({ address }: ActivityLocationProps) => {
 
   return (
     <section
-      className="mt-[40px] mobile:mt-0 pb-10 mobile:pb-5"
+      className="mt-[40px] sm-mobile:mt-0 pb-10 sm-mobile:pb-5"
       style={{ borderBottom: "1px solid var(--color-gray-100)" }}
     >
       {/* 제목 */}
       <h2
-        className="ty-18_B mobile:ty-16_B"
+        className="ty-18_B sm-mobile:ty-16_B"
         style={{ color: "var(--color-gray-950)" }}
       >
         오시는 길
       </h2>
 
       {/* 주소 */}
-      <div className="mt-2 mobile:mt-2 flex items-center gap-1">
+      <div className="mt-2 sm-mobile:mt-2 flex items-center gap-1">
         <img src={iconMap} alt="" className="w-4 h-4" />
         <span className="ty-14_SB">{address}</span>
       </div>

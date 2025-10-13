@@ -26,12 +26,12 @@ const ActivityFilters = () => {
                   : "bg-white text-gray-700 border-gray-300 hover:border-primary-300"
               }`}
               style={{
-                fontFamily: 'Pretendard',
-                fontSize: '1rem', // 16px
+                fontFamily: "Pretendard",
+                fontSize: "1rem", // 16px
                 fontWeight: 500,
-                lineHeight: '100%',
-                letterSpacing: '-2.5%',
-                textAlign: 'center',
+                lineHeight: "100%",
+                letterSpacing: "-2.5%",
+                textAlign: "center",
               }}
             >
               {category}
@@ -49,24 +49,33 @@ const ActivityFilters = () => {
               <span
                 className="text-gray-700 sm-mobile:text-[0.875rem]"
                 style={{
-                  fontFamily: 'Pretendard',
-                  fontSize: '1rem', // 16px
+                  fontFamily: "Pretendard",
+                  fontSize: "1rem", // 16px
                   fontWeight: 500,
-                  lineHeight: '100%',
-                  letterSpacing: '-2.5%',
-                  textAlign: 'center',
+                  lineHeight: "100%",
+                  letterSpacing: "-2.5%",
+                  textAlign: "center",
                 }}
               >
-                {sortOptions.find(option => option.value === selectedSort)?.label}
+                {
+                  sortOptions.find((option) => option.value === selectedSort)
+                    ?.label
+                }
               </span>
               <svg width="12" height="8" viewBox="0 0 12 8" fill="none">
-                <path d="M1 1.5L6 6.5L11 1.5" stroke="#9CA3AF" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                <path
+                  d="M1 1.5L6 6.5L11 1.5"
+                  stroke="#9CA3AF"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
               </svg>
             </div>
           }
-          items={sortOptions.map(option => ({
+          items={sortOptions.map((option) => ({
             label: option.label,
-            onClick: () => handleSortChange(option.value)
+            onClick: () => handleSortChange(option.value),
           }))}
         />
       </div>

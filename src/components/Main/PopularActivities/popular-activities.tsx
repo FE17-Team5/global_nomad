@@ -33,7 +33,7 @@ const PopularActivities = () => {
             rating: 4.5,
             reviewCount: 10,
             createdAt: "2024-01-01",
-            updatedAt: "2024-01-01"
+            updatedAt: "2024-01-01",
           },
           {
             id: 2,
@@ -47,7 +47,7 @@ const PopularActivities = () => {
             rating: 4.2,
             reviewCount: 25,
             createdAt: "2024-01-01",
-            updatedAt: "2024-01-01"
+            updatedAt: "2024-01-01",
           },
           {
             id: 3,
@@ -61,7 +61,7 @@ const PopularActivities = () => {
             rating: 4.8,
             reviewCount: 15,
             createdAt: "2024-01-01",
-            updatedAt: "2024-01-01"
+            updatedAt: "2024-01-01",
           },
           {
             id: 4,
@@ -75,7 +75,7 @@ const PopularActivities = () => {
             rating: 4.3,
             reviewCount: 8,
             createdAt: "2024-01-01",
-            updatedAt: "2024-01-01"
+            updatedAt: "2024-01-01",
           },
           {
             id: 5,
@@ -89,7 +89,7 @@ const PopularActivities = () => {
             rating: 4.5,
             reviewCount: 32,
             createdAt: "2024-01-01",
-            updatedAt: "2024-01-01"
+            updatedAt: "2024-01-01",
           },
           {
             id: 6,
@@ -103,8 +103,8 @@ const PopularActivities = () => {
             rating: 4.2,
             reviewCount: 18,
             createdAt: "2024-01-01",
-            updatedAt: "2024-01-01"
-          }
+            updatedAt: "2024-01-01",
+          },
         ];
 
         setActivities(mockActivities);
@@ -140,8 +140,8 @@ const PopularActivities = () => {
     };
 
     updateItemsPerView();
-    window.addEventListener('resize', updateItemsPerView);
-    return () => window.removeEventListener('resize', updateItemsPerView);
+    window.addEventListener("resize", updateItemsPerView);
+    return () => window.removeEventListener("resize", updateItemsPerView);
   }, []);
 
   // 가로 스크롤 함수들
@@ -162,7 +162,7 @@ const PopularActivities = () => {
   const canScrollRight = currentIndex < getMaxIndex();
 
   const getScrollPercentage = () => {
-    return (100 / itemsPerView);
+    return 100 / itemsPerView;
   };
 
   if (loading) {
@@ -183,9 +183,7 @@ const PopularActivities = () => {
         <div className="w-[75rem] sm-tablet:w-[46.5rem] sm-mobile:w-[29.125rem] px-0 sm-tablet:px-0 sm-mobile:px-0">
           {/* Section Title */}
           <div className="mb-[2.25rem] sm-tablet:mb-[2.25rem] sm-mobile:mb-[2.25rem]">
-            <h2 className="ty-32_B text-gray-950">
-              🔥 인기 체험
-            </h2>
+            <h2 className="ty-32_B text-gray-950">🔥 인기 체험</h2>
           </div>
 
           {/* Horizontal Scroll Container */}
@@ -199,12 +197,24 @@ const PopularActivities = () => {
                   disabled={!canScrollLeft}
                   className={`absolute left-[-1.25rem] top-1/2 z-10 transform -translate-y-1/2 w-10 h-10 rounded-full shadow-lg transition-all duration-200 ${
                     canScrollLeft
-                      ? 'bg-white hover:bg-gray-50 text-gray-700 hover:text-gray-900'
-                      : 'bg-gray-100 text-gray-300 cursor-not-allowed'
+                      ? "bg-white hover:bg-gray-50 text-gray-700 hover:text-gray-900"
+                      : "bg-gray-100 text-gray-300 cursor-not-allowed"
                   }`}
                 >
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="mx-auto">
-                    <path d="M15 18L9 12L15 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    className="mx-auto"
+                  >
+                    <path
+                      d="M15 18L9 12L15 6"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
                   </svg>
                 </button>
 
@@ -214,12 +224,24 @@ const PopularActivities = () => {
                   disabled={!canScrollRight}
                   className={`absolute right-[-1.25rem] top-1/2 z-10 transform -translate-y-1/2 w-10 h-10 rounded-full shadow-lg transition-all duration-200 ${
                     canScrollRight
-                      ? 'bg-white hover:bg-gray-50 text-gray-700 hover:text-gray-900'
-                      : 'bg-gray-100 text-gray-300 cursor-not-allowed'
+                      ? "bg-white hover:bg-gray-50 text-gray-700 hover:text-gray-900"
+                      : "bg-gray-100 text-gray-300 cursor-not-allowed"
                   }`}
                 >
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" className="mx-auto">
-                    <path d="M9 18L15 12L9 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    className="mx-auto"
+                  >
+                    <path
+                      d="M9 18L15 12L9 6"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
                   </svg>
                 </button>
               </>
@@ -230,7 +252,7 @@ const PopularActivities = () => {
               <div
                 className="flex gap-[1.5rem] sm-tablet:gap-4 sm-mobile:gap-4 transition-transform duration-300 ease-in-out"
                 style={{
-                  transform: `translateX(-${currentIndex * getScrollPercentage()}%)`
+                  transform: `translateX(-${currentIndex * getScrollPercentage()}%)`,
                 }}
               >
                 {activities.map((activity) => (
@@ -238,7 +260,7 @@ const PopularActivities = () => {
                     key={activity.id}
                     className="flex-none"
                     style={{
-                      width: `calc(${getScrollPercentage()}% - ${itemsPerView === 4 ? '1.125rem' : '0.5rem'})`
+                      width: `calc(${getScrollPercentage()}% - ${itemsPerView === 4 ? "1.125rem" : "0.5rem"})`,
                     }}
                   >
                     <ActivityCard activity={activity} />

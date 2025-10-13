@@ -23,4 +23,3 @@ export interface ReservationState {
 export const MAX_HEAD_COUNT = 10;
 export const MIN_HEAD_COUNT = 1;
 export const DEFAULT_HEAD_COUNT = 1;
-
