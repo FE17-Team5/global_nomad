@@ -14,17 +14,17 @@ interface ActivityDescriptionProps {
 const ActivityDescription = ({ description }: ActivityDescriptionProps) => {
   return (
     <section
-      className="pb-10 mobile:pb-5"
+      className="pb-10 sm-mobile:pb-5"
       style={{ borderBottom: "1px solid var(--color-gray-100)" }}
     >
       <h2
-        className="ty-18_B mobile:ty-16_B"
+        className="ty-18_B sm-mobile:ty-16_B"
         style={{ color: "var(--color-gray-950)" }}
       >
         체험 설명
       </h2>
       <p
-        className="mt-2 mobile:mt-2 body-16_M"
+        className="mt-2 sm-mobile:mt-2 body-16_M"
         style={{ color: "var(--color-gray-950)" }}
       >
         {description}

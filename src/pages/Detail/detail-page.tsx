@@ -99,11 +99,11 @@ const DetailPage = () => {
 
   return (
     <div className="w-full bg-white" style={{ minHeight: "100vh" }}>
-      <div className="pt-[88px] mobile:pt-12 max-w-[1200px] tablet:max-w-[684px] mobile:max-w-[375px] mx-auto px-10 tablet:px-[30px] mobile:px-6">
+      <div className="pt-[88px] sm-mobile:pt-12 max-w-[1200px] sm-tablet:max-w-[684px] sm-mobile:max-w-[375px] mx-auto px-10 sm-tablet:px-[30px] sm-mobile:px-6">
         {/* 좌우 레이아웃: 좌측(컨텐츠) + 우측(예약 정보) */}
-        <div className="flex tablet:flex-col mobile:flex-col gap-10 mobile:gap-5">
+        <div className="flex sm-tablet:flex-col sm-mobile:flex-col gap-10 sm-mobile:gap-5">
           {/* 좌측 컨텐츠 영역 */}
-          <div className="w-full max-w-[670px] tablet:max-w-full">
+          <div className="w-full max-w-[670px] sm-tablet:max-w-full">
             {/* 이미지 갤러리 */}
             <ImageGallery
               bannerImageUrl={displayActivity.bannerImageUrl}
@@ -113,7 +113,7 @@ const DetailPage = () => {
 
             {/* ActivityHeader - 태블릿/모바일에서만 표시 */}
             <div
-              className="hidden tablet:block mobile:block tablet:mt-6 mobile:mt-5 tablet:pb-[7px] mobile:pb-5"
+              className="hidden sm-tablet:block sm-mobile:block sm-tablet:mt-6 sm-mobile:mt-5 sm-tablet:pb-[7px] sm-mobile:pb-5"
               style={{ borderBottom: "1px solid #E0E0E5" }}
             >
               <ActivityHeader
@@ -129,12 +129,12 @@ const DetailPage = () => {
             </div>
 
             {/* 체험 설명 */}
-            <div className="mt-10 tablet:mt-[30px] mobile:mt-5">
+            <div className="mt-10 sm-tablet:mt-[30px] sm-mobile:mt-5">
               <ActivityDescription description={displayActivity.description} />
             </div>
 
             {/* 지도 */}
-            <div className="mobile:mt-5">
+            <div className="sm-mobile:mt-5">
               <ActivityLocation address={displayActivity.address} />
             </div>
 
@@ -147,7 +147,7 @@ const DetailPage = () => {
           </div>
 
           {/* 우측 영역 - 데스크탑에서만 표시 */}
-          <div className="w-full max-w-[410px] min-w-[370px] flex flex-col tablet:hidden">
+          <div className="w-full max-w-[410px] min-w-[370px] flex flex-col sm-tablet:hidden">
             {/* 상단 정보 */}
             <ActivityHeader
               id={displayActivity.id}

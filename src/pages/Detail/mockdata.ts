@@ -9,27 +9,27 @@ export const mockActivityDetail = {
   price: 10000,
   address: "서울특별시 강남구 테헤란로 427",
   bannerImageUrl:
-    "https://i.namu.wiki/i/Z-rMW_SA56Pcs4xEXCbUujZk6A8CQyU6NN8lp-50sHOzqSqFPEnGcQ3vAliT2eliuPxgciFQZYbS_mcAIrk2UOTRkS7C0NVfEDaCw9BB2jZt3rUoCM4BLeErZwYixEAVJCeD76KUxysrTDCpu3yjVg.webp",
+    "https://i.pinimg.com/1200x/af/5c/05/af5c05a064697d5269496d237b20dbcd.jpg",
   subImages: [
     {
       id: 1,
       imageUrl:
-        "https://i.namu.wiki/i/Qs6Fj0ur7vuNLurCXePgIxXKO0YaykayvogSeafmPojgLrxkPD3PCs3C-WoTwrKFFch0FNhtxJlt8wJegJy35DzetERgxbdJv_XGe37zfsttAQOBwFL6lMID8Una_NvYF-Q_8nBtVQzNcArMNK1u7w.webp",
+        "https://i.pinimg.com/1200x/09/a1/c3/09a1c3eb89bf631952d9929e66b067bd.jpg",
     },
 {
       id: 2,
       imageUrl:
-        "https://i.namu.wiki/i/7xxIzeIN7eDm8lYam5urgqkt9sm5Pou21clXGm2tgOCOGC0-C6y7mOE-rMDKdDGTxr3W5ReHvGFGJjVQOn9A7jfM2Ix6hdZ0RT8uSQlCaZlKQvCzYQRd8x-TUaLhTZOCWaac20Eg5RNhGH4aG8hRYA.webp",
+        "https://i.pinimg.com/736x/1f/13/ff/1f13ff7f88baff4805ecd152393d24fa.jpg",
     },
     {
       id: 3,
       imageUrl:
-        "https://i.namu.wiki/i/7o8fd3rxHS8Xwf3bStL1iVtGpzX249zHlCktcfuJRj6FTs_akIlukcZ-FTaiJ_q91CQn9nZYTowywnqW0rjVcePRy53AIFGmKSgMLWIqyeYHGdAd8yCo4EjfWwA272zMjJcJEMOj31sQrevDEwibMQ.webp",
+        "https://i.pinimg.com/736x/be/f0/a2/bef0a2b8ab32e07f3ad48346e5ad77a7.jpg",
     },
     {
       id: 4,
       imageUrl:
-        "https://i.namu.wiki/i/CXK4Orme23P1CFxspGEKrAA1JDGSg6gtxJgCHr6bbi1UD57L50wJ1ywW0oMeZGMQ5E5dzjRwFeuYMhLGHVPFz0oAmhledWMebhJSe7g2hFifXprx3TEqhC-H_MJXc_4YzOQXbNcavqE89_xh5RDyBw.webp",
+        "https://i.pinimg.com/736x/31/2f/30/312f3058eabeffcd4da12fc063074b01.jpg",
     },
 
 

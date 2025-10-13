@@ -45,7 +45,7 @@ const ImageGallery = ({
     return (
       <div className="flex gap-3 overflow-hidden rounded-3xl">
         {/* 좌측: 배너 이미지 */}
-        <div className="max-w-[329px] h-[400px]">
+        <div className="max-w-[329px] h-[400px] sm-mobile:max-w-full">
           <img
             src={bannerImageUrl}
             alt={title}
@@ -54,8 +54,8 @@ const ImageGallery = ({
           />
         </div>
 
-        {/* 우측: 서브 이미지 1개 (전체 높이) */}
-        <div className="max-w-[329px] h-[400px]">
+        {/* 우측: 서브 이미지 1개 (전체 높이) - 375px 이하에서 숨김 */}
+        <div className="max-w-[329px] h-[400px] sm-mobile:hidden">
           <img
             src={subImages[0].imageUrl}
             alt={`${title} 이미지 1`}
@@ -72,7 +72,7 @@ const ImageGallery = ({
     return (
       <div className="flex gap-3 overflow-hidden rounded-3xl">
         {/* 좌측: 배너 이미지 */}
-        <div className="max-w-[329px] h-[400px]">
+        <div className="max-w-[329px] h-[400px] sm-mobile:max-w-full">
           <img
             src={bannerImageUrl}
             alt={title}
@@ -81,8 +81,8 @@ const ImageGallery = ({
           />
         </div>
 
-        {/* 우측: 서브 이미지 2개 (세로 배치) */}
-        <div className="max-w-[329px] flex flex-col gap-3">
+        {/* 우측: 서브 이미지 2개 (세로 배치) - 375px 이하에서 숨김 */}
+        <div className="max-w-[329px] flex flex-col gap-3 sm-mobile:hidden">
           <div className="w-full h-[194px]">
             <img
               src={subImages[0].imageUrl}
@@ -109,7 +109,7 @@ const ImageGallery = ({
     return (
       <div className="flex gap-3 overflow-hidden rounded-3xl">
         {/* 좌측: 배너 이미지 */}
-        <div className="max-w-[329px] h-[400px]">
+        <div className="max-w-[329px] h-[400px] sm-mobile:max-w-full">
           <img
             src={bannerImageUrl}
             alt={title}
@@ -118,8 +118,8 @@ const ImageGallery = ({
           />
         </div>
 
-        {/* 우측: 서브 이미지 (위 2개 + 아래 1개) */}
-        <div className="max-w-[329px] flex flex-col gap-3">
+        {/* 우측: 서브 이미지 (위 2개 + 아래 1개) - 375px 이하에서 숨김 */}
+        <div className="max-w-[329px] flex flex-col gap-3 sm-mobile:hidden">
           {/* 위: 2개 가로 배치 */}
           <div className="flex gap-3">
             <div className="w-[158.5px] h-[194px]">
@@ -158,7 +158,7 @@ const ImageGallery = ({
   return (
     <div className="flex gap-3 overflow-hidden rounded-3xl">
       {/* 좌측: 배너 이미지 */}
-      <div className="max-w-[329px] h-[400px]">
+      <div className="max-w-[329px] h-[400px] sm-mobile:max-w-full">
         <img
           src={bannerImageUrl}
           alt={title}
@@ -167,8 +167,8 @@ const ImageGallery = ({
         />
       </div>
 
-      {/* 우측: 서브 이미지 그리드 (2×2) */}
-      <div className="max-w-[329px] grid grid-cols-2 gap-3">
+      {/* 우측: 서브 이미지 그리드 (2×2) - 375px 이하에서 숨김 */}
+      <div className="max-w-[329px] grid grid-cols-2 gap-3 sm-mobile:hidden">
         {subImages.slice(0, 4).map((image, index) => (
           <div key={image.id} className="w-full h-[194px]">
             <img
