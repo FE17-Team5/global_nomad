@@ -128,46 +128,46 @@
    - _M = Medium(500), _B = Bold(700)
    - Heading: line-height = normal
    - Body: 이미지 기준 line-height 값 고정
+   - @utility 사용으로 반응형 variant 자동 생성 
 ========================================= */
-@layer utilities {
-  /* ===== Heading ===== */
-  .ty-11_M { font-size: var(--text-11); line-height: normal; font-weight: var(--font-weight-medium); }
-  .ty-11_B { font-size: var(--text-11); line-height: normal; font-weight: var(--font-weight-bold); }
 
-  .ty-12_M { font-size: var(--text-12); line-height: normal; font-weight: var(--font-weight-medium); }
-  .ty-12_B { font-size: var(--text-12); line-height: normal; font-weight: var(--font-weight-bold); }
+/* ===== Heading ===== */
+@utility ty-11_M { font-size: var(--text-11); line-height: normal; font-weight: var(--font-weight-medium); }
+@utility ty-11_B { font-size: var(--text-11); line-height: normal; font-weight: var(--font-weight-bold); }
 
-  .ty-13_M { font-size: var(--text-13); line-height: normal; font-weight: var(--font-weight-medium); }
-  .ty-13_B { font-size: var(--text-13); line-height: normal; font-weight: var(--font-weight-bold); }
+@utility ty-12_M { font-size: var(--text-12); line-height: normal; font-weight: var(--font-weight-medium); }
+@utility ty-12_B { font-size: var(--text-12); line-height: normal; font-weight: var(--font-weight-bold); }
 
-  .ty-14_M { font-size: var(--text-14); line-height: normal; font-weight: var(--font-weight-medium); }
-  .ty-14_B { font-size: var(--text-14); line-height: normal; font-weight: var(--font-weight-bold); }
+@utility ty-13_M { font-size: var(--text-13); line-height: normal; font-weight: var(--font-weight-medium); }
+@utility ty-13_B { font-size: var(--text-13); line-height: normal; font-weight: var(--font-weight-bold); }
 
-  .ty-16_M { font-size: var(--text-16); line-height: normal; font-weight: var(--font-weight-medium); }
-  .ty-16_B { font-size: var(--text-16); line-height: normal; font-weight: var(--font-weight-bold); }
+@utility ty-14_M { font-size: var(--text-14); line-height: normal; font-weight: var(--font-weight-medium); }
+@utility ty-14_B { font-size: var(--text-14); line-height: normal; font-weight: var(--font-weight-bold); }
 
-  .ty-18_M { font-size: var(--text-18); line-height: normal; font-weight: var(--font-weight-medium); }
-  .ty-18_B { font-size: var(--text-18); line-height: normal; font-weight: var(--font-weight-bold); }
+@utility ty-16_M { font-size: var(--text-16); line-height: normal; font-weight: var(--font-weight-medium); }
+@utility ty-16_B { font-size: var(--text-16); line-height: normal; font-weight: var(--font-weight-bold); }
 
-  .ty-20_M { font-size: var(--text-20); line-height: normal; font-weight: var(--font-weight-medium); }
-  .ty-20_B { font-size: var(--text-20); line-height: normal; font-weight: var(--font-weight-bold); }
+@utility ty-18_M { font-size: var(--text-18); line-height: normal; font-weight: var(--font-weight-medium); }
+@utility ty-18_B { font-size: var(--text-18); line-height: normal; font-weight: var(--font-weight-bold); }
 
-  .ty-24_M { font-size: var(--text-24); line-height: normal; font-weight: var(--font-weight-medium); }
-  .ty-24_B { font-size: var(--text-24); line-height: normal; font-weight: var(--font-weight-bold); }
+@utility ty-20_M { font-size: var(--text-20); line-height: normal; font-weight: var(--font-weight-medium); }
+@utility ty-20_B { font-size: var(--text-20); line-height: normal; font-weight: var(--font-weight-bold); }
 
-  .ty-32_M { font-size: var(--text-32); line-height: normal; font-weight: var(--font-weight-medium); }
-  .ty-32_B { font-size: var(--text-32); line-height: normal; font-weight: var(--font-weight-bold); }
+@utility ty-24_M { font-size: var(--text-24); line-height: normal; font-weight: var(--font-weight-medium); }
+@utility ty-24_B { font-size: var(--text-24); line-height: normal; font-weight: var(--font-weight-bold); }
 
-  /* ===== Semibold 추가 ===== */
-  .ty-14_SB { font-size: var(--text-14); line-height: normal; font-weight: var(--font-weight-semibold); }
-  .ty-24_SB { font-size: var(--text-24); line-height: normal; font-weight: var(--font-weight-semibold); }
+@utility ty-32_M { font-size: var(--text-32); line-height: normal; font-weight: var(--font-weight-medium); }
+@utility ty-32_B { font-size: var(--text-32); line-height: normal; font-weight: var(--font-weight-bold); }
 
-  /* ===== Body ===== */
-  .body-14_M { font-size: var(--text-14-body); line-height: var(--text-14-body--line-height); font-weight: var(--font-weight-medium); }
-  .body-16_M { font-size: var(--text-16-body); line-height: var(--text-16-body--line-height); font-weight: var(--font-weight-medium); }
-  .body-18_B { font-size: var(--text-18-body); line-height: var(--text-18-body--line-height); font-weight: var(--font-weight-bold); }
-  .body-20_B { font-size: var(--text-20-body); line-height: var(--text-20-body--line-height); font-weight: var(--font-weight-bold); }
-}
+/* ===== Semibold 추가 ===== */
+@utility ty-14_SB { font-size: var(--text-14); line-height: normal; font-weight: var(--font-weight-semibold); }
+@utility ty-24_SB { font-size: var(--text-24); line-height: normal; font-weight: var(--font-weight-semibold); }
+
+/* ===== Body ===== */
+@utility body-14_M { font-size: var(--text-14-body); line-height: var(--text-14-body--line-height); font-weight: var(--font-weight-medium); }
+@utility body-16_M { font-size: var(--text-16-body); line-height: var(--text-16-body--line-height); font-weight: var(--font-weight-medium); }
+@utility body-18_B { font-size: var(--text-18-body); line-height: var(--text-18-body--line-height); font-weight: var(--font-weight-bold); }
+@utility body-20_B { font-size: var(--text-20-body); line-height: var(--text-20-body--line-height); font-weight: var(--font-weight-bold); }
 
 @utility flex-between {
   display: flex; align-items: center; justify-content: space-between;
