@@ -28,7 +28,10 @@ const Dropdown = ({ trigger, items, align = "right" }: DropdownProps) => {
   // 외부 클릭 시 닫기
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
         setIsOpen(false);
       }
     };
@@ -101,9 +104,9 @@ const Dropdown = ({ trigger, items, align = "right" }: DropdownProps) => {
             key={index}
             type="button"
             onClick={() => handleItemClick(item.onClick)}
-              className={`w-full h-[55px] hover:bg-gray-25 transition-colors flex items-center justify-center ty-14_M text-gray-800 cursor-pointer ${
-                index === 0 ? "rounded-t-lg" : ""
-              } ${index === items.length - 1 ? "rounded-b-lg" : ""}`}
+            className={`w-full h-[55px] hover:bg-gray-25 transition-colors flex items-center justify-center ty-14_M text-gray-800 cursor-pointer ${
+              index === 0 ? "rounded-t-lg" : ""
+            } ${index === items.length - 1 ? "rounded-b-lg" : ""}`}
             role="menuitem"
           >
             {item.label}
@@ -115,4 +118,3 @@ const Dropdown = ({ trigger, items, align = "right" }: DropdownProps) => {
 };
 
 export default Dropdown;
-

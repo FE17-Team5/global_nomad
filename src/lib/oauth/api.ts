@@ -23,13 +23,10 @@ export async function oauthSignUp(
   provider: "google" | "kakao",
   body: OAuthSignUpBody,
 ): Promise<OAuthSignUpResponse> {
-  return apiFetch<OAuthSignUpResponse>(
-    `/oauth/sign-up/${provider}`,
-    {
-      method: "POST",
-      body,
-    },
-  );
+  return apiFetch<OAuthSignUpResponse>(`/oauth/sign-up/${provider}`, {
+    method: "POST",
+    body,
+  });
 }
 
 // OAuth 로그인
@@ -37,11 +34,8 @@ export async function oauthSignIn(
   provider: "google" | "kakao",
   body: OAuthSignInBody,
 ): Promise<OAuthSignInResponse> {
-  return apiFetch<OAuthSignInResponse>(
-    `/oauth/sign-in/${provider}`,
-    {
-      method: "POST",
-      body,
-    },
-  );
+  return apiFetch<OAuthSignInResponse>(`/oauth/sign-in/${provider}`, {
+    method: "POST",
+    body,
+  });
 }

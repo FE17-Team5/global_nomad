@@ -48,7 +48,6 @@ const Modal = ({ isOpen, onClose, message }: ModalProps) => {
         className="modal-container bg-white rounded-3xl flex flex-col items-center w-full max-w-[400px] h-[170px] sm-mobile:max-w-[320px] sm-mobile:h-[140px] pt-[46px] pb-9"
         onClick={(e) => e.stopPropagation()} // 모달 내부 클릭 시 이벤트 전파 방지
       >
-
         {/* 텍스트 박스 */}
         <div className="text-center ty-18_B sm-mobile:ty-16_B text-black">
           {message}
@@ -72,4 +71,3 @@ const Modal = ({ isOpen, onClose, message }: ModalProps) => {
 };
 
 export default Modal;
-

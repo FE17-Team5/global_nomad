@@ -104,12 +104,9 @@ export async function updateMyActivity(
   body: UpdateMyActivityBody,
   authToken: string,
 ): Promise<MyActivityWithSchedules> {
-  return apiFetch<MyActivityWithSchedules>(
-    `/my-activities/${activityId}`,
-    {
-      method: "PATCH",
-      body,
-      authToken,
-    },
-  );
+  return apiFetch<MyActivityWithSchedules>(`/my-activities/${activityId}`, {
+    method: "PATCH",
+    body,
+    authToken,
+  });
 }

@@ -6,7 +6,9 @@
 export function getTimeAgo(isoString: string): string {
   const now = new Date();
   const createdAt = new Date(isoString);
-  const diffInSeconds = Math.floor((now.getTime() - createdAt.getTime()) / 1000);
+  const diffInSeconds = Math.floor(
+    (now.getTime() - createdAt.getTime()) / 1000,
+  );
 
   // 1분 미만
   if (diffInSeconds < 60) {
@@ -47,7 +49,9 @@ export function getTimeAgo(isoString: string): string {
  * "예약이 승인되었어요" → "승인"
  * "예약이 거절되었어요" → "거절"
  */
-export function parseNotificationStatus(content: string): "승인" | "거절" | null {
+export function parseNotificationStatus(
+  content: string,
+): "승인" | "거절" | null {
   if (content.includes("승인")) {
     return "승인";
   }

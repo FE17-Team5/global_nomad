@@ -53,10 +53,7 @@ const NotificationItem = ({ notification }: NotificationItemProps) => {
 
       {/* 상태 메시지 */}
       <p className="font-medium text-[0.875rem] leading-[180%] tracking-[-0.025em] text-gray-800">
-        예약이{" "}
-        <span className={`font-bold ${statusColor}`}>
-          {status}
-        </span>
+        예약이 <span className={`font-bold ${statusColor}`}>{status}</span>
         되었어요.
       </p>
     </div>

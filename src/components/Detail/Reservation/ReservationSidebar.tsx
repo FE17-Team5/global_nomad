@@ -21,11 +21,7 @@ import iconPlus from "../../../assets/icon/icon_plus.svg";
 import CustomCalendar from "../../Calendar/custom-calendar";
 import { Modal } from "../../Modal";
 import type { AvailableSchedule } from "./types";
-import {
-  MAX_HEAD_COUNT,
-  MIN_HEAD_COUNT,
-  DEFAULT_HEAD_COUNT,
-} from "./types";
+import { MAX_HEAD_COUNT, MIN_HEAD_COUNT, DEFAULT_HEAD_COUNT } from "./types";
 import { getAvailableTimesForDate } from "./utils";
 // TODO: API 연동 시 주석 해제
 // import { createReservation } from "../../../lib/activities/api";
@@ -112,7 +108,7 @@ const ReservationSidebar = ({
   // 모달 닫기 핸들러
   const handleModalClose = () => {
     setIsModalOpen(false);
-    
+
     // 예약 완료 후 상태 초기화 (#6)
     setSelectedDate(null);
     setSelectedTimeId(null);
@@ -312,7 +308,7 @@ const ReservationSidebar = ({
         </div>
 
         {/* 하단 컨테이너 - 총 합계 및 예약 버튼 */}
-        <div 
+        <div
           className="mt-[33px] h-20 flex items-center justify-between pt-6"
           style={{ borderTop: "1px solid var(--color-border-light)" }}
         >

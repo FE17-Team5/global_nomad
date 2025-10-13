@@ -7,7 +7,7 @@ import { ConfirmModal } from "../../Modal";
 import ReviewModal from "../../Review/review";
 
 const ReservationCard = (
-  props: components["schemas"]["ReservationWithActivityResponseDto"]
+  props: components["schemas"]["ReservationWithActivityResponseDto"],
 ) => {
   const {
     status,

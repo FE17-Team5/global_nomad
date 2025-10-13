@@ -45,7 +45,7 @@ const SearchSection = () => {
                       className="flex-1 min-w-0 bg-transparent border-none outline-none
                                ty-16_M text-gray-950 placeholder:text-gray-400"
                       style={{
-                        width: "clamp(130px, 35vw, 400px)"
+                        width: "clamp(130px, 35vw, 400px)",
                       }}
                     />
                   </div>

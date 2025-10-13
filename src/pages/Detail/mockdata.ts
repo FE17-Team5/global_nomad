@@ -16,7 +16,7 @@ export const mockActivityDetail = {
       imageUrl:
         "https://i.pinimg.com/1200x/09/a1/c3/09a1c3eb89bf631952d9929e66b067bd.jpg",
     },
-{
+    {
       id: 2,
       imageUrl:
         "https://i.pinimg.com/736x/1f/13/ff/1f13ff7f88baff4805ecd152393d24fa.jpg",
@@ -31,9 +31,6 @@ export const mockActivityDetail = {
       imageUrl:
         "https://i.pinimg.com/736x/31/2f/30/312f3058eabeffcd4da12fc063074b01.jpg",
     },
-
-
-  
   ],
   reviewCount: 5,
   rating: 4.74,
@@ -271,11 +268,13 @@ export const mockActivityReviews = {
         "마지막 리뷰입니다. 정말 멋진 경험이었고, 모든 분들께 추천합니다!",
       createdAt: "2024-01-18T11:30:00.000Z",
     },
-  ].map((review, index) => ({
-    ...review,
-    user: { id: index + 1, ...review.user },
-    activityId: 7,
-    rating: 5,
-    updatedAt: review.createdAt,
-  })).slice(0, 12),
+  ]
+    .map((review, index) => ({
+      ...review,
+      user: { id: index + 1, ...review.user },
+      activityId: 7,
+      rating: 5,
+      updatedAt: review.createdAt,
+    }))
+    .slice(0, 12),
 };

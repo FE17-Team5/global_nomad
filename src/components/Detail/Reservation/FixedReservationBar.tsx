@@ -1,6 +1,6 @@
 /**
  * FixedReservationBar 컴포넌트 (태블릿 전용)
- * 
+ *
  * 하단에 고정되는 예약 UI
  * - 기본 상태: 124px (가격 표시 + 예약하기 버튼)
  * - 확장 상태: 675px (날짜 선택 + 캘린더 + 시간 선택)
@@ -14,11 +14,7 @@ import iconMinus from "../../../assets/icon/icon_minus.svg";
 import iconPlus from "../../../assets/icon/icon_plus.svg";
 import iconBack from "../../../assets/icon/icon_back.svg";
 import type { AvailableSchedule } from "./types";
-import {
-  MAX_HEAD_COUNT,
-  MIN_HEAD_COUNT,
-  DEFAULT_HEAD_COUNT,
-} from "./types";
+import { MAX_HEAD_COUNT, MIN_HEAD_COUNT, DEFAULT_HEAD_COUNT } from "./types";
 import { RESERVATION_UI_HEIGHTS, BREAKPOINTS } from "./constants";
 import { getAvailableTimesForDate, getTimeById } from "./utils";
 import { formatDateShort } from "../../../utils/date";
@@ -106,16 +102,16 @@ const FixedReservationBar = ({
   const handleConfirm = () => {
     // 모바일에서 날짜/시간 선택 완료 → 인원 선택 모드로
     const isMobile = window.innerWidth <= 375;
-    
+
     if (isMobile && !showHeadCountSelector) {
       setShowHeadCountSelector(true);
     } else {
       // 태블릿 또는 모바일 인원 선택 완료 → 닫기
-    setIsExpanded(false);
+      setIsExpanded(false);
       setShowHeadCountSelector(false);
     }
   };
-  
+
   // 뒤로가기 (모바일 인원 선택 → 날짜 선택)
   const handleBack = () => {
     setShowHeadCountSelector(false);
@@ -216,8 +212,8 @@ const FixedReservationBar = ({
             ? showHeadCountSelector
               ? "auto" // 모바일 인원 선택 모드: 동적 높이
               : window.innerWidth <= 375
-              ? "auto" // 모바일 날짜 선택 모드: 동적 높이
-              : `${RESERVATION_UI_HEIGHTS.EXPANDED}px` // 태블릿 날짜 선택 모드: 고정 높이
+                ? "auto" // 모바일 날짜 선택 모드: 동적 높이
+                : `${RESERVATION_UI_HEIGHTS.EXPANDED}px` // 태블릿 날짜 선택 모드: 고정 높이
             : `${RESERVATION_UI_HEIGHTS.COLLAPSED}px`,
           borderRadius: isExpanded ? "16px 16px 0 0" : "0",
           boxShadow: "0px -4px 16px 0px rgba(0, 0, 0, 0.1)",
@@ -286,7 +282,10 @@ const FixedReservationBar = ({
               >
                 <img src={iconBack} alt="뒤로" className="w-6 h-6" />
               </button>
-              <h2 className="ty-18_B" style={{ color: "var(--color-gray-950)" }}>
+              <h2
+                className="ty-18_B"
+                style={{ color: "var(--color-gray-950)" }}
+              >
                 인원
               </h2>
             </div>
@@ -443,7 +442,8 @@ const FixedReservationBar = ({
                     </p>
                   ) : (
                     // 시간 선택 UI
-                    <div className="mt-5 flex flex-col flex-1 overflow-y-auto"
+                    <div
+                      className="mt-5 flex flex-col flex-1 overflow-y-auto"
                       style={{
                         scrollbarWidth: "thin",
                         scrollbarColor: "var(--color-gray-300) transparent",
@@ -582,11 +582,15 @@ const FixedReservationBar = ({
                       예약 가능한 시간이 없습니다.
                     </p>
                   ) : (
-                    <div 
+                    <div
                       className="flex flex-col gap-3"
                       style={{
-                        maxHeight: availableTimes.length > 2 ? "calc(51px * 2 + 12px)" : "none",
-                        overflowY: availableTimes.length > 2 ? "auto" : "visible",
+                        maxHeight:
+                          availableTimes.length > 2
+                            ? "calc(51px * 2 + 12px)"
+                            : "none",
+                        overflowY:
+                          availableTimes.length > 2 ? "auto" : "visible",
                       }}
                     >
                       {availableTimes.map((time) => (
@@ -660,4 +664,3 @@ const FixedReservationBar = ({
 };
 
 export default FixedReservationBar;
-

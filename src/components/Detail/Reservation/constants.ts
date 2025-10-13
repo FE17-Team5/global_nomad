@@ -29,4 +29,3 @@ export const BORDER_RADIUS = {
   LARGE: "16px",
   XLARGE: "24px",
 } as const;
-

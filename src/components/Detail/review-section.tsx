@@ -74,49 +74,51 @@ const ReviewSection = ({
       {totalCount === 0 || reviews.length === 0 ? (
         <div className="mt-10 flex flex-col items-center justify-center py-20 border border-gray-200 rounded-lg">
           <p className="ty-16_M text-gray-400">아직 후기가 없습니다.</p>
-          <p className="ty-14_M text-gray-300 mt-2">첫 번째 후기를 남겨보세요!</p>
+          <p className="ty-14_M text-gray-300 mt-2">
+            첫 번째 후기를 남겨보세요!
+          </p>
         </div>
       ) : (
         <>
           {/* 평점 정보 */}
           <div className="mt-2 flex flex-col items-center">
-        {/* 평균 평점 */}
-        <div
-          className="ty-32_B sm-mobile:ty-24_SB"
-          style={{ color: "var(--color-gray-950)" }}
-        >
-          {averageRating}
-        </div>
+            {/* 평균 평점 */}
+            <div
+              className="ty-32_B sm-mobile:ty-24_SB"
+              style={{ color: "var(--color-gray-950)" }}
+            >
+              {averageRating}
+            </div>
 
-        {/* 만족도 */}
-        <p
-          className="mt-1 ty-16_B sm-mobile:ty-14_B"
-          style={{ color: "var(--color-gray-950)" }}
-        >
-          매우 만족
-        </p>
+            {/* 만족도 */}
+            <p
+              className="mt-1 ty-16_B sm-mobile:ty-14_B"
+              style={{ color: "var(--color-gray-950)" }}
+            >
+              매우 만족
+            </p>
 
-        {/* 총 후기 수 */}
-        <p
-          className="mt-[6px] ty-14_M"
-          style={{ color: "var(--color-gray-200)" }}
-        >
-          <span style={{ color: "var(--color-yellow-star)" }}>★</span>{" "}
-          {totalCount}개 후기
-        </p>
-      </div>
+            {/* 총 후기 수 */}
+            <p
+              className="mt-[6px] ty-14_M"
+              style={{ color: "var(--color-gray-200)" }}
+            >
+              <span style={{ color: "var(--color-yellow-star)" }}>★</span>{" "}
+              {totalCount}개 후기
+            </p>
+          </div>
 
-      {/* 리뷰 리스트 */}
-      <div className="mt-[30px] flex flex-col gap-5 sm-mobile:gap-10">
-        {currentReviews.map((review) => (
-          <ReviewItem
-            key={review.id}
-            user={review.user}
-            content={review.content}
-            createdAt={review.createdAt}
-          />
-        ))}
-      </div>
+          {/* 리뷰 리스트 */}
+          <div className="mt-[30px] flex flex-col gap-5 sm-mobile:gap-10">
+            {currentReviews.map((review) => (
+              <ReviewItem
+                key={review.id}
+                user={review.user}
+                content={review.content}
+                createdAt={review.createdAt}
+              />
+            ))}
+          </div>
 
           {/* 페이지네이션 */}
           <div className="mt-10 sm-mobile:mt-[30px]">

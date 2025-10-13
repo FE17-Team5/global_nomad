@@ -2,11 +2,11 @@ import type React from "react";
 import { useState } from "react";
 
 export function useVisible(
-  inputType: React.HTMLInputTypeAttribute = "text"
+  inputType: React.HTMLInputTypeAttribute = "text",
 ): [
   type: React.HTMLInputTypeAttribute,
   isVisible: boolean,
-  handleVisibleButtonClick: () => void
+  handleVisibleButtonClick: () => void,
 ] {
   const [type, setType] = useState(inputType);
   const [isVisible, setIsVisible] = useState(false);

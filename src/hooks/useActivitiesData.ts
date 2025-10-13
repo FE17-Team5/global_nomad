@@ -1,15 +1,15 @@
-import { useState, useMemo, useEffect } from 'react';
-import { usePageSize } from './usePageSize';
-import image1 from '../assets/img/image1.png';
-import image2 from '../assets/img/image2.png';
-import image3 from '../assets/img/image3.png';
-import image4 from '../assets/img/image4.png';
-import image5 from '../assets/img/image5.png';
-import image6 from '../assets/img/image6.png';
-import image7 from '../assets/img/image7.png';
-import image8 from '../assets/img/image8.png';
-import image9 from '../assets/img/image9.png';
-import image10 from '../assets/img/image10.png';
+import { useState, useMemo, useEffect } from "react";
+import { usePageSize } from "./usePageSize";
+import image1 from "../assets/img/image1.png";
+import image2 from "../assets/img/image2.png";
+import image3 from "../assets/img/image3.png";
+import image4 from "../assets/img/image4.png";
+import image5 from "../assets/img/image5.png";
+import image6 from "../assets/img/image6.png";
+import image7 from "../assets/img/image7.png";
+import image8 from "../assets/img/image8.png";
+import image9 from "../assets/img/image9.png";
+import image10 from "../assets/img/image10.png";
 
 /**
  * useActivitiesData 커스텀 훅
@@ -22,16 +22,146 @@ import image10 from '../assets/img/image10.png';
 
 // TODO: 추후 API 연동 시 제거할 mock 데이터
 const mockActivities = [
-  { id: 1, userId: 1, title: "전통 도자기 만들기 원데이클래스", description: "전통 도예 기법으로 나만의 도자기 만들기", category: "문화 · 예술", rating: 4.8, reviewCount: 432, price: 45000, address: "경기도 이천시", bannerImageUrl: image1, createdAt: "2024-01-01", updatedAt: "2024-01-01" },
-  { id: 2, userId: 1, title: "전통 차 문화 체험", description: "한국 전통 차 문화의 깊은 맛과 향을 체험", category: "문화 · 예술", rating: 4.9, reviewCount: 324, price: 30000, address: "서울시 종로구", bannerImageUrl: image2, createdAt: "2024-01-01", updatedAt: "2024-01-01" },
-  { id: 3, userId: 1, title: "와인 테이스팅 클래스", description: "와인 전문가와 함께하는 테이스팅 클래스", category: "식음료", rating: 4.7, reviewCount: 198, price: 85000, address: "서울시 용산구", bannerImageUrl: image3, createdAt: "2024-01-01", updatedAt: "2024-01-01" },
-  { id: 4, userId: 1, title: "전통 한식 요리 클래스", description: "한국 전통 음식 만들기 체험", category: "식음료", rating: 4.2, reviewCount: 156, price: 65000, address: "서울시 종로구", bannerImageUrl: image4, createdAt: "2024-01-01", updatedAt: "2024-01-01" },
-  { id: 5, userId: 1, title: "한강 자전거 투어", description: "서울의 아름다운 한강을 따라 자전거 여행", category: "투어", rating: 4.3, reviewCount: 89, price: 35000, address: "서울시 영등포구", bannerImageUrl: image5, createdAt: "2024-01-01", updatedAt: "2024-01-01" },
-  { id: 6, userId: 1, title: "한옥마을 야경 투어", description: "전통 한옥의 아름다운 야경을 감상하는 투어", category: "투어", rating: 4.8, reviewCount: 267, price: 18000, address: "전주시 완산구", bannerImageUrl: image6, createdAt: "2024-01-01", updatedAt: "2024-01-01" },
-  { id: 7, userId: 1, title: "제주도 올레길 트레킹", description: "제주의 아름다운 자연을 만나는 올레길 걷기", category: "관광", rating: 4.6, reviewCount: 178, price: 25000, address: "제주특별자치도", bannerImageUrl: image7, createdAt: "2024-01-01", updatedAt: "2024-01-01" },
-  { id: 8, userId: 1, title: "경복궁 역사 투어", description: "조선시대 역사를 배우는 궁궐 투어", category: "관광", rating: 4.5, reviewCount: 203, price: 20000, address: "서울시 종로구", bannerImageUrl: image8, createdAt: "2024-01-01", updatedAt: "2024-01-01" },
-  { id: 9, userId: 1, title: "농촌 체험 캠핑", description: "자연 속에서 힐링하는 농촌 체험 캠핑", category: "웰빙", rating: 4.4, reviewCount: 145, price: 55000, address: "강원도 춘천시", bannerImageUrl: image9, createdAt: "2024-01-01", updatedAt: "2024-01-01" },
-  { id: 10, userId: 1, title: "템플스테이 명상 체험", description: "마음의 평화를 찾는 템플스테이", category: "웰빙", rating: 4.7, reviewCount: 98, price: 80000, address: "경기도 양평군", bannerImageUrl: image10, createdAt: "2024-01-01", updatedAt: "2024-01-01" }
+  {
+    id: 1,
+    userId: 1,
+    title: "전통 도자기 만들기 원데이클래스",
+    description: "전통 도예 기법으로 나만의 도자기 만들기",
+    category: "문화 · 예술",
+    rating: 4.8,
+    reviewCount: 432,
+    price: 45000,
+    address: "경기도 이천시",
+    bannerImageUrl: image1,
+    createdAt: "2024-01-01",
+    updatedAt: "2024-01-01",
+  },
+  {
+    id: 2,
+    userId: 1,
+    title: "전통 차 문화 체험",
+    description: "한국 전통 차 문화의 깊은 맛과 향을 체험",
+    category: "문화 · 예술",
+    rating: 4.9,
+    reviewCount: 324,
+    price: 30000,
+    address: "서울시 종로구",
+    bannerImageUrl: image2,
+    createdAt: "2024-01-01",
+    updatedAt: "2024-01-01",
+  },
+  {
+    id: 3,
+    userId: 1,
+    title: "와인 테이스팅 클래스",
+    description: "와인 전문가와 함께하는 테이스팅 클래스",
+    category: "식음료",
+    rating: 4.7,
+    reviewCount: 198,
+    price: 85000,
+    address: "서울시 용산구",
+    bannerImageUrl: image3,
+    createdAt: "2024-01-01",
+    updatedAt: "2024-01-01",
+  },
+  {
+    id: 4,
+    userId: 1,
+    title: "전통 한식 요리 클래스",
+    description: "한국 전통 음식 만들기 체험",
+    category: "식음료",
+    rating: 4.2,
+    reviewCount: 156,
+    price: 65000,
+    address: "서울시 종로구",
+    bannerImageUrl: image4,
+    createdAt: "2024-01-01",
+    updatedAt: "2024-01-01",
+  },
+  {
+    id: 5,
+    userId: 1,
+    title: "한강 자전거 투어",
+    description: "서울의 아름다운 한강을 따라 자전거 여행",
+    category: "투어",
+    rating: 4.3,
+    reviewCount: 89,
+    price: 35000,
+    address: "서울시 영등포구",
+    bannerImageUrl: image5,
+    createdAt: "2024-01-01",
+    updatedAt: "2024-01-01",
+  },
+  {
+    id: 6,
+    userId: 1,
+    title: "한옥마을 야경 투어",
+    description: "전통 한옥의 아름다운 야경을 감상하는 투어",
+    category: "투어",
+    rating: 4.8,
+    reviewCount: 267,
+    price: 18000,
+    address: "전주시 완산구",
+    bannerImageUrl: image6,
+    createdAt: "2024-01-01",
+    updatedAt: "2024-01-01",
+  },
+  {
+    id: 7,
+    userId: 1,
+    title: "제주도 올레길 트레킹",
+    description: "제주의 아름다운 자연을 만나는 올레길 걷기",
+    category: "관광",
+    rating: 4.6,
+    reviewCount: 178,
+    price: 25000,
+    address: "제주특별자치도",
+    bannerImageUrl: image7,
+    createdAt: "2024-01-01",
+    updatedAt: "2024-01-01",
+  },
+  {
+    id: 8,
+    userId: 1,
+    title: "경복궁 역사 투어",
+    description: "조선시대 역사를 배우는 궁궐 투어",
+    category: "관광",
+    rating: 4.5,
+    reviewCount: 203,
+    price: 20000,
+    address: "서울시 종로구",
+    bannerImageUrl: image8,
+    createdAt: "2024-01-01",
+    updatedAt: "2024-01-01",
+  },
+  {
+    id: 9,
+    userId: 1,
+    title: "농촌 체험 캠핑",
+    description: "자연 속에서 힐링하는 농촌 체험 캠핑",
+    category: "웰빙",
+    rating: 4.4,
+    reviewCount: 145,
+    price: 55000,
+    address: "강원도 춘천시",
+    bannerImageUrl: image9,
+    createdAt: "2024-01-01",
+    updatedAt: "2024-01-01",
+  },
+  {
+    id: 10,
+    userId: 1,
+    title: "템플스테이 명상 체험",
+    description: "마음의 평화를 찾는 템플스테이",
+    category: "웰빙",
+    rating: 4.7,
+    reviewCount: 98,
+    price: 80000,
+    address: "경기도 양평군",
+    bannerImageUrl: image10,
+    createdAt: "2024-01-01",
+    updatedAt: "2024-01-01",
+  },
 ];
 
 const categories = ["문화 · 예술", "식음료", "투어", "관광", "웰빙"];
@@ -39,7 +169,7 @@ const sortOptions = [
   { value: "latest", label: "최신순" },
   { value: "mostReviewed", label: "리뷰 많은 순" },
   { value: "priceDesc", label: "가격 높은 순" },
-  { value: "priceAsc", label: "가격 낮은 순" }
+  { value: "priceAsc", label: "가격 낮은 순" },
 ];
 
 export const useActivitiesData = () => {
@@ -48,24 +178,32 @@ export const useActivitiesData = () => {
   const [selectedSort, setSelectedSort] = useState("latest"); // 선택된 정렬 옵션
   const [currentPage, setCurrentPage] = useState(1); // 현재 페이지
   const [loading, setLoading] = useState(false); // 로딩 상태
-  const [paginatedActivities, setPaginatedActivities] = useState<typeof mockActivities>([]); // 페이지네이션된 활동
+  const [paginatedActivities, setPaginatedActivities] = useState<
+    typeof mockActivities
+  >([]); // 페이지네이션된 활동
   const [totalCount, setTotalCount] = useState(0); // 전체 아이템 수
 
   // 필터링된 활동 목록 (현재는 클라이언트 필터링, 추후 API로 대체)
   const filteredActivities = useMemo(() => {
     if (selectedCategories.length === 0) return mockActivities; // 빈 배열이면 전체 데이터
-    return mockActivities.filter(activity => selectedCategories.includes(activity.category));
+    return mockActivities.filter((activity) =>
+      selectedCategories.includes(activity.category),
+    );
   }, [selectedCategories]);
 
   // 정렬된 활동 목록 (현재는 클라이언트 정렬, 추후 API로 대체)
   const sortedActivities = useMemo(() => {
     const sorted = [...filteredActivities];
     switch (selectedSort) {
-      case "mostReviewed": return sorted.sort((a, b) => b.reviewCount - a.reviewCount);
-      case "priceDesc": return sorted.sort((a, b) => b.price - a.price);
-      case "priceAsc": return sorted.sort((a, b) => a.price - b.price);
+      case "mostReviewed":
+        return sorted.sort((a, b) => b.reviewCount - a.reviewCount);
+      case "priceDesc":
+        return sorted.sort((a, b) => b.price - a.price);
+      case "priceAsc":
+        return sorted.sort((a, b) => a.price - b.price);
       case "latest":
-      default: return sorted.sort((a, b) => b.id - a.id);
+      default:
+        return sorted.sort((a, b) => b.id - a.id);
     }
   }, [filteredActivities, selectedSort]);
 
@@ -83,7 +221,7 @@ export const useActivitiesData = () => {
         setTotalCount(sortedActivities.length); // 필터링된 전체 개수
 
         // API 호출 시뮬레이션을 위한 딜레이 (추후 제거)
-        await new Promise(resolve => setTimeout(resolve, 300));
+        await new Promise((resolve) => setTimeout(resolve, 300));
       } catch (error) {
         console.error("체험 데이터를 불러오는데 실패했습니다:", error);
       } finally {
@@ -96,10 +234,10 @@ export const useActivitiesData = () => {
 
   const handleCategoryChange = (category: string) => {
     // 다중선택 토글 방식: 선택된 카테고리를 다시 클릭하면 해제, 새로운 카테고리는 추가
-    setSelectedCategories(prev => {
+    setSelectedCategories((prev) => {
       if (prev.includes(category)) {
         // 이미 선택된 카테고리라면 제거
-        return prev.filter(cat => cat !== category);
+        return prev.filter((cat) => cat !== category);
       } else {
         // 새로운 카테고리라면 추가
         return [...prev, category];

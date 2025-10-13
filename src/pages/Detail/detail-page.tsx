@@ -14,9 +14,9 @@ import {
   mockActivityReviews,
   mockAvailableSchedule,
 } from "./mockdata";
-import { 
-  getActivityDetail, 
-  getActivityReviews 
+import {
+  getActivityDetail,
+  getActivityReviews,
 } from "../../lib/activities/api";
 import type { ActivityDetail } from "../../lib/activities/types";
 import type { ActivityReviewsResponse } from "../../lib/activities/types";
@@ -26,8 +26,12 @@ const USE_API = false; // Mock 데이터 사용
 
 const DetailPage = () => {
   const { id } = useParams();
-  const [activity, setActivity] = useState<ActivityDetail | null>(USE_API ? null : mockActivityDetail);
-  const [reviews, setReviews] = useState<ActivityReviewsResponse | null>(USE_API ? null : mockActivityReviews);
+  const [activity, setActivity] = useState<ActivityDetail | null>(
+    USE_API ? null : mockActivityDetail,
+  );
+  const [reviews, setReviews] = useState<ActivityReviewsResponse | null>(
+    USE_API ? null : mockActivityReviews,
+  );
   const [isLoading, setIsLoading] = useState(USE_API);
   const [error, setError] = useState<string | null>(null);
 
@@ -95,7 +99,9 @@ const DetailPage = () => {
   const currentUserId = null; // 임시 - 비로그인 상태
 
   // 소유자 판단
-  const isOwner = currentUserId ? displayActivity.userId === currentUserId : false;
+  const isOwner = currentUserId
+    ? displayActivity.userId === currentUserId
+    : false;
 
   return (
     <div className="w-full bg-white" style={{ minHeight: "100vh" }}>

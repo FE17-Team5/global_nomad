@@ -38,8 +38,8 @@ const CustomCalendar = ({
   const [activeStartDate, setActiveStartDate] = useState(new Date());
 
   // schedules에서 예약 가능한 날짜만 추출
-  const availableDates = schedules.map((s) => 
-    new Date(typeof s === 'string' ? s : s.date)
+  const availableDates = schedules.map(
+    (s) => new Date(typeof s === "string" ? s : s.date),
   );
 
   // 특정 날짜만 활성화 (예약 가능한 날짜만 클릭 가능)

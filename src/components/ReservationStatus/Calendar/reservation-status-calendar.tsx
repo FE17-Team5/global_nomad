@@ -25,7 +25,7 @@ const ReservationStatusCalendar = () => {
 
   const handleDateClick = (
     value: Value,
-    event: React.MouseEvent<HTMLButtonElement>
+    event: React.MouseEvent<HTMLButtonElement>,
   ) => {
     if (value instanceof Date) {
       setCurrentTile(value);

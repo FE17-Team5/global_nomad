@@ -7,10 +7,10 @@ import { Dropdown } from "../Dropdown";
 
 const Header = () => {
   const navigate = useNavigate();
-  
+
   // TODO: 추후 실제 로그인 상태로 교체
   const isLoggedIn = false; // 임시로 true/false 전환하여 테스트
-  
+
   // TODO: 추후 실제 데이터로 교체
   const profileImageUrl = defaultProfile;
   const nickname = "사용자";
@@ -35,9 +35,21 @@ const Header = () => {
     <header className="h-20 sm-mobile:h-12 bg-transparent py-[26px] sm-mobile:py-[10px] px-[30px] sm-mobile:px-6 flex justify-center">
       <div className="max-w-[1520px] w-full flex items-center justify-between">
         {/* 왼쪽: 로고 */}
-        <Link to="/" className="w-[174px] sm-mobile:w-7 h-[28px] sm-mobile:h-7" aria-label="메인 페이지로 이동">
-          <img src={headerLogo} alt="GlobalNomad" className="w-full h-full sm-mobile:hidden" />
-          <img src={mobileLogo} alt="GlobalNomad" className="hidden sm-mobile:block w-full h-full" />
+        <Link
+          to="/"
+          className="w-[174px] sm-mobile:w-7 h-[28px] sm-mobile:h-7"
+          aria-label="메인 페이지로 이동"
+        >
+          <img
+            src={headerLogo}
+            alt="GlobalNomad"
+            className="w-full h-full sm-mobile:hidden"
+          />
+          <img
+            src={mobileLogo}
+            alt="GlobalNomad"
+            className="hidden sm-mobile:block w-full h-full"
+          />
         </Link>
 
         {/* 오른쪽: 로그인 상태에 따라 다른 UI */}
@@ -46,24 +58,32 @@ const Header = () => {
           <div className="flex items-center h-[30px] gap-5">
             {/* 알림 종 */}
             <button type="button" className="w-6 h-6" aria-label="알림">
-              <img src={bellIcon} alt="" role="presentation" className="w-full h-full" />
+              <img
+                src={bellIcon}
+                alt=""
+                role="presentation"
+                className="w-full h-full"
+              />
             </button>
 
             {/* Divider */}
             <div className="h-[14px] w-px border-l border-gray-100" />
 
-          {/* 프로필 이미지 + 닉네임 (드롭다운) */}
-          <Dropdown
-            trigger={
-              <div className="flex items-center gap-[10px] px-3 py-2 rounded-lg cursor-pointer transition duration-300 hover:bg-gray-50 hover:-translate-y-0.5">
-                <div className="w-[30px] h-[30px] rounded-full overflow-hidden flex-shrink-0">
-                  <img src={profileImageUrl} alt="" role="presentation" className="w-full h-full object-cover" />
+            {/* 프로필 이미지 + 닉네임 (드롭다운) */}
+            <Dropdown
+              trigger={
+                <div className="flex items-center gap-[10px] px-3 py-2 rounded-lg cursor-pointer transition duration-300 hover:bg-gray-50 hover:-translate-y-0.5">
+                  <div className="w-[30px] h-[30px] rounded-full overflow-hidden flex-shrink-0">
+                    <img
+                      src={profileImageUrl}
+                      alt=""
+                      role="presentation"
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <span className="ty-14_M text-gray-950">{nickname}</span>
                 </div>
-                <span className="ty-14_M text-gray-950">
-                  {nickname}
-                </span>
-              </div>
-            }
+              }
               items={dropdownItems}
               align="right"
             />

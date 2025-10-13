@@ -41,4 +41,3 @@ export const getTimeById = (
     .flatMap((schedule) => schedule.times)
     .find((time) => time.id === selectedTimeId);
 };
-
