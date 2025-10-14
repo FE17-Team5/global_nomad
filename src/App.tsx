@@ -8,24 +8,30 @@ import MyProfilePage from "./pages/MyProfile/myprofile-page";
 import NotFoundPage from "./pages/NotFound/notfound";
 import SignupPage from "./pages/Signup/signup-page";
 import UpdateExperiencesPage from "./pages/UpdateExperiences/update-experiences-page";
+import MiddlewareLoggedIn from "./pages/Middleware/middleware-loggedin";
+import MiddlewareLoggedOut from "./pages/Middleware/middleware-loggedout";
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         {/**헤더가 없는 페이지*/}
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/signup" element={<SignupPage />} />
+        <Route element={<MiddlewareLoggedIn />}>
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/signup" element={<SignupPage />} />
+        </Route>
 
         {/**헤더가 있는 페이지 */}
         <Route path="/" element={<MainLayout />}>
           <Route index element={<MainPage />} />
           <Route path="detail/:id" element={<DetailPage />} />
 
-          <Route path="myprofile">
-            <Route index element={<MyProfilePage />} />
-            <Route path="add" element={<AddExperiencesPage />} />
-            <Route path="edit" element={<UpdateExperiencesPage />} />
+          <Route element={<MiddlewareLoggedOut />}>
+            <Route path="myprofile">
+              <Route index element={<MyProfilePage />} />
+              <Route path="add" element={<AddExperiencesPage />} />
+              <Route path="edit" element={<UpdateExperiencesPage />} />
+            </Route>
           </Route>
         </Route>
 
