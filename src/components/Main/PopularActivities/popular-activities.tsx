@@ -1,133 +1,21 @@
-import { useState, useEffect, useRef } from "react";
-import type { Activity } from "../../../lib/activities/types";
-import { getActivitiesList } from "../../../lib/activities/api";
+import { useEffect, useRef, useState } from "react";
+import { useActivitiesList } from "../../../hooks/queries/useActivitiesList";
 import ActivityCard from "./activity-card";
-import image3 from "../../../assets/img/image3.png";
-import image4 from "../../../assets/img/image4.png";
-import image5 from "../../../assets/img/image5.png";
-import image6 from "../../../assets/img/image6.png";
-import image7 from "../../../assets/img/image7.png";
-import image8 from "../../../assets/img/image8.png";
 
 const PopularActivities = () => {
-  const [activities, setActivities] = useState<Activity[]>([]);
-  const [loading, setLoading] = useState(true);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [itemsPerView, setItemsPerView] = useState(4);
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const _scrollContainerRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const fetchPopularActivities = async () => {
-      try {
-        // 임시 테스트 데이터
-        const mockActivities = [
-          {
-            id: 1,
-            userId: 1,
-            title: "함께 배우고 즐기는 스트릿 댄스",
-            description: "스트릿 댄스의 기초부터 고급까지",
-            category: "문화 · 예술",
-            price: 50000,
-            address: "서울시 강남구",
-            bannerImageUrl: image3,
-            rating: 4.5,
-            reviewCount: 10,
-            createdAt: "2024-01-01",
-            updatedAt: "2024-01-01",
-          },
-          {
-            id: 2,
-            userId: 1,
-            title: "도시 농업 체험하기",
-            description: "도심 속에서 만나는 농업",
-            category: "웰빙",
-            price: 30000,
-            address: "서울시 홍대",
-            bannerImageUrl: image4,
-            rating: 4.2,
-            reviewCount: 25,
-            createdAt: "2024-01-01",
-            updatedAt: "2024-01-01",
-          },
-          {
-            id: 3,
-            userId: 1,
-            title: "전통 도자기 만들기",
-            description: "옛 장인의 기법으로 배우는 도자기",
-            category: "문화 · 예술",
-            price: 80000,
-            address: "서울시 인사동",
-            bannerImageUrl: image5,
-            rating: 4.8,
-            reviewCount: 15,
-            createdAt: "2024-01-01",
-            updatedAt: "2024-01-01",
-          },
-          {
-            id: 4,
-            userId: 1,
-            title: "서울 한강 카약 투어",
-            description: "한강에서 즐기는 수상 스포츠",
-            category: "스포츠",
-            price: 60000,
-            address: "서울시 여의도",
-            bannerImageUrl: image6,
-            rating: 4.3,
-            reviewCount: 8,
-            createdAt: "2024-01-01",
-            updatedAt: "2024-01-01",
-          },
-          {
-            id: 5,
-            userId: 1,
-            title: "서울 야경 사진 촬영 투어",
-            description: "전문가와 함께하는 서울 야경 촬영",
-            category: "문화 · 예술",
-            price: 45000,
-            address: "서울시 중구",
-            bannerImageUrl: image7,
-            rating: 4.5,
-            reviewCount: 32,
-            createdAt: "2024-01-01",
-            updatedAt: "2024-01-01",
-          },
-          {
-            id: 6,
-            userId: 1,
-            title: "전통 한식 요리 클래스",
-            description: "한국 전통 음식 만들기 체험",
-            category: "식음료",
-            price: 65000,
-            address: "서울시 종로구",
-            bannerImageUrl: image8,
-            rating: 4.2,
-            reviewCount: 18,
-            createdAt: "2024-01-01",
-            updatedAt: "2024-01-01",
-          },
-        ];
+  const { data: response, isLoading: loading } = useActivitiesList({
+    method: "offset",
+    page: 1,
+    size: 10,
+    sort: "most_reviewed",
+  });
 
-        setActivities(mockActivities);
+  const activities = response?.activities || [];
 
-        // 실제 API 호출 (주석 처리)
-        // const response = await getActivitiesList({
-        //   method: "offset",
-        //   page: 1,
-        //   size: 8,
-        //   sort: "most_reviewed",
-        // });
-        // setActivities(response.activities);
-      } catch (error) {
-        console.error("인기 체험 데이터를 불러오는데 실패했습니다:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchPopularActivities();
-  }, []);
-
-  // 화면 크기에 따른 itemsPerView 업데이트
   useEffect(() => {
     const updateItemsPerView = () => {
       if (window.innerWidth >= 745) {

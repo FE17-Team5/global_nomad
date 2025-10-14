@@ -10,20 +10,17 @@
 // Activities
 export { useActivitiesList } from "./useActivitiesList";
 export { useActivityDetail } from "./useActivityDetail";
-export { useAvailableSchedule } from "./useAvailableSchedule";
+export { useActivityReservations } from "./useActivityReservations";
 export { useActivityReviews } from "./useActivityReviews";
-
-// Users
-export { useMyProfile } from "./useMyProfile";
-
+export { useAvailableSchedule } from "./useAvailableSchedule";
+export { useMyActivitiesInfinite } from "./useMyActivitiesInfinite";
 // My Activities
 export { useMyActivitiesList } from "./useMyActivitiesList";
-export { useReservationDashboard } from "./useReservationDashboard";
-export { useReservedSchedule } from "./useReservedSchedule";
-export { useActivityReservations } from "./useActivityReservations";
-
-// My Reservations
-export { useMyReservationsList } from "./useMyReservationsList";
-
 // My Notifications
 export { useMyNotificationsList } from "./useMyNotificationsList";
+// Users
+export { useMyProfile } from "./useMyProfile";
+// My Reservations
+export { useMyReservationsList } from "./useMyReservationsList";
+export { useReservationDashboard } from "./useReservationDashboard";
+export { useReservedSchedule } from "./useReservedSchedule";

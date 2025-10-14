@@ -7,7 +7,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createActivity } from "../../lib/activities/api";
 import type { CreateActivityBody } from "../../lib/activities/types";
-import { qk } from "../../lib/queryKeys";
 
 export const useCreateActivity = (authToken: string) => {
   const queryClient = useQueryClient();
@@ -15,9 +14,14 @@ export const useCreateActivity = (authToken: string) => {
   return useMutation({
     mutationFn: (body: CreateActivityBody) => createActivity(body, authToken),
     onSuccess: () => {
-      // 체험 목록 갱신
-      queryClient.invalidateQueries({ queryKey: qk.activities() });
-      queryClient.invalidateQueries({ queryKey: qk.myActivities() });
+      queryClient.invalidateQueries({
+        queryKey: ["activities"],
+        exact: false,
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["my-activities"],
+        exact: false,
+      });
     },
   });
 };

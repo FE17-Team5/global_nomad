@@ -1,14 +1,11 @@
 import facebookIcon from "../../assets/icon/icon_facebook.svg";
 import instagramIcon from "../../assets/icon/icon_instagram.svg";
-import youtubeIcon from "../../assets/icon/icon_youtube.svg";
 import xIcon from "../../assets/icon/icon_X.svg";
+import youtubeIcon from "../../assets/icon/icon_youtube.svg";
 
 const Footer = () => {
   return (
-    <footer
-      className="h-[140px] sm-mobile:h-[116px] border-t border-gray-100 bg-white flex items-center sm-mobile:items-start justify-center px-[30px] sm-mobile:px-6"
-      role="contentinfo"
-    >
+    <footer className="h-[140px] sm-mobile:h-[116px] border-t border-gray-100 bg-white flex items-center sm-mobile:items-start justify-center px-[30px] sm-mobile:px-6">
       {/* PC & 태블릿: 가로 레이아웃 (375px 초과) */}
       <div className="sm-mobile:hidden max-w-[1520px] w-full flex items-center justify-between">
         {/* 최좌측: Copyright */}
@@ -31,12 +28,7 @@ const Footer = () => {
               className="w-5 h-5 transition-transform duration-300 hover:scale-110 hover:brightness-75"
               aria-label="Facebook 페이지"
             >
-              <img
-                src={facebookIcon}
-                alt=""
-                role="presentation"
-                className="w-full h-full"
-              />
+              <img src={facebookIcon} alt="" className="w-full h-full" />
             </a>
             <a
               href="https://www.instagram.com"
@@ -45,12 +37,7 @@ const Footer = () => {
               className="w-5 h-5 transition-transform duration-300 hover:scale-110 hover:brightness-75"
               aria-label="Instagram 페이지"
             >
-              <img
-                src={instagramIcon}
-                alt=""
-                role="presentation"
-                className="w-full h-full"
-              />
+              <img src={instagramIcon} alt="" className="w-full h-full" />
             </a>
             <a
               href="https://www.youtube.com"
@@ -59,12 +46,7 @@ const Footer = () => {
               className="w-5 h-5 transition-transform duration-300 hover:scale-110 hover:brightness-75"
               aria-label="YouTube 채널"
             >
-              <img
-                src={youtubeIcon}
-                alt=""
-                role="presentation"
-                className="w-full h-full"
-              />
+              <img src={youtubeIcon} alt="" className="w-full h-full" />
             </a>
             <a
               href="https://www.x.com"
@@ -73,12 +55,7 @@ const Footer = () => {
               className="w-5 h-5 transition-transform duration-300 hover:scale-110 hover:brightness-75"
               aria-label="X (트위터) 페이지"
             >
-              <img
-                src={xIcon}
-                alt=""
-                role="presentation"
-                className="w-full h-full"
-              />
+              <img src={xIcon} alt="" className="w-full h-full" />
             </a>
           </div>
         </nav>
@@ -111,12 +88,7 @@ const Footer = () => {
                 className="w-5 h-5 transition-transform duration-300 hover:scale-110 hover:brightness-75"
                 aria-label="Facebook 페이지"
               >
-                <img
-                  src={facebookIcon}
-                  alt=""
-                  role="presentation"
-                  className="w-full h-full"
-                />
+                <img src={facebookIcon} alt="" className="w-full h-full" />
               </a>
               <a
                 href="https://www.instagram.com"
@@ -125,12 +97,7 @@ const Footer = () => {
                 className="w-5 h-5 transition-transform duration-300 hover:scale-110 hover:brightness-75"
                 aria-label="Instagram 페이지"
               >
-                <img
-                  src={instagramIcon}
-                  alt=""
-                  role="presentation"
-                  className="w-full h-full"
-                />
+                <img src={instagramIcon} alt="" className="w-full h-full" />
               </a>
               <a
                 href="https://www.youtube.com"
@@ -139,12 +106,7 @@ const Footer = () => {
                 className="w-5 h-5 transition-transform duration-300 hover:scale-110 hover:brightness-75"
                 aria-label="YouTube 채널"
               >
-                <img
-                  src={youtubeIcon}
-                  alt=""
-                  role="presentation"
-                  className="w-full h-full"
-                />
+                <img src={youtubeIcon} alt="" className="w-full h-full" />
               </a>
               <a
                 href="https://www.x.com"
@@ -153,12 +115,7 @@ const Footer = () => {
                 className="w-5 h-5 transition-transform duration-300 hover:scale-110 hover:brightness-75"
                 aria-label="X (트위터) 페이지"
               >
-                <img
-                  src={xIcon}
-                  alt=""
-                  role="presentation"
-                  className="w-full h-full"
-                />
+                <img src={xIcon} alt="" className="w-full h-full" />
               </a>
             </div>
           </nav>

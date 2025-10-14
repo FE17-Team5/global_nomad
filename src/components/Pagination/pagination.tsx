@@ -55,7 +55,6 @@ const Pagination = ({
   return (
     <nav
       className="flex items-center justify-center gap-1"
-      role="navigation"
       aria-label="페이지네이션"
     >
       {/* 좌측 화살표 */}

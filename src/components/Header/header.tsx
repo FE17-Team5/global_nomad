@@ -1,29 +1,35 @@
 import { Link, useNavigate } from "react-router-dom";
-import headerLogo from "../../assets/header-logo.svg";
-import mobileLogo from "../../assets/atc/logo.svg";
-import bellIcon from "../../assets/icon/icon_bell_off.svg";
 import defaultProfile from "../../assets/atc/default_profile.svg";
+import mobileLogo from "../../assets/atc/logo.svg";
+import headerLogo from "../../assets/header-logo.svg";
+import bellIcon from "../../assets/icon/icon_bell_off.svg";
+import { useMyProfile } from "../../hooks/queries/useMyProfile";
 import { Dropdown } from "../Dropdown";
 
 const Header = () => {
   const navigate = useNavigate();
 
-  // TODO: 추후 실제 로그인 상태로 교체
-  const isLoggedIn = false; // 임시로 true/false 전환하여 테스트
+  // 로그인 상태 확인 (팀원분 방식: localStorage)
+  const authToken = localStorage.getItem("accessToken");
+  const isLoggedIn = !!authToken;
 
-  // TODO: 추후 실제 데이터로 교체
-  const profileImageUrl = defaultProfile;
-  const nickname = "사용자";
+  // 사용자 정보 가져오기
+  const { data: userProfile } = useMyProfile(authToken);
+  const profileImageUrl = userProfile?.profileImageUrl || defaultProfile;
+  const nickname = userProfile?.nickname || "사용자";
+
+  // 로그아웃 핸들러
+  const handleLogout = () => {
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("refreshToken");
+    navigate("/login");
+  };
 
   // 드롭다운 메뉴 아이템
   const dropdownItems = [
     {
       label: "로그아웃",
-      onClick: () => {
-        // TODO: 로그아웃 로직 구현
-        alert("로그아웃되었습니다.");
-        navigate("/login");
-      },
+      onClick: handleLogout,
     },
     {
       label: "마이 페이지",
@@ -58,12 +64,7 @@ const Header = () => {
           <div className="flex items-center h-[30px] gap-5">
             {/* 알림 종 */}
             <button type="button" className="w-6 h-6" aria-label="알림">
-              <img
-                src={bellIcon}
-                alt=""
-                role="presentation"
-                className="w-full h-full"
-              />
+              <img src={bellIcon} alt="" className="w-full h-full" />
             </button>
 
             {/* Divider */}
@@ -77,7 +78,6 @@ const Header = () => {
                     <img
                       src={profileImageUrl}
                       alt=""
-                      role="presentation"
                       className="w-full h-full object-cover"
                     />
                   </div>

@@ -1,8 +1,8 @@
 import { useState, type ChangeEvent } from "react";
-import { validateEmail, validatePassword } from "../../utils/validate-regex";
 import { useNavigate } from "react-router-dom";
 import { useLogin } from "../../hooks/mutations";
 import type { LoginResponse } from "../../lib/auth/types";
+import { validateEmail, validatePassword } from "../../utils/validate-regex";
 
 type InputState = {
   email: string;
@@ -18,7 +18,7 @@ type ReturnType = () => [
   handleModalClose: () => void,
   handleInputChage: (e: ChangeEvent<HTMLInputElement>) => void,
   handleInputBlur: (e: ChangeEvent<HTMLInputElement>) => void,
-  handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void
+  handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void,
 ];
 
 const useLoginValidate: ReturnType = () => {
@@ -101,10 +101,10 @@ const useLoginValidate: ReturnType = () => {
         onError: (err: Error) => {
           setIsOpen(true);
           setModalText(
-            err.message ? err.message : "알 수 없는 에러가 발생하였습니다."
+            err.message ? err.message : "알 수 없는 에러가 발생하였습니다.",
           );
         },
-      }
+      },
     );
   };
   return [
