@@ -1,4 +1,5 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import DaumPostcodeEmbed from "react-daum-postcode";
 import { useLocation, useNavigate } from "react-router-dom";
 import {
   BannerImageUpload,
@@ -65,7 +66,9 @@ const UpdateExperiencesPage = () => {
   // 모달 관련 state
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalMessage, setModalMessage] = useState("");
+  const [isSuccessModalOpen, setIsSuccessModalOpen] = useState(false);
   const [isExitModalOpen, setIsExitModalOpen] = useState(false);
+  const [isPostcodeOpen, setIsPostcodeOpen] = useState(false);
   const [blockedNavigation, setBlockedNavigation] = useState<
     (() => void) | null
   >(null);
@@ -78,6 +81,9 @@ const UpdateExperiencesPage = () => {
   const [subImagePreviews, setSubImagePreviews] = useState<string[]>([]);
   const [subImageFiles, setSubImageFiles] = useState<File[]>([]);
   const [subImageIds, setSubImageIds] = useState<(number | null)[]>([]); // null은 새로 업로드한 이미지
+
+  // 이미지 개수 동기 추적 (빠른 클릭 대응)
+  const subImageCountRef = useRef(0);
 
   // 기존 데이터로 state 초기화
   useEffect(() => {
@@ -96,6 +102,8 @@ const UpdateExperiencesPage = () => {
         setSubImagePreviews(activity.subImages.map((img) => img.imageUrl));
         setSubImageIds(activity.subImages.map((img) => img.id));
         setOriginalSubImageIds(activity.subImages.map((img) => img.id));
+        // ref도 초기화
+        subImageCountRef.current = activity.subImages.length;
       }
 
       // 스케줄 데이터 설정 (ActivityDetail은 이미 flat 구조)
@@ -112,33 +120,65 @@ const UpdateExperiencesPage = () => {
     setIsModalOpen(true);
   };
 
-  // 폼 입력 여부 확인
-  const hasFormData = useCallback(() => {
+  // 폼 변경사항 확인 (원본 데이터와 비교)
+  const hasFormChanges = useCallback(() => {
+    if (!activity) return false;
+
+    // 기본 정보 변경 확인
+    const titleChanged = title.trim() !== activity.title;
+    const descriptionChanged = description.trim() !== activity.description;
+    const priceChanged = price.trim() !== activity.price.toString();
+    const addressChanged = address.trim() !== activity.address;
+    const categoryChanged = selectedCategory !== activity.category;
+
+    // 배너 이미지 변경 확인 (새 파일 업로드)
+    const bannerChanged = bannerImageFile !== null;
+
+    // 소개 이미지 변경 확인
+    const subImagesAdded = subImageFiles.length > 0;
+    const subImagesRemoved =
+      originalSubImageIds.length !== subImageIds.length ||
+      !originalSubImageIds.every((id) => subImageIds.includes(id));
+
+    // 스케줄 변경 확인
+    const schedulesAdded = schedules.some(
+      (s) => !originalScheduleIds.includes(s.id),
+    );
+    const schedulesRemoved = originalScheduleIds.some(
+      (id) => !schedules.find((s) => s.id === id),
+    );
+
     return (
-      title.trim() !== "" ||
-      description.trim() !== "" ||
-      price.trim() !== "" ||
-      address.trim() !== "" ||
-      selectedCategory !== "" ||
-      schedules.length > 0 ||
-      bannerImageFile !== null ||
-      subImageFiles.length > 0
+      titleChanged ||
+      descriptionChanged ||
+      priceChanged ||
+      addressChanged ||
+      categoryChanged ||
+      bannerChanged ||
+      subImagesAdded ||
+      subImagesRemoved ||
+      schedulesAdded ||
+      schedulesRemoved
     );
   }, [
+    activity,
     title,
     description,
     price,
     address,
     selectedCategory,
-    schedules,
     bannerImageFile,
     subImageFiles,
+    subImageIds,
+    originalSubImageIds,
+    schedules,
+    originalScheduleIds,
   ]);
 
   // 링크/버튼 클릭 감지
   useEffect(() => {
     const handleNavigationClick = (e: MouseEvent) => {
-      if (!hasFormData()) return;
+      if (!hasFormChanges()) return;
 
       const target = e.target as HTMLElement;
 
@@ -172,7 +212,7 @@ const UpdateExperiencesPage = () => {
     return () => {
       document.removeEventListener("click", handleNavigationClick, true);
     };
-  }, [hasFormData, navigate]);
+  }, [hasFormChanges, navigate]);
 
   // 배너 이미지 핸들러
   const handleBannerUpload = (file: File) => {
@@ -189,26 +229,58 @@ const UpdateExperiencesPage = () => {
     setBannerImageFile(null);
   };
 
+  // 주소 검색 핸들러
+  const handleAddressComplete = (data: {
+    address: string;
+    addressType: string;
+    bname: string;
+    buildingName: string;
+  }) => {
+    let fullAddress = data.address;
+    let extraAddress = "";
+
+    if (data.addressType === "R") {
+      if (data.bname !== "") {
+        extraAddress += data.bname;
+      }
+      if (data.buildingName !== "") {
+        extraAddress +=
+          extraAddress !== "" ? `, ${data.buildingName}` : data.buildingName;
+      }
+      fullAddress += extraAddress !== "" ? ` (${extraAddress})` : "";
+    }
+
+    setAddress(fullAddress);
+    setIsPostcodeOpen(false);
+  };
+
   // 소개 이미지 핸들러
   const handleSubImageUpload = (file: File) => {
-    if (subImagePreviews.length >= 4) {
+    // 동기적 체크 (빠른 클릭에도 안전)
+    if (subImageCountRef.current >= 4) {
       showModal("소개 이미지는 최대 4개까지 등록할 수 있습니다.");
       return;
     }
 
-    setSubImageFiles([...subImageFiles, file]);
-    setSubImageIds([...subImageIds, null]); // null = 새로 업로드한 이미지
+    // 즉시 카운트 증가
+    subImageCountRef.current += 1;
+
+    setSubImageFiles((prev) => [...prev, file]);
+    setSubImageIds((prev) => [...prev, null]); // null = 새로 업로드한 이미지
     const reader = new FileReader();
     reader.onloadend = () => {
-      setSubImagePreviews([...subImagePreviews, reader.result as string]);
+      setSubImagePreviews((prev) => [...prev, reader.result as string]);
     };
     reader.readAsDataURL(file);
   };
 
   const handleSubImageRemove = (index: number) => {
-    setSubImagePreviews(subImagePreviews.filter((_, i) => i !== index));
-    setSubImageFiles(subImageFiles.filter((_, i) => i !== index));
-    setSubImageIds(subImageIds.filter((_, i) => i !== index));
+    // 즉시 카운트 감소
+    subImageCountRef.current -= 1;
+
+    setSubImagePreviews((prev) => prev.filter((_, i) => i !== index));
+    setSubImageFiles((prev) => prev.filter((_, i) => i !== index));
+    setSubImageIds((prev) => prev.filter((_, i) => i !== index));
   };
 
   // 필수 필드 검증
@@ -289,11 +361,8 @@ const UpdateExperiencesPage = () => {
       // 6. 체험 수정
       await updateActivityMutation.mutateAsync(updateData);
 
-      // 7. 성공 시 내 체험 관리 페이지로 이동
-      showModal("체험이 성공적으로 수정되었습니다.");
-      setTimeout(() => {
-        navigate("/myprofile");
-      }, 1500);
+      // 7. 성공 모달 표시
+      setIsSuccessModalOpen(true);
     } catch (error) {
       console.error("체험 수정 실패:", error);
       const errorMessage =
@@ -450,9 +519,10 @@ const UpdateExperiencesPage = () => {
             type="text"
             id="address"
             value={address}
-            onChange={(e) => setAddress(e.target.value)}
-            placeholder="주소를 입력해 주세요"
-            className="w-full h-[54px] mt-[10px] px-5 rounded-md ty-16_M placeholder:text-[#9FA0A7]"
+            onClick={() => setIsPostcodeOpen(true)}
+            readOnly
+            placeholder="주소를 검색해 주세요"
+            className="w-full h-[54px] mt-[10px] px-5 rounded-md ty-16_M placeholder:text-[#9FA0A7] cursor-pointer"
             style={{
               color: "#1F1F22",
               border: "1px solid #E0E0E5",
@@ -490,7 +560,7 @@ const UpdateExperiencesPage = () => {
             uploadImageMutation.isPending ||
             updateActivityMutation.isPending
           }
-          className="mt-[24px] block mx-auto ty-14_B h-[41px] w-[120px] rounded-md transition-opacity disabled:opacity-50 disabled:cursor-not-allowed hover:opacity-90"
+          className="mt-[24px] block mx-auto ty-14_B h-[41px] w-[120px] rounded-md transition-opacity cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed hover:opacity-90"
           style={{
             backgroundColor: "#3D9EF2",
             color: "#FFFFFF",
@@ -509,14 +579,82 @@ const UpdateExperiencesPage = () => {
         message={modalMessage}
       />
 
+      {/* 성공 모달 */}
+      <Modal
+        isOpen={isSuccessModalOpen}
+        onClose={() => {
+          setIsSuccessModalOpen(false);
+          // 이전 페이지로 복귀
+          const returnTo = location.state?.returnTo;
+          const returnActivityId = location.state?.activityId;
+
+          if (returnTo === "detail" && returnActivityId) {
+            // Detail 페이지에서 왔으면 Detail로 복귀 (데이터 갱신 요청)
+            navigate(`/detail/${returnActivityId}`, {
+              state: { shouldRefetch: true },
+            });
+          } else {
+            // MyProfile에서 왔으면 MyProfile로 복귀
+            navigate("/myprofile", {
+              state: { shouldRefetch: true, activeTab: 2 },
+            });
+          }
+        }}
+        message="체험이 성공적으로 수정되었습니다."
+      />
+
       {/* 이탈 확인 모달 */}
       <ConfirmModal
         isOpen={isExitModalOpen}
         onClose={handleCancelExit}
         onConfirm={handleConfirmExit}
-        message="저장안되는데 괜찮습니까?"
+        message={`저장되지 않았습니다.\n정말 괜찮으시겠습니까?`}
         confirmText="네"
       />
+
+      {/* 우편번호 검색 모달 */}
+      {isPostcodeOpen && (
+        <button
+          type="button"
+          className="fixed inset-0 z-50 flex items-center justify-center px-6"
+          style={{
+            backgroundColor: "#00000080",
+            border: "none",
+            padding: "24px",
+            cursor: "default",
+          }}
+          onClick={() => setIsPostcodeOpen(false)}
+          onKeyDown={(e) => {
+            if (e.key === "Escape") {
+              setIsPostcodeOpen(false);
+            }
+          }}
+          aria-label="우편번호 검색 모달"
+        >
+          <button
+            type="button"
+            className="bg-white rounded-xl p-6 w-full max-w-[500px]"
+            style={{ border: "none", cursor: "default" }}
+            onClick={(e) => e.stopPropagation()}
+            onKeyDown={(e) => e.stopPropagation()}
+          >
+            <div className="flex justify-between items-center mb-4">
+              <h3 className="ty-18_B text-gray-950">주소 검색</h3>
+              <button
+                type="button"
+                onClick={() => setIsPostcodeOpen(false)}
+                className="ty-14_M text-gray-600 cursor-pointer hover:text-gray-950"
+              >
+                닫기
+              </button>
+            </div>
+            <DaumPostcodeEmbed
+              onComplete={handleAddressComplete}
+              autoClose={false}
+            />
+          </button>
+        </button>
+      )}
     </div>
   );
 };

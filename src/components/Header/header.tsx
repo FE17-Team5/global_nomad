@@ -1,3 +1,4 @@
+import { useQueryClient } from "@tanstack/react-query";
 import { Link, useNavigate } from "react-router-dom";
 import defaultProfile from "../../assets/atc/default_profile.svg";
 import mobileLogo from "../../assets/atc/logo.svg";
@@ -8,6 +9,7 @@ import { Dropdown } from "../Dropdown";
 
 const Header = () => {
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
   // 로그인 상태 확인 (팀원분 방식: localStorage)
   const authToken = localStorage.getItem("accessToken");
@@ -22,6 +24,8 @@ const Header = () => {
   const handleLogout = () => {
     localStorage.removeItem("accessToken");
     localStorage.removeItem("refreshToken");
+    // 모든 캐시 삭제 (다른 사용자 정보가 남아있지 않도록)
+    queryClient.clear();
     navigate("/login");
   };
 

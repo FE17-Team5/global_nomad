@@ -20,8 +20,11 @@ export const useUpdateMyActivity = (activityId: number, authToken: string) => {
       queryClient.invalidateQueries({
         queryKey: qk.activityDetail(activityId),
       });
-      // 내 체험 목록 갱신
-      queryClient.invalidateQueries({ queryKey: qk.myActivities() });
+      // 내 체험 목록 갱신 (일반 + 무한스크롤)
+      queryClient.invalidateQueries({
+        queryKey: ["my-activities"],
+        exact: false,
+      });
     },
   });
 };
