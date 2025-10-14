@@ -48,23 +48,32 @@ const ConfirmModal = ({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center px-6 bg-black/50"
+      className="fixed inset-0 z-50 flex items-center justify-center px-6"
+      style={{ backgroundColor: "#00000080" }}
       onClick={onClose} // 외부 클릭 시 닫기
+      onKeyDown={(e) => {
+        if (e.key === "Escape" || e.key === "Enter") {
+          onClose();
+        }
+      }}
       role="dialog"
       aria-modal="true"
       aria-labelledby="confirm-modal-message"
+      tabIndex={-1}
     >
       {/* 모달 창 */}
-      <div
+      <button
+        type="button"
         className="confirm-modal-container bg-white rounded-3xl flex flex-col items-center w-full max-w-[400px] h-[242px] sm-mobile:max-w-[320px] sm-mobile:h-[185px] pt-[30px] pb-[30px]"
         onClick={(e) => e.stopPropagation()} // 모달 내부 클릭 시 이벤트 전파 방지
+        onKeyDown={(e) => e.stopPropagation()}
+        style={{ border: "none", padding: "30px", cursor: "default" }}
       >
         {/* 이미지 (88x88 → 모바일: 49x49) */}
         <div className="w-[88px] h-[88px] sm-mobile:w-[49px] sm-mobile:h-[49px] flex items-center justify-center">
           <img
             src={warningIcon}
             alt=""
-            role="presentation"
             className="w-full h-full object-contain"
           />
         </div>
@@ -98,7 +107,7 @@ const ConfirmModal = ({
             {confirmText}
           </button>
         </div>
-      </div>
+      </button>
     </div>
   );
 };

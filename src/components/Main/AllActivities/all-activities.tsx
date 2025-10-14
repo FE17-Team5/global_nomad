@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
+import { useActivitiesData } from "../../../hooks/useActivitiesData";
+import { useDragScroll } from "../../../hooks/useDragScroll";
+import Dropdown from "../../Dropdown/dropdown";
+import Pagination from "../../Pagination/pagination";
 import ActivityFilters from "./activity-filters";
 import ActivityGrid from "./activity-grid";
-import Pagination from "../../Pagination/pagination";
-import Dropdown from "../../Dropdown/dropdown";
-import { useDragScroll } from "../../../hooks/useDragScroll";
-import { useActivitiesData } from "../../../hooks/useActivitiesData";
 
 const AllActivities = () => {
   // 커스텀 훅 사용
@@ -54,7 +54,7 @@ const AllActivities = () => {
   useEffect(() => {
     const timer = setTimeout(updateScrollIndicators, 100);
     return () => clearTimeout(timer);
-  }, []);
+  }, [updateScrollIndicators]);
 
   return (
     <section className="w-full bg-transparent pt-[2.5rem] sm-tablet:pt-[2.5rem] sm-mobile:pt-[2.5rem]">

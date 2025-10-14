@@ -67,7 +67,7 @@ const CustomCalendar = ({
   };
 
   return (
-    <div className="w-full calendar-container">
+    <div className="w-full base-calendar calendar-detail">
       <Calendar
         onChange={handleDateChange}
         value={selectedDate}

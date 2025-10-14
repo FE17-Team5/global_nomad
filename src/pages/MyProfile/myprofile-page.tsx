@@ -1,13 +1,24 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import backImage from "../../assets/icon/icon_back.svg";
 import CustomFileInput from "./FileInput/custom-file-input";
 import MenuListComponent from "./Menu/menu-list-component";
 import MenuTitleAndContent from "./Menu/menu-title-content";
-import backImage from "../../assets/icon/icon_back.svg";
 import { menuComponentList } from "./Menu/profile-menu-data";
 
 const MyProfilePage = () => {
-  const [selectedIndex, setSelectedIndex] = useState(0);
+  // ============ API 연동: 탭 상태 유지 (새로고침 시 탭 초기화 방지) ============
+  // localStorage에서 마지막 탭 상태 불러오기
+  const [selectedIndex, setSelectedIndex] = useState(() => {
+    const saved = localStorage.getItem("myProfileTab");
+    return saved ? Number(saved) : 0;
+  });
   const [isSelected, setIsSelected] = useState(false);
+
+  // 탭 변경 시 localStorage에 저장 (새로고침해도 마지막 탭 유지)
+  useEffect(() => {
+    localStorage.setItem("myProfileTab", selectedIndex.toString());
+  }, [selectedIndex]);
+  // ============================================================================
 
   const handleClick = (id: number) => {
     setSelectedIndex(id);
@@ -36,12 +47,14 @@ const MyProfilePage = () => {
       >
         <MenuTitleAndContent index={selectedIndex} />
         {menuComponentList(selectedIndex)}
-        <div
+        <button
+          type="button"
           onClick={() => setIsSelected(!isSelected)}
-          className="hidden absolute top-5 right-0 mobile:block"
+          className="hidden absolute top-5 right-0 mobile:block bg-transparent border-none p-0 cursor-pointer"
+          aria-label="뒤로가기"
         >
           <img src={backImage} alt="뒤로가기" />
-        </div>
+        </button>
       </div>
     </div>
   );

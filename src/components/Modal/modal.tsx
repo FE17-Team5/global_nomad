@@ -40,7 +40,8 @@ const Modal = ({ isOpen, onClose, message }: ModalProps) => {
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center px-6 bg-black/50"
+      className="fixed inset-0 z-50 flex items-center justify-center px-6"
+      style={{ backgroundColor: "#00000080" }}
       onClick={onClose} // 외부 클릭 시 닫기
     >
       {/* 모달 창 */}

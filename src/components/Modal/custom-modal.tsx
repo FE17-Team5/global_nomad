@@ -1,4 +1,4 @@
-import { useEffect, useState, type ReactNode } from "react";
+import { type ReactNode, useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 
 const ANIMATION_DURATION = 300;
@@ -69,19 +69,28 @@ const CustomModal = ({
         "tablet:transition-opacity tablet:duration-300 tablet:ease-in-out"
       } ${dimmedClass}`}
       onClick={onClose}
+      onKeyDown={(e) => {
+        if (e.key === "Escape" || e.key === "Enter") {
+          onClose();
+        }
+      }}
       role="dialog"
       aria-modal="true"
       aria-labelledby="confirm-modal-message"
+      tabIndex={-1}
     >
-      <div
+      <button
+        type="button"
         className={`bg-white ${
           withAnimation &&
           "tablet:transition-all tablet:duration-300 tablet:ease-in-out"
         } ${modalClassName} ${slideClass}`}
         onClick={(e) => e.stopPropagation()}
+        onKeyDown={(e) => e.stopPropagation()}
+        style={{ border: "none", padding: 0, textAlign: "left" }}
       >
         {children}
-      </div>
+      </button>
     </div>,
     portal,
   );

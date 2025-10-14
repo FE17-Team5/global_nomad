@@ -6,21 +6,20 @@
  * - 확장 상태: 675px (날짜 선택 + 캘린더 + 시간 선택)
  */
 
-import { useState, useMemo, useEffect } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
-import CustomCalendar from "../../Calendar/custom-calendar";
-import { Modal } from "../../Modal";
+import iconBack from "../../../assets/icon/icon_back.svg";
 import iconMinus from "../../../assets/icon/icon_minus.svg";
 import iconPlus from "../../../assets/icon/icon_plus.svg";
-import iconBack from "../../../assets/icon/icon_back.svg";
-import type { AvailableSchedule } from "./types";
-import { MAX_HEAD_COUNT, MIN_HEAD_COUNT, DEFAULT_HEAD_COUNT } from "./types";
-import { RESERVATION_UI_HEIGHTS, BREAKPOINTS } from "./constants";
-import { getAvailableTimesForDate, getTimeById } from "./utils";
+import { useCreateReservation } from "../../../hooks/mutations/useCreateReservation";
+import { useMyReservationsList } from "../../../hooks/queries/useMyReservationsList";
 import { formatDateShort } from "../../../utils/date";
-// TODO: API 연동 시 주석 해제
-// import { createReservation } from "../../../lib/activities/api";
-// import { getAuthToken } from "../../../utils/auth";
+import CustomCalendar from "../../Calendar/custom-calendar";
+import { Modal } from "../../Modal";
+import { BREAKPOINTS, RESERVATION_UI_HEIGHTS } from "./constants";
+import type { AvailableSchedule } from "./types";
+import { DEFAULT_HEAD_COUNT, MAX_HEAD_COUNT, MIN_HEAD_COUNT } from "./types";
+import { getAvailableTimesForDate, getTimeById } from "./utils";
 
 interface FixedReservationBarProps {
   price: number;
@@ -31,13 +30,29 @@ const FixedReservationBar = ({
   price,
   availableSchedules,
 }: FixedReservationBarProps) => {
-  const { id: activityId } = useParams();
+  const { id } = useParams();
+  const activityId = Number(id);
+  const authToken = localStorage.getItem("accessToken");
+
   const [isExpanded, setIsExpanded] = useState(false);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [selectedTimeId, setSelectedTimeId] = useState<number | null>(null);
   const [headCount, setHeadCount] = useState(DEFAULT_HEAD_COUNT);
   const [showHeadCountSelector, setShowHeadCountSelector] = useState(false); // 모바일 인원 선택 모드
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isErrorModalOpen, setIsErrorModalOpen] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const createReservationMutation = useCreateReservation(
+    activityId,
+    authToken || "",
+  );
+
+  // 내 예약 내역 조회 (중복 예약 체크 - 시간 버튼에서 사용)
+  const { data: myReservations } = useMyReservationsList(
+    { size: 100 },
+    authToken,
+  );
 
   // 선택된 날짜의 예약 가능한 시간 조회 - 유틸 함수 사용 (#1, #4, #9)
   const availableTimes = useMemo(
@@ -134,44 +149,30 @@ const FixedReservationBar = ({
   // 예약하기 버튼 클릭
   const handleReservation = async () => {
     if (!selectedDate || !selectedTimeId) {
-      alert("날짜와 시간을 선택해주세요.");
+      setErrorMessage("날짜와 시간을 선택해주세요.");
+      setIsErrorModalOpen(true);
       return;
     }
 
-    // TODO: API 연동 (테스트 완료)
-    /*
-    if (!activityId) return;
+    if (!authToken) {
+      setErrorMessage("로그인이 필요합니다.");
+      setIsErrorModalOpen(true);
+      return;
+    }
 
     try {
-      const token = getAuthToken();
-
-      await createReservation(
-        Number(activityId),
-        {
-          scheduleId: selectedTimeId,
-          headCount: headCount,
-        },
-        token
-      );
-
-      console.log("예약 성공:", {
+      await createReservationMutation.mutateAsync({
         scheduleId: selectedTimeId,
         headCount: headCount,
       });
 
       setIsModalOpen(true);
+      setIsExpanded(false);
     } catch (error) {
       console.error("예약 실패:", error);
-      alert("예약에 실패했습니다. 다시 시도해주세요.");
+      setErrorMessage("예약에 실패했습니다. 다시 시도해주세요.");
+      setIsErrorModalOpen(true);
     }
-    */
-
-    // Mock 테스트
-    console.log("예약 요청:", {
-      scheduleId: selectedTimeId,
-      headCount: headCount,
-    });
-    setIsModalOpen(true);
   };
 
   // 모달 닫기 핸들러
@@ -197,10 +198,17 @@ const FixedReservationBar = ({
     <>
       {/* 딤드 처리 */}
       {isExpanded && (
-        <div
-          className="fixed inset-0 z-40"
+        <button
+          type="button"
+          className="fixed inset-0 z-40 cursor-default"
           style={{ background: "#00000080" }}
           onClick={handleConfirm}
+          onKeyDown={(e) => {
+            if (e.key === "Escape" || e.key === "Enter") {
+              handleConfirm();
+            }
+          }}
+          aria-label="예약 닫기"
         />
       )}
 
@@ -451,31 +459,52 @@ const FixedReservationBar = ({
                     >
                       {/* 시간 버튼들 */}
                       <div className="flex flex-col gap-3">
-                        {availableTimes.map((time) => (
-                          <button
-                            key={time.id}
-                            type="button"
-                            onClick={() => setSelectedTimeId(time.id)}
-                            className="max-w-[253px] h-[51px] rounded-lg ty-16_M transition-colors"
-                            style={{
-                              border:
-                                selectedTimeId === time.id
-                                  ? "2px solid var(--color-primary-500)"
-                                  : "1px solid var(--color-gray-300)",
-                              color:
-                                selectedTimeId === time.id
-                                  ? "var(--color-primary-500)"
-                                  : "var(--color-gray-950)",
-                              backgroundColor:
-                                selectedTimeId === time.id
-                                  ? "var(--color-primary-100)"
-                                  : "transparent",
-                            }}
-                            aria-pressed={selectedTimeId === time.id}
-                          >
-                            {time.startTime} ~ {time.endTime}
-                          </button>
-                        ))}
+                        {availableTimes.map((time) => {
+                          const isTimeBooked =
+                            myReservations?.reservations.some(
+                              (reservation) =>
+                                reservation.activity.id === activityId &&
+                                reservation.scheduleId === time.id &&
+                                reservation.status !== "canceled" &&
+                                reservation.status !== "declined",
+                            );
+
+                          return (
+                            <button
+                              key={time.id}
+                              type="button"
+                              onClick={() =>
+                                !isTimeBooked && setSelectedTimeId(time.id)
+                              }
+                              disabled={isTimeBooked}
+                              className="max-w-[253px] h-[51px] rounded-lg ty-16_M transition-colors"
+                              style={{
+                                border: isTimeBooked
+                                  ? "1px solid var(--color-gray-200)"
+                                  : selectedTimeId === time.id
+                                    ? "2px solid var(--color-primary-500)"
+                                    : "1px solid var(--color-gray-300)",
+                                color: isTimeBooked
+                                  ? "var(--color-gray-400)"
+                                  : selectedTimeId === time.id
+                                    ? "var(--color-primary-500)"
+                                    : "var(--color-gray-950)",
+                                backgroundColor: isTimeBooked
+                                  ? "var(--color-gray-100)"
+                                  : selectedTimeId === time.id
+                                    ? "var(--color-primary-100)"
+                                    : "transparent",
+                                cursor: isTimeBooked
+                                  ? "not-allowed"
+                                  : "pointer",
+                                opacity: isTimeBooked ? 0.5 : 1,
+                              }}
+                              aria-pressed={selectedTimeId === time.id}
+                            >
+                              {time.startTime} ~ {time.endTime}
+                            </button>
+                          );
+                        })}
                       </div>
 
                       {/* 참여 인원 수 */}
@@ -593,33 +622,51 @@ const FixedReservationBar = ({
                           availableTimes.length > 2 ? "auto" : "visible",
                       }}
                     >
-                      {availableTimes.map((time) => (
-                        <button
-                          key={time.id}
-                          type="button"
-                          onClick={() => setSelectedTimeId(time.id)}
-                          className="w-full rounded-lg ty-16_M transition-colors flex items-center justify-center flex-shrink-0"
-                          style={{
-                            height: "51px",
-                            minHeight: "51px",
-                            border:
-                              selectedTimeId === time.id
-                                ? "2px solid var(--color-primary-500)"
-                                : "1px solid var(--color-gray-300)",
-                            color:
-                              selectedTimeId === time.id
-                                ? "var(--color-primary-500)"
-                                : "var(--color-gray-950)",
-                            backgroundColor:
-                              selectedTimeId === time.id
-                                ? "var(--color-primary-100)"
-                                : "transparent",
-                          }}
-                          aria-pressed={selectedTimeId === time.id}
-                        >
-                          {time.startTime} ~ {time.endTime}
-                        </button>
-                      ))}
+                      {availableTimes.map((time) => {
+                        const isTimeBooked = myReservations?.reservations.some(
+                          (reservation) =>
+                            reservation.activity.id === activityId &&
+                            reservation.scheduleId === time.id &&
+                            reservation.status !== "canceled" &&
+                            reservation.status !== "declined",
+                        );
+
+                        return (
+                          <button
+                            key={time.id}
+                            type="button"
+                            onClick={() =>
+                              !isTimeBooked && setSelectedTimeId(time.id)
+                            }
+                            disabled={isTimeBooked}
+                            className="w-full rounded-lg ty-16_M transition-colors flex items-center justify-center flex-shrink-0"
+                            style={{
+                              height: "51px",
+                              minHeight: "51px",
+                              border: isTimeBooked
+                                ? "1px solid var(--color-gray-200)"
+                                : selectedTimeId === time.id
+                                  ? "2px solid var(--color-primary-500)"
+                                  : "1px solid var(--color-gray-300)",
+                              color: isTimeBooked
+                                ? "var(--color-gray-400)"
+                                : selectedTimeId === time.id
+                                  ? "var(--color-primary-500)"
+                                  : "var(--color-gray-950)",
+                              backgroundColor: isTimeBooked
+                                ? "var(--color-gray-100)"
+                                : selectedTimeId === time.id
+                                  ? "var(--color-primary-100)"
+                                  : "transparent",
+                              cursor: isTimeBooked ? "not-allowed" : "pointer",
+                              opacity: isTimeBooked ? 0.5 : 1,
+                            }}
+                            aria-pressed={selectedTimeId === time.id}
+                          >
+                            {time.startTime} ~ {time.endTime}
+                          </button>
+                        );
+                      })}
                     </div>
                   )}
                 </div>
@@ -658,6 +705,13 @@ const FixedReservationBar = ({
         isOpen={isModalOpen}
         onClose={handleModalClose}
         message="예약이 완료되었습니다."
+      />
+
+      {/* 에러 모달 */}
+      <Modal
+        isOpen={isErrorModalOpen}
+        onClose={() => setIsErrorModalOpen(false)}
+        message={errorMessage}
       />
     </>
   );

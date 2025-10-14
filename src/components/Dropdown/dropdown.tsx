@@ -7,8 +7,8 @@
  * - 커스텀 메뉴 아이템 지원
  */
 
-import { useEffect, useRef, useState } from "react";
 import type { ReactNode } from "react";
+import { useEffect, useRef, useState } from "react";
 
 interface DropdownItem {
   label: string;
@@ -70,10 +70,9 @@ const Dropdown = ({ trigger, items, align = "right" }: DropdownProps) => {
   return (
     <div className="relative" ref={dropdownRef}>
       {/* 트리거 버튼 */}
-      <div
+      <button
+        type="button"
         onClick={() => setIsOpen(!isOpen)}
-        role="button"
-        tabIndex={0}
         onKeyDown={(e) => {
           if (e.key === "Enter" || e.key === " ") {
             setIsOpen(!isOpen);
@@ -81,9 +80,10 @@ const Dropdown = ({ trigger, items, align = "right" }: DropdownProps) => {
         }}
         aria-expanded={isOpen}
         aria-haspopup="true"
+        className="bg-transparent border-none p-0 m-0 cursor-pointer"
       >
         {trigger}
-      </div>
+      </button>
 
       {/* 드롭다운 메뉴 */}
       <div
@@ -101,7 +101,7 @@ const Dropdown = ({ trigger, items, align = "right" }: DropdownProps) => {
       >
         {items.map((item, index) => (
           <button
-            key={index}
+            key={`${item.label}-${index}`}
             type="button"
             onClick={() => handleItemClick(item.onClick)}
             className={`w-full h-[55px] hover:bg-gray-25 transition-colors flex items-center justify-center ty-14_M text-gray-800 cursor-pointer ${

@@ -1,5 +1,5 @@
-import Dropdown from "../../Dropdown/dropdown";
 import { useActivitiesData } from "../../../hooks/useActivitiesData";
+import Dropdown from "../../Dropdown/dropdown";
 
 const ActivityFilters = () => {
   const {

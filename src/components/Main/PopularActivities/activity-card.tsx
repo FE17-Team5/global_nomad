@@ -1,5 +1,6 @@
+import { Link } from "react-router-dom";
+import StarIcon from "../../../assets/icon/icon_star_on.svg?react";
 import type { Activity } from "../../../lib/activities/types";
-import starIcon from "../../../assets/icon/icon_star_on.svg";
 
 interface ActivityCardProps {
   activity: Activity;
@@ -8,15 +9,16 @@ interface ActivityCardProps {
 
 const ActivityCard = ({ activity, className = "" }: ActivityCardProps) => {
   return (
-    <div
-      className={`relative w-full h-[22.875rem] rounded-[2rem] overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-200 ${className}`}
+    <Link
+      to={`/detail/${activity.id}`}
+      className={`relative w-full h-[22.875rem] rounded-[2rem] overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-200 block ${className}`}
     >
       {/* Background Image */}
-      <img
-        src={activity.bannerImageUrl}
-        alt=""
-        role="presentation"
-        className="w-full h-full object-cover"
+      <div
+        className="absolute inset-0 bg-cover bg-center"
+        style={{ backgroundImage: `url(${activity.bannerImageUrl})` }}
+        role="img"
+        aria-label={activity.title}
       />
 
       {/* Dark Overlay */}
@@ -24,7 +26,7 @@ const ActivityCard = ({ activity, className = "" }: ActivityCardProps) => {
 
       {/* Rating Badge */}
       <div className="absolute top-[1.125rem] right-[1.125rem] bg-black/60 text-white rounded-full px-2 py-1 flex items-center gap-1">
-        <img src={starIcon} alt="" role="presentation" className="w-3 h-3" />
+        <StarIcon className="w-3 h-3" aria-hidden="true" />
         <span className="ty-12_M">{activity.rating}</span>
       </div>
 
@@ -50,7 +52,7 @@ const ActivityCard = ({ activity, className = "" }: ActivityCardProps) => {
           </span>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 
