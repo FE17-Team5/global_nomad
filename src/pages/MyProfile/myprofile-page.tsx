@@ -25,6 +25,10 @@ const MyProfilePage = () => {
     setIsSelected(!isSelected);
   };
 
+  const handleCancel = () => {
+    setIsSelected(false);
+  };
+
   return (
     <div className="flex my-10 gap-[50px] items-start justify-center tablet:gap-[30px] tablet:px-[30px] mobile:px-6">
       <div
@@ -46,7 +50,7 @@ const MyProfilePage = () => {
         } relative tablet:max-w-[478px] ${!isSelected && "mobile:hidden"}`}
       >
         <MenuTitleAndContent index={selectedIndex} />
-        {menuComponentList(selectedIndex)}
+        {menuComponentList(selectedIndex, handleCancel)}
         <button
           type="button"
           onClick={() => setIsSelected(!isSelected)}

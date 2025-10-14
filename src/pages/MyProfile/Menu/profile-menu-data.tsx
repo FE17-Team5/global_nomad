@@ -4,6 +4,7 @@ import ReservationList from "../../../components/ReservationList/reservation-lis
 import MyExperiences from "../../../components/MyExperiences/my-experiences";
 import ReservationStatus from "../../../components/ReservationStatus/reservation-status";
 import type { JSX } from "react";
+import type { User } from "../../../lib/users/types";
 
 export interface ProfileMenuDataListType {
   id: number;
@@ -39,10 +40,10 @@ export const profileMenuDataList: ProfileMenuDataListType[] = [
   },
 ];
 
-export const menuComponentList = (id: number) => {
+export const menuComponentList = (id: number, handleCancel: () => void) => {
   switch (id) {
     case 0:
-      return <EditProfile />;
+      return <EditProfile onClick={handleCancel} />;
     case 1:
       return <ReservationList />;
     case 2:
