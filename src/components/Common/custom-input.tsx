@@ -9,8 +9,8 @@ const CustomInput = ({
   isError,
   errorText,
 }: CustomInputProps & {
-  isError?: Boolean;
-  errorText?: String;
+  isError?: boolean;
+  errorText?: string;
 }) => {
   const { labelText, ...restLabelProps } = labelProps;
   const { type: initType, ...restInputProps } = inputProps;
@@ -30,6 +30,7 @@ const CustomInput = ({
           <input
             type={type}
             autoComplete="off"
+            maxLength={30}
             {...restInputProps}
             className={`w-full h-[54px] px-[20px] py-[16px] pr-12 border ${
               isError ? "border-red-500" : "border-gray-100"
