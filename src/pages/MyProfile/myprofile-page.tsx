@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import backImage from "../../assets/icon/icon_back.svg";
 import CustomFileInput from "./FileInput/custom-file-input";
 import MenuListComponent from "./Menu/menu-list-component";
@@ -6,6 +7,8 @@ import MenuTitleAndContent from "./Menu/menu-title-content";
 import { menuComponentList } from "./Menu/profile-menu-data";
 
 const MyProfilePage = () => {
+  const location = useLocation();
+
   // ============ API 연동: 탭 상태 유지 (새로고침 시 탭 초기화 방지) ============
   // localStorage에서 마지막 탭 상태 불러오기
   const [selectedIndex, setSelectedIndex] = useState(() => {
@@ -18,6 +21,13 @@ const MyProfilePage = () => {
   useEffect(() => {
     localStorage.setItem("myProfileTab", selectedIndex.toString());
   }, [selectedIndex]);
+
+  // 등록/수정 후 특정 탭으로 이동
+  useEffect(() => {
+    if (location.state?.activeTab !== undefined) {
+      setSelectedIndex(location.state.activeTab);
+    }
+  }, [location.state]);
   // ============================================================================
 
   const handleClick = (id: number) => {

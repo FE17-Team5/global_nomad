@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import ActivityDescription from "../../components/Detail/activity-description";
 import ActivityHeader from "../../components/Detail/activity-header";
 import ActivityLocation from "../../components/Detail/activity-location";
@@ -16,6 +16,7 @@ import { useMyProfile } from "../../hooks/queries/useMyProfile";
 
 const DetailPage = () => {
   const { id } = useParams();
+  const location = useLocation();
   const activityId = Number(id);
 
   const authToken = localStorage.getItem("accessToken");
@@ -33,6 +34,7 @@ const DetailPage = () => {
     data: activity,
     isLoading: activityLoading,
     error: activityError,
+    refetch: refetchActivity,
   } = useActivityDetail(activityId);
   const { data: reviewsResponse, isLoading: reviewsLoading } =
     useActivityReviews(activityId, { page: 1, size: 5 });
@@ -42,6 +44,15 @@ const DetailPage = () => {
       month: currentMonth,
     });
   const { data: myProfile } = useMyProfile(authToken);
+
+  // 수정 후 데이터 갱신
+  useEffect(() => {
+    if (location.state?.shouldRefetch) {
+      refetchActivity();
+      // state 초기화 (뒤로가기 시 재실행 방지)
+      window.history.replaceState({}, document.title);
+    }
+  }, [location.state, refetchActivity]);
 
   const isLoading = activityLoading || reviewsLoading || scheduleLoading;
 

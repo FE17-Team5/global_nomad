@@ -14,6 +14,7 @@
  *   · 예약하기 버튼
  */
 
+import { useQueryClient } from "@tanstack/react-query";
 import { useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
 import iconMinus from "../../../assets/icon/icon_minus.svg";
@@ -38,6 +39,7 @@ const ReservationSidebar = ({
   const { id } = useParams();
   const activityId = Number(id);
   const authToken = localStorage.getItem("accessToken");
+  const queryClient = useQueryClient();
 
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [headCount, setHeadCount] = useState(DEFAULT_HEAD_COUNT);
@@ -104,8 +106,18 @@ const ReservationSidebar = ({
   };
 
   // 모달 닫기 핸들러
-  const handleModalClose = () => {
+  const handleModalClose = async () => {
     setIsModalOpen(false);
+
+    // 예약 완료 후 데이터 갱신
+    await queryClient.refetchQueries({
+      queryKey: ["my-reservations"],
+      exact: false,
+    });
+    await queryClient.refetchQueries({
+      queryKey: ["activity", activityId, "schedule"],
+      exact: false,
+    });
 
     // 예약 완료 후 상태 초기화 (#6)
     setSelectedDate(null);
@@ -329,7 +341,7 @@ const ReservationSidebar = ({
           style={{ borderTop: "1px solid var(--color-border-light)" }}
         >
           {/* 좌측: 총 합계 */}
-          <div className="flex flex-col gap-1">
+          <div className="flex items-center gap-2">
             <span className="ty-20_M" style={{ color: "var(--color-gray-2)" }}>
               총 합계
             </span>

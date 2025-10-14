@@ -6,6 +6,7 @@
  * - 확장 상태: 675px (날짜 선택 + 캘린더 + 시간 선택)
  */
 
+import { useQueryClient } from "@tanstack/react-query";
 import { useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
 import iconBack from "../../../assets/icon/icon_back.svg";
@@ -33,6 +34,7 @@ const FixedReservationBar = ({
   const { id } = useParams();
   const activityId = Number(id);
   const authToken = localStorage.getItem("accessToken");
+  const queryClient = useQueryClient();
 
   const [isExpanded, setIsExpanded] = useState(false);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
@@ -176,8 +178,18 @@ const FixedReservationBar = ({
   };
 
   // 모달 닫기 핸들러
-  const handleModalClose = () => {
+  const handleModalClose = async () => {
     setIsModalOpen(false);
+
+    // 예약 완료 후 데이터 갱신
+    await queryClient.refetchQueries({
+      queryKey: ["my-reservations"],
+      exact: false,
+    });
+    await queryClient.refetchQueries({
+      queryKey: ["activity", activityId, "schedule"],
+      exact: false,
+    });
 
     // 예약 완료 후 상태 초기화 (#6)
     setSelectedDate(null);

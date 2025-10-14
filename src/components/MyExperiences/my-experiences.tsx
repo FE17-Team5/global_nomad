@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useMyActivitiesInfinite } from "../../hooks/queries/useMyActivitiesInfinite";
 import { useInfiniteScroll } from "../../hooks/useInfiniteScroll";
 import { Modal } from "../Modal";
@@ -8,6 +8,7 @@ import EmptyData from "./EmptyData/empty-data";
 
 const MyExperiences = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const authToken = localStorage.getItem("accessToken");
   const [deleteSuccessModalOpen, setDeleteSuccessModalOpen] = useState(false);
 
@@ -19,6 +20,7 @@ const MyExperiences = () => {
     isFetchingNextPage,
     isLoading,
     error,
+    refetch,
   } = useMyActivitiesInfinite(authToken, 10);
 
   // 무한스크롤 트리거
@@ -27,6 +29,15 @@ const MyExperiences = () => {
     hasNextPage,
     isFetchingNextPage,
   );
+
+  // 등록/수정 후 데이터 갱신
+  useEffect(() => {
+    if (location.state?.shouldRefetch) {
+      refetch();
+      // state 초기화 (뒤로가기 시 재실행 방지)
+      window.history.replaceState({}, document.title);
+    }
+  }, [location.state, refetch]);
 
   if (!authToken) {
     navigate("/login");

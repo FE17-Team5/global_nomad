@@ -64,7 +64,7 @@ const ConfirmModal = ({
       {/* 모달 창 */}
       <button
         type="button"
-        className="confirm-modal-container bg-white rounded-3xl flex flex-col items-center w-full max-w-[400px] h-[242px] sm-mobile:max-w-[320px] sm-mobile:h-[185px] pt-[30px] pb-[30px]"
+        className="confirm-modal-container bg-white rounded-3xl flex flex-col items-center w-full max-w-[400px] sm-mobile:max-w-[320px] py-[30px]"
         onClick={(e) => e.stopPropagation()} // 모달 내부 클릭 시 이벤트 전파 방지
         onKeyDown={(e) => e.stopPropagation()}
         style={{ border: "none", padding: "30px", cursor: "default" }}
@@ -81,7 +81,7 @@ const ConfirmModal = ({
         {/* 텍스트 박스 (간격: 2px) */}
         <div
           id="confirm-modal-message"
-          className="mt-[2px] text-center ty-18_B sm-mobile:ty-16_B text-gray-950"
+          className="mt-[2px] text-center ty-18_B sm-mobile:ty-16_B text-gray-950 whitespace-pre-line"
         >
           {message}
         </div>

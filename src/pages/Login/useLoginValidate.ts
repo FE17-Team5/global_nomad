@@ -1,4 +1,5 @@
-import { useState, type ChangeEvent } from "react";
+import { useQueryClient } from "@tanstack/react-query";
+import { type ChangeEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLogin } from "../../hooks/mutations";
 import type { LoginResponse } from "../../lib/auth/types";
@@ -24,6 +25,7 @@ type ReturnType = () => [
 const useLoginValidate: ReturnType = () => {
   const loginMutation = useLogin();
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
   const [isOpen, setIsOpen] = useState(false);
   const [modalText, setModalText] = useState("");
@@ -96,6 +98,8 @@ const useLoginValidate: ReturnType = () => {
         onSuccess: (data: LoginResponse) => {
           localStorage.setItem("accessToken", data.accessToken);
           localStorage.setItem("refreshToken", data.refreshToken);
+          // 이전 사용자 캐시 삭제 (새 사용자 정보로 갱신)
+          queryClient.removeQueries({ queryKey: ["user", "me"] });
           navigate("/");
         },
         onError: (err: Error) => {
