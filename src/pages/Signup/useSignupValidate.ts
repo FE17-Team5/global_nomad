@@ -10,7 +10,7 @@ type InputState = {
   validPassword: string;
 };
 
-type returnType = () => [
+type ReturnType = () => [
   input: InputState,
   error: InputState,
   modalText: string,
@@ -22,7 +22,7 @@ type returnType = () => [
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void
 ];
 
-const useSignupValidate: returnType = () => {
+const useSignupValidate: ReturnType = () => {
   const signUpMutation = useSignUp();
   const navigate = useNavigate();
 
