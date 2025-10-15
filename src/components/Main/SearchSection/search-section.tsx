@@ -28,7 +28,7 @@ const SearchSection = ({ onSearch }: SearchSectionProps) => {
 
             {/* Search Form */}
             <form onSubmit={handleSearch} className="w-full">
-              <div className="w-full rounded-2xl border border-gray-300 bg-white">
+              <div className="w-full rounded-2xl bg-white shadow-search">
                 {/* Search Container */}
                 <div className="flex items-center justify-between gap-2 h-[3.625rem] sm-mobile:h-auto sm-mobile:py-1.5 pl-5 pr-2">
                   {/* Left Side: Icon + Input */}

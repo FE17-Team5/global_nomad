@@ -11,7 +11,7 @@ const HeroSection = () => {
       <div className="flex justify-center px-[2.5rem] sm-tablet:px-[1.875rem] sm-mobile:px-6">
         <div className="w-[75rem] sm-tablet:w-[46.5rem] sm-mobile:w-[29.125rem] px-0 sm-tablet:px-0 sm-mobile:px-0">
           {/* Hero Image Container */}
-          <div className="relative w-full h-[31.25rem] sm-tablet:h-[23.4375rem] sm-mobile:h-[11.3125rem] rounded-[1.5rem] sm-tablet:rounded-[1.125rem] sm-mobile:rounded-[0.75rem] overflow-hidden">
+          <div className="relative w-full h-[31.25rem] sm-tablet:h-[23.4375rem] sm-mobile:h-[11.3125rem] rounded-[1.5rem] sm-tablet:rounded-[1.125rem] sm-mobile:rounded-[0.75rem] overflow-hidden shadow-card">
             {/* Background Image */}
             <img
               src={heroImage}

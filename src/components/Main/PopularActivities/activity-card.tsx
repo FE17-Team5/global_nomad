@@ -11,7 +11,7 @@ const ActivityCard = ({ activity, className = "" }: ActivityCardProps) => {
   return (
     <Link
       to={`/detail/${activity.id}`}
-      className={`relative w-full h-[22.875rem] rounded-[2rem] overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-200 block ${className}`}
+      className={`relative w-full h-[22.875rem] rounded-[2rem] overflow-hidden shadow-card hover:shadow-md transition-shadow duration-200 block ${className}`}
     >
       {/* Background Image */}
       <div
@@ -31,23 +31,30 @@ const ActivityCard = ({ activity, className = "" }: ActivityCardProps) => {
       </div>
 
       {/* Content Overlay */}
-      <div className="absolute bottom-0 left-0 right-0 text-white py-5 px-[1.875rem]">
+      <div className="absolute bottom-0 left-0 right-0 text-white py-5 px-[1.875rem] sm-mobile:px-4">
         {/* Title */}
-        <h3 className="ty-16_B text-white mb-[1.125rem] line-clamp-2">
+        <h3 className="ty-16_B text-white mb-[1.125rem] narrow-desktop:mb-2 narrow-card:mb-2 line-clamp-2">
           {activity.title}
         </h3>
 
-        {/* Price */}
-        <div className="flex items-center justify-between">
-          <div className="flex items-baseline gap-1">
-            <span className="ty-20_B sm-tablet:ty-18_B sm-mobile:ty-16_B text-white">
+        {/* Review Count - Show between title and price in narrow layouts */}
+        <div className="hidden narrow-desktop:block narrow-card:block mb-2">
+          <span className="ty-12_M narrow-card:ty-11_M text-white/70">
+            후기 {activity.reviewCount}개
+          </span>
+        </div>
+
+        {/* Price and Review - Horizontal layout by default */}
+        <div className="flex items-center justify-between gap-2 narrow-desktop:justify-start narrow-card:justify-start">
+          <div className="flex items-baseline gap-1 min-w-0">
+            <span className="ty-20_B narrow-desktop:ty-16_B narrow-card:ty-12_B text-white truncate">
               ₩{activity.price.toLocaleString()}
             </span>
-            <span className="ty-12_M text-white/80">/ 인</span>
+            <span className="ty-12_M narrow-card:ty-11_M text-white/80 whitespace-nowrap">/ 인</span>
           </div>
 
-          {/* Review Count */}
-          <span className="ty-12_M text-white/70">
+          {/* Review Count - Hide in narrow layouts */}
+          <span className="ty-12_M text-white/70 whitespace-nowrap narrow-desktop:hidden narrow-card:hidden">
             후기 {activity.reviewCount}개
           </span>
         </div>

@@ -71,10 +71,6 @@ const PopularActivities = ({ searchKeyword = "" }: PopularActivitiesProps) => {
   const canScrollLeft = currentIndex > 0;
   const canScrollRight = currentIndex < getMaxIndex();
 
-  const getScrollPercentage = () => {
-    return 100 / itemsPerView;
-  };
-
   if (loading) {
     return (
       <section className="w-full bg-transparent py-[3rem] sm-tablet:py-[2.5rem] sm-mobile:py-[2rem]">
@@ -158,11 +154,11 @@ const PopularActivities = ({ searchKeyword = "" }: PopularActivitiesProps) => {
             )}
 
             {/* Cards Container */}
-            <div className="overflow-hidden">
+            <div className="overflow-hidden pb-8 sm-tablet:pb-6 sm-mobile:pb-6">
               <div
-                className="flex gap-[1.5rem] sm-tablet:gap-4 sm-mobile:gap-4 transition-transform duration-300 ease-in-out"
+                className="flex gap-[1.5rem] sm-tablet:gap-4 sm-mobile:gap-4 pb-8 sm-tablet:pb-6 sm-mobile:pb-6 transition-transform duration-300 ease-in-out"
                 style={{
-                  transform: `translateX(-${currentIndex * getScrollPercentage()}%)`,
+                  transform: `translateX(calc(-${currentIndex} * (100% + ${itemsPerView === 4 ? "1.5rem" : "1rem"})))`,
                 }}
               >
                 {activities.map((activity) => (
@@ -170,7 +166,7 @@ const PopularActivities = ({ searchKeyword = "" }: PopularActivitiesProps) => {
                     key={activity.id}
                     className="flex-none"
                     style={{
-                      width: `calc(${getScrollPercentage()}% - ${itemsPerView === 4 ? "1.125rem" : "0.5rem"})`,
+                      width: `calc((100% - ${itemsPerView === 4 ? "4.5rem" : "1rem"}) / ${itemsPerView})`,
                     }}
                   >
                     <ActivityCard activity={activity} />

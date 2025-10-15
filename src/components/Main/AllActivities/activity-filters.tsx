@@ -1,5 +1,10 @@
 import { useActivitiesData } from "../../../hooks/useActivitiesData";
 import Dropdown from "../../Dropdown/dropdown";
+import iconArt from "../../../assets/icon/icon_art.svg";
+import iconFood from "../../../assets/icon/icon_food.svg";
+import iconSport from "../../../assets/icon/icon_sport.svg";
+import iconTour from "../../../assets/icon/icon_tour.svg";
+import iconBus from "../../../assets/icon/icon_bus.svg";
 
 const ActivityFilters = () => {
   const {
@@ -11,6 +16,16 @@ const ActivityFilters = () => {
     handleSortChange,
   } = useActivitiesData();
 
+  // Category icon mapping
+  const categoryIcons: Record<string, string> = {
+    "문화 · 예술": iconArt,
+    "식음료": iconFood,
+    "스포츠": iconSport,
+    "투어": iconTour,
+    "관광": iconBus,
+    "웰빙": iconFood, // Using food icon for wellness as fallback
+  };
+
   return (
     <div className="flex items-center justify-between mb-6 sm-tablet:mb-4 sm-mobile:flex-col sm-mobile:items-start sm-mobile:gap-4">
       {/* Category Filters - Left / Mobile: Horizontal Scroll */}
@@ -20,7 +35,7 @@ const ActivityFilters = () => {
             <button
               key={category}
               onClick={() => handleCategoryChange(category)}
-              className={`px-4 py-2 rounded-full border transition-colors duration-200 whitespace-nowrap sm-mobile:text-[0.875rem] ${
+              className={`px-4 py-2.5 rounded-full border transition-colors duration-200 whitespace-nowrap sm-mobile:text-[0.875rem] flex items-center ${
                 selectedCategories.includes(category)
                   ? "bg-primary-500 text-white border-primary-500"
                   : "bg-white text-gray-700 border-gray-300 hover:border-primary-300"
@@ -34,6 +49,14 @@ const ActivityFilters = () => {
                 textAlign: "center",
               }}
             >
+              {categoryIcons[category] && (
+                <img
+                  src={categoryIcons[category]}
+                  alt=""
+                  className="w-5 h-5 mr-1.5"
+                  style={{ width: "20px", height: "20px", marginRight: "6px" }}
+                />
+              )}
               {category}
             </button>
           ))}
