@@ -79,18 +79,17 @@ const CustomModal = ({
       aria-labelledby="confirm-modal-message"
       tabIndex={-1}
     >
-      <button
-        type="button"
+      {/* biome-ignore lint/a11y/noNoninteractiveElementToInteractiveRole: Modal content wrapper needs stopPropagation */}
+      <div
         className={`bg-white ${
           withAnimation &&
           "tablet:transition-all tablet:duration-300 tablet:ease-in-out"
         } ${modalClassName} ${slideClass}`}
         onClick={(e) => e.stopPropagation()}
         onKeyDown={(e) => e.stopPropagation()}
-        style={{ border: "none", padding: 0, textAlign: "left" }}
       >
         {children}
-      </button>
+      </div>
     </div>,
     portal,
   );
