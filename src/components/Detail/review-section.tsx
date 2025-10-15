@@ -11,6 +11,7 @@
  */
 
 import { useMemo, useState } from "react";
+import emptyImage from "../../assets/atc/empty_image.svg";
 import Pagination from "../Pagination/pagination";
 import ReviewItem from "./review-item";
 
@@ -72,10 +73,10 @@ const ReviewSection = ({
 
       {/* 후기가 없을 때 */}
       {totalCount === 0 || reviews.length === 0 ? (
-        <div className="mt-10 flex flex-col items-center justify-center py-20 border border-gray-200 rounded-lg">
-          <p className="ty-16_M text-gray-400">아직 후기가 없습니다.</p>
-          <p className="ty-14_M text-gray-300 mt-2">
-            첫 번째 후기를 남겨보세요!
+        <div className="mt-10 flex flex-col items-center justify-center py-20">
+          <img src={emptyImage} alt="후기 없음" width={122} height={122} />
+          <p className="ty-16_M text-gray-400 mt-[30px]">
+            아직 후기가 없습니다.
           </p>
         </div>
       ) : (
