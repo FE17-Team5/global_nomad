@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { Link, useNavigate } from "react-router-dom";
 import defaultProfile from "../../assets/atc/default_profile.svg";
@@ -6,10 +7,14 @@ import headerLogo from "../../assets/header-logo.svg";
 import bellIcon from "../../assets/icon/icon_bell_off.svg";
 import { useMyProfile } from "../../hooks/queries/useMyProfile";
 import { Dropdown } from "../Dropdown";
+import NotificationModal from "../Notification/notification-modal";
 
 const Header = () => {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
+
+  // 알림 모달 상태
+  const [isNotificationOpen, setIsNotificationOpen] = useState(false);
 
   // 로그인 상태 확인 (팀원분 방식: localStorage)
   const authToken = localStorage.getItem("accessToken");
@@ -65,11 +70,22 @@ const Header = () => {
         {/* 오른쪽: 로그인 상태에 따라 다른 UI */}
         {isLoggedIn ? (
           // 로그인 상태: 알림 + divider + 프로필
-          <div className="flex items-center h-[30px] gap-5">
+          <div className="flex items-center h-[30px] gap-5 relative">
             {/* 알림 종 */}
-            <button type="button" className="w-6 h-6" aria-label="알림">
+            <button
+              type="button"
+              className="w-6 h-6"
+              aria-label="알림"
+              onClick={() => setIsNotificationOpen(!isNotificationOpen)}
+            >
               <img src={bellIcon} alt="" className="w-full h-full" />
             </button>
+
+            {/* 알림 모달 */}
+            <NotificationModal
+              isOpen={isNotificationOpen}
+              onClose={() => setIsNotificationOpen(false)}
+            />
 
             {/* Divider */}
             <div className="h-[14px] w-px border-l border-gray-100" />

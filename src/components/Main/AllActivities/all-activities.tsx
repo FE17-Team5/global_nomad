@@ -6,7 +6,11 @@ import Pagination from "../../Pagination/pagination";
 import ActivityFilters from "./activity-filters";
 import ActivityGrid from "./activity-grid";
 
-const AllActivities = () => {
+interface AllActivitiesProps {
+  searchKeyword?: string;
+}
+
+const AllActivities = ({ searchKeyword }: AllActivitiesProps) => {
   // 커스텀 훅 사용
   const {
     scrollRef: categoryScrollRef,
@@ -29,7 +33,15 @@ const AllActivities = () => {
     handleCategoryChange,
     handleSortChange,
     handlePageChange,
+    setKeyword, // 검색어 설정 함수
   } = useActivitiesData(); // 활동 데이터 관리
+
+  // 검색어가 변경되면 적용
+  useEffect(() => {
+    if (searchKeyword !== undefined) {
+      setKeyword(searchKeyword);
+    }
+  }, [searchKeyword, setKeyword]);
 
   // 스크롤 인디케이터 상태
   const [canScrollLeft, setCanScrollLeft] = useState(false);
