@@ -1,20 +1,36 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useActivitiesList } from "../../../hooks/queries/useActivitiesList";
+import { matchKoreanSearch } from "../../../utils/korean-search";
 import ActivityCard from "./activity-card";
 
-const PopularActivities = () => {
+interface PopularActivitiesProps {
+  searchKeyword?: string;
+}
+
+const PopularActivities = ({ searchKeyword = "" }: PopularActivitiesProps) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [itemsPerView, setItemsPerView] = useState(4);
-  const _scrollContainerRef = useRef<HTMLDivElement>(null);
 
   const { data: response, isLoading: loading } = useActivitiesList({
     method: "offset",
     page: 1,
-    size: 10,
+    size: 100,
     sort: "most_reviewed",
   });
 
-  const activities = response?.activities || [];
+  const allActivities = response?.activities || [];
+
+  // 클라이언트 사이드에서 한글 초성 검색 필터링 (인기순 유지)
+  const activities = useMemo(() => {
+    if (!searchKeyword || !searchKeyword.trim()) {
+      return allActivities.slice(0, 10); // 검색어 없으면 상위 10개만
+    }
+
+    // 검색어가 있으면 필터링 후 인기순으로 정렬된 결과 반환
+    return allActivities.filter((activity) => {
+      return matchKoreanSearch(activity.title, searchKeyword);
+    });
+  }, [allActivities, searchKeyword]);
 
   useEffect(() => {
     const updateItemsPerView = () => {
@@ -32,6 +48,12 @@ const PopularActivities = () => {
     return () => window.removeEventListener("resize", updateItemsPerView);
   }, []);
 
+  // 검색어 변경 시 인덱스 리셋
+  // biome-ignore lint/correctness/useExhaustiveDependencies: searchKeyword is a valid dependency for resetting index
+  useEffect(() => {
+    setCurrentIndex(0);
+  }, [searchKeyword]);
+
   // 가로 스크롤 함수들
   const getMaxIndex = () => {
     return Math.max(0, activities.length - itemsPerView);
@@ -48,10 +70,6 @@ const PopularActivities = () => {
 
   const canScrollLeft = currentIndex > 0;
   const canScrollRight = currentIndex < getMaxIndex();
-
-  const getScrollPercentage = () => {
-    return 100 / itemsPerView;
-  };
 
   if (loading) {
     return (
@@ -81,13 +99,15 @@ const PopularActivities = () => {
               <>
                 {/* Previous Button */}
                 <button
+                  type="button"
                   onClick={handlePrevious}
                   disabled={!canScrollLeft}
-                  className={`absolute left-[-1.25rem] top-1/2 z-10 transform -translate-y-1/2 w-10 h-10 rounded-full shadow-lg transition-all duration-200 ${
+                  className={`absolute left-[-1.25rem] top-[calc(50%-2rem)] sm-tablet:top-[calc(50%-1.5rem)] sm-mobile:top-[calc(50%-1.5rem)] z-10 transform -translate-y-1/2 w-10 h-10 rounded-full shadow-lg transition-all duration-200 ${
                     canScrollLeft
                       ? "bg-white hover:bg-gray-50 text-gray-700 hover:text-gray-900"
                       : "bg-gray-100 text-gray-300 cursor-not-allowed"
                   }`}
+                  aria-label="이전 체험 보기"
                 >
                   <svg
                     width="24"
@@ -95,6 +115,7 @@ const PopularActivities = () => {
                     viewBox="0 0 24 24"
                     fill="none"
                     className="mx-auto"
+                    aria-hidden="true"
                   >
                     <path
                       d="M15 18L9 12L15 6"
@@ -108,13 +129,15 @@ const PopularActivities = () => {
 
                 {/* Next Button */}
                 <button
+                  type="button"
                   onClick={handleNext}
                   disabled={!canScrollRight}
-                  className={`absolute right-[-1.25rem] top-1/2 z-10 transform -translate-y-1/2 w-10 h-10 rounded-full shadow-lg transition-all duration-200 ${
+                  className={`absolute right-[-1.25rem] top-[calc(50%-2rem)] sm-tablet:top-[calc(50%-1.5rem)] sm-mobile:top-[calc(50%-1.5rem)] z-10 transform -translate-y-1/2 w-10 h-10 rounded-full shadow-lg transition-all duration-200 ${
                     canScrollRight
                       ? "bg-white hover:bg-gray-50 text-gray-700 hover:text-gray-900"
                       : "bg-gray-100 text-gray-300 cursor-not-allowed"
                   }`}
+                  aria-label="다음 체험 보기"
                 >
                   <svg
                     width="24"
@@ -122,6 +145,7 @@ const PopularActivities = () => {
                     viewBox="0 0 24 24"
                     fill="none"
                     className="mx-auto"
+                    aria-hidden="true"
                   >
                     <path
                       d="M9 18L15 12L9 6"
@@ -136,11 +160,11 @@ const PopularActivities = () => {
             )}
 
             {/* Cards Container */}
-            <div className="overflow-hidden">
+            <div className="overflow-hidden pb-8 sm-tablet:pb-6 sm-mobile:pb-6">
               <div
-                className="flex gap-[1.5rem] sm-tablet:gap-4 sm-mobile:gap-4 transition-transform duration-300 ease-in-out"
+                className="flex gap-[1.5rem] sm-tablet:gap-4 sm-mobile:gap-4 pb-8 sm-tablet:pb-6 sm-mobile:pb-6 transition-transform duration-300 ease-in-out"
                 style={{
-                  transform: `translateX(-${currentIndex * getScrollPercentage()}%)`,
+                  transform: `translateX(calc(-${currentIndex} * (100% + ${itemsPerView === 4 ? "1.5rem" : "1rem"})))`,
                 }}
               >
                 {activities.map((activity) => (
@@ -148,7 +172,7 @@ const PopularActivities = () => {
                     key={activity.id}
                     className="flex-none"
                     style={{
-                      width: `calc(${getScrollPercentage()}% - ${itemsPerView === 4 ? "1.125rem" : "0.5rem"})`,
+                      width: `calc((100% - ${itemsPerView === 4 ? "4.5rem" : "1rem"}) / ${itemsPerView})`,
                     }}
                   >
                     <ActivityCard activity={activity} />

@@ -1,46 +1,89 @@
-import { useActivitiesData } from "../../../hooks/useActivitiesData";
-import Dropdown from "../../Dropdown/dropdown";
+/**
+ * 체험 필터 컴포넌트
+ *
+ * 카테고리 필터와 정렬 옵션을 제공하는 컴포넌트
+ * - 카테고리 필터: 전체, 문화·예술, 식음료, 스포츠, 투어, 관광, 웰빙
+ * - 정렬 옵션: 최신순, 가격 높은순, 가격 낮은순, 리뷰 많은순
+ * - 반응형: 데스크탑(가로 배치), 모바일(세로 배치)
+ * - 데스크탑에서만 사용 (모바일/태블릿은 all-activities에서 별도 처리)
+ */
 
-const ActivityFilters = () => {
-  const {
-    categories,
-    sortOptions,
-    selectedCategories,
-    selectedSort,
-    handleCategoryChange,
-    handleSortChange,
-  } = useActivitiesData();
+import Dropdown from "../../Dropdown/dropdown";
+import iconArt from "../../../assets/icon/icon_art.svg";
+import iconFood from "../../../assets/icon/icon_food.svg";
+import iconSport from "../../../assets/icon/icon_sport.svg";
+import iconTour from "../../../assets/icon/icon_tour.svg";
+import iconBus from "../../../assets/icon/icon_bus.svg";
+
+interface ActivityFiltersProps {
+  categories: string[];
+  sortOptions: { value: string; label: string }[];
+  selectedCategories: string[];
+  selectedSort: string;
+  handleCategoryChange: (category: string) => void;
+  handleSortChange: (sortValue: string) => void;
+}
+
+const ActivityFilters = ({
+  categories,
+  sortOptions,
+  selectedCategories,
+  selectedSort,
+  handleCategoryChange,
+  handleSortChange,
+}: ActivityFiltersProps) => {
+
+  // 카테고리 아이콘 매핑
+  const categoryIcons: Record<string, string> = {
+    "문화 · 예술": iconArt,
+    "식음료": iconFood,
+    "스포츠": iconSport,
+    "투어": iconTour,
+    "관광": iconBus,
+    "웰빙": iconFood, // 웰빙은 식음료 아이콘 사용
+  };
 
   return (
     <div className="flex items-center justify-between mb-6 sm-tablet:mb-4 sm-mobile:flex-col sm-mobile:items-start sm-mobile:gap-4">
-      {/* Category Filters - Left / Mobile: Horizontal Scroll */}
+      {/* 카테고리 필터 - 데스크탑: 왼쪽 / 모바일: 가로 스크롤 */}
       <div className="flex gap-2 sm-tablet:flex-wrap sm-mobile:overflow-x-auto sm-mobile:scrollbar-hide sm-mobile:w-full sm-mobile:pb-2">
         <div className="flex gap-2 sm-mobile:flex-nowrap sm-mobile:min-w-max">
           {categories.map((category) => (
             <button
               key={category}
               onClick={() => handleCategoryChange(category)}
-              className={`px-4 py-2 rounded-full border transition-colors duration-200 whitespace-nowrap sm-mobile:text-[0.875rem] ${
+              className={`px-4 py-2.5 rounded-full border transition-colors duration-200 whitespace-nowrap flex items-center ${
                 selectedCategories.includes(category)
                   ? "bg-primary-500 text-white border-primary-500"
-                  : "bg-white text-gray-700 border-gray-300 hover:border-primary-300"
+                  : "bg-white text-gray-700 border-[#D8D8D8] hover:border-primary-300"
               }`}
-              style={{
-                fontFamily: "Pretendard",
-                fontSize: "1rem", // 16px
-                fontWeight: 500,
-                lineHeight: "100%",
-                letterSpacing: "-2.5%",
-                textAlign: "center",
-              }}
             >
-              {category}
+              {categoryIcons[category] && (
+                <img
+                  src={categoryIcons[category]}
+                  alt=""
+                  className="w-5 h-5 mr-1.5 flex-shrink-0"
+                />
+              )}
+              <span
+                className="sm-mobile:text-[0.875rem]"
+                style={{
+                  fontFamily: "Pretendard",
+                  fontSize: "1rem", // 16px
+                  fontWeight: 500,
+                  lineHeight: "100%",
+                  letterSpacing: "-2.5%",
+                  textAlign: "center",
+                }}
+              >
+                {category}
+              </span>
             </button>
           ))}
         </div>
       </div>
 
-      {/* Sort Options - Right / Mobile: Full width */}
+      {/* 정렬 옵션 - 데스크탑: 오른쪽 / 모바일: 전체 너비 */}
       <div className="sm-mobile:w-full sm-mobile:flex sm-mobile:justify-end">
         <Dropdown
           align="right"

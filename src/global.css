@@ -105,6 +105,11 @@
 @custom-variant sm-tablet (@media (max-width: 46.5rem)); /* 744px - 작은 태블릿 */
 @custom-variant sm-mobile (@media (max-width: 23.4375rem)); /* 375px - 작은 모바일 */
 
+/* Activity card 레이아웃 전용 브레이크포인트 */
+@custom-variant narrow-desktop (@media (min-width: 46.5625rem) and (max-width: 64.375rem)); /* 745px ~ 1030px */
+@custom-variant wide-tablet (@media (min-width: 32.6875rem) and (max-width: 46.5rem)); /* 523px ~ 744px */
+@custom-variant narrow-card (@media (max-width: 32.625rem)); /* 522px 이하 */
+
  /* =========================================
    🔔 Modal Styles
    ========================================= */
@@ -473,7 +478,7 @@ body {
 }
 
 /* =========================================
-   🔄 Scroll Utilities
+   🔄 스크롤바 숨기기 유틸리티
    ========================================= */
 @layer utilities {
   .scrollbar-hide {
@@ -482,5 +487,20 @@ body {
   }
   .scrollbar-hide::-webkit-scrollbar {
     display: none;  /* Safari and Chrome */
+  }
+}
+
+/* =========================================
+   🎨 커스텀 그림자 유틸리티
+   ========================================= */
+@layer utilities {
+  /* 카드 그림자: 0px 4px 24px 0px #9CB4CA33 */
+  .shadow-card {
+    box-shadow: 0px 4px 24px 0px rgba(156, 180, 202, 0.2);
+  }
+
+  /* 검색 그림자: 0px 6px 10px 0px #0D99FF0D */
+  .shadow-search {
+    box-shadow: 0px 6px 10px 0px rgba(13, 153, 255, 0.05);
   }
 }
