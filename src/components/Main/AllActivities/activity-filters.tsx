@@ -1,4 +1,3 @@
-import { useActivitiesData } from "../../../hooks/useActivitiesData";
 import Dropdown from "../../Dropdown/dropdown";
 import iconArt from "../../../assets/icon/icon_art.svg";
 import iconFood from "../../../assets/icon/icon_food.svg";
@@ -6,15 +5,23 @@ import iconSport from "../../../assets/icon/icon_sport.svg";
 import iconTour from "../../../assets/icon/icon_tour.svg";
 import iconBus from "../../../assets/icon/icon_bus.svg";
 
-const ActivityFilters = () => {
-  const {
-    categories,
-    sortOptions,
-    selectedCategories,
-    selectedSort,
-    handleCategoryChange,
-    handleSortChange,
-  } = useActivitiesData();
+interface ActivityFiltersProps {
+  categories: string[];
+  sortOptions: { value: string; label: string }[];
+  selectedCategories: string[];
+  selectedSort: string;
+  handleCategoryChange: (category: string) => void;
+  handleSortChange: (sortValue: string) => void;
+}
+
+const ActivityFilters = ({
+  categories,
+  sortOptions,
+  selectedCategories,
+  selectedSort,
+  handleCategoryChange,
+  handleSortChange,
+}: ActivityFiltersProps) => {
 
   // Category icon mapping
   const categoryIcons: Record<string, string> = {
@@ -35,29 +42,32 @@ const ActivityFilters = () => {
             <button
               key={category}
               onClick={() => handleCategoryChange(category)}
-              className={`px-4 py-2.5 rounded-full border transition-colors duration-200 whitespace-nowrap sm-mobile:text-[0.875rem] flex items-center ${
+              className={`px-4 py-2.5 rounded-full border transition-colors duration-200 whitespace-nowrap flex items-center ${
                 selectedCategories.includes(category)
                   ? "bg-primary-500 text-white border-primary-500"
-                  : "bg-white text-gray-700 border-gray-300 hover:border-primary-300"
+                  : "bg-white text-gray-700 border-[#D8D8D8] hover:border-primary-300"
               }`}
-              style={{
-                fontFamily: "Pretendard",
-                fontSize: "1rem", // 16px
-                fontWeight: 500,
-                lineHeight: "100%",
-                letterSpacing: "-2.5%",
-                textAlign: "center",
-              }}
             >
               {categoryIcons[category] && (
                 <img
                   src={categoryIcons[category]}
                   alt=""
-                  className="w-5 h-5 mr-1.5"
-                  style={{ width: "20px", height: "20px", marginRight: "6px" }}
+                  className="w-5 h-5 mr-1.5 flex-shrink-0"
                 />
               )}
-              {category}
+              <span
+                className="sm-mobile:text-[0.875rem]"
+                style={{
+                  fontFamily: "Pretendard",
+                  fontSize: "1rem", // 16px
+                  fontWeight: 500,
+                  lineHeight: "100%",
+                  letterSpacing: "-2.5%",
+                  textAlign: "center",
+                }}
+              >
+                {category}
+              </span>
             </button>
           ))}
         </div>

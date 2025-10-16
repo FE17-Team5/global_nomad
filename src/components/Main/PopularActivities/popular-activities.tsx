@@ -101,7 +101,7 @@ const PopularActivities = ({ searchKeyword = "" }: PopularActivitiesProps) => {
                 <button
                   onClick={handlePrevious}
                   disabled={!canScrollLeft}
-                  className={`absolute left-[-1.25rem] top-1/2 z-10 transform -translate-y-1/2 w-10 h-10 rounded-full shadow-lg transition-all duration-200 ${
+                  className={`absolute left-[-1.25rem] top-[calc(50%-2rem)] sm-tablet:top-[calc(50%-1.5rem)] sm-mobile:top-[calc(50%-1.5rem)] z-10 transform -translate-y-1/2 w-10 h-10 rounded-full shadow-lg transition-all duration-200 ${
                     canScrollLeft
                       ? "bg-white hover:bg-gray-50 text-gray-700 hover:text-gray-900"
                       : "bg-gray-100 text-gray-300 cursor-not-allowed"
@@ -128,7 +128,7 @@ const PopularActivities = ({ searchKeyword = "" }: PopularActivitiesProps) => {
                 <button
                   onClick={handleNext}
                   disabled={!canScrollRight}
-                  className={`absolute right-[-1.25rem] top-1/2 z-10 transform -translate-y-1/2 w-10 h-10 rounded-full shadow-lg transition-all duration-200 ${
+                  className={`absolute right-[-1.25rem] top-[calc(50%-2rem)] sm-tablet:top-[calc(50%-1.5rem)] sm-mobile:top-[calc(50%-1.5rem)] z-10 transform -translate-y-1/2 w-10 h-10 rounded-full shadow-lg transition-all duration-200 ${
                     canScrollRight
                       ? "bg-white hover:bg-gray-50 text-gray-700 hover:text-gray-900"
                       : "bg-gray-100 text-gray-300 cursor-not-allowed"

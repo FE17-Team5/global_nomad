@@ -4,8 +4,10 @@ import { Link, useNavigate } from "react-router-dom";
 import defaultProfile from "../../assets/atc/default_profile.svg";
 import mobileLogo from "../../assets/atc/logo.svg";
 import headerLogo from "../../assets/header-logo.svg";
-import bellIcon from "../../assets/icon/icon_bell_off.svg";
+import bellIconOff from "../../assets/icon/icon_bell_off.svg";
+import bellIconOn from "../../assets/icon/icon_bell_on.svg";
 import { useMyProfile } from "../../hooks/queries/useMyProfile";
+import { useMyNotificationsList } from "../../hooks/queries/useMyNotificationsList";
 import { Dropdown } from "../Dropdown";
 import NotificationModal from "../Notification/notification-modal";
 
@@ -24,6 +26,13 @@ const Header = () => {
   const { data: userProfile } = useMyProfile(authToken);
   const profileImageUrl = userProfile?.profileImageUrl || defaultProfile;
   const nickname = userProfile?.nickname || "사용자";
+
+  // 알림 목록 가져오기 (알림 개수 확인용)
+  const { data: notificationsResponse } = useMyNotificationsList(
+    { cursorId: null, size: 10 },
+    authToken,
+  );
+  const hasNotifications = (notificationsResponse?.totalCount || 0) > 0;
 
   // 로그아웃 핸들러
   const handleLogout = () => {
@@ -72,28 +81,39 @@ const Header = () => {
           // 로그인 상태: 알림 + divider + 프로필
           <div className="flex items-center h-[30px] gap-5 relative">
             {/* 알림 종 */}
-            <button
-              type="button"
-              className="w-6 h-6"
-              aria-label="알림"
-              onClick={() => setIsNotificationOpen(!isNotificationOpen)}
-            >
-              <img src={bellIcon} alt="" className="w-full h-full" />
-            </button>
+            <div className="relative">
+              <button
+                type="button"
+                className="cursor-pointer transition duration-300 hover:-translate-y-0.5"
+                aria-label="알림"
+                onClick={() => setIsNotificationOpen(!isNotificationOpen)}
+              >
+                <img
+                  src={hasNotifications ? bellIconOn : bellIconOff}
+                  alt=""
+                  className="w-6 h-6"
+                  style={{
+                    filter: isNotificationOpen
+                      ? "brightness(0) saturate(100%) invert(47%) sepia(96%) saturate(2488%) hue-rotate(197deg) brightness(98%) contrast(93%)"
+                      : "none",
+                  }}
+                />
+              </button>
 
-            {/* 알림 모달 */}
-            <NotificationModal
-              isOpen={isNotificationOpen}
-              onClose={() => setIsNotificationOpen(false)}
-            />
+              {/* 알림 모달 - 벨 아이콘 바로 아래 */}
+              <NotificationModal
+                isOpen={isNotificationOpen}
+                onClose={() => setIsNotificationOpen(false)}
+              />
+            </div>
 
-            {/* Divider */}
-            <div className="h-[14px] w-px border-l border-gray-100" />
+            {/* Divider - 벨 아이콘과 프로필 사이 */}
+            <div className="h-[14px] w-px bg-gray-300" />
 
             {/* 프로필 이미지 + 닉네임 (드롭다운) */}
             <Dropdown
               trigger={
-                <div className="flex items-center gap-[10px] px-3 py-2 rounded-lg cursor-pointer transition duration-300 hover:bg-gray-50 hover:-translate-y-0.5">
+                <div className="flex items-center gap-[10px] cursor-pointer transition duration-300 hover:-translate-y-0.5">
                   <div className="w-[30px] h-[30px] rounded-full overflow-hidden flex-shrink-0">
                     <img
                       src={profileImageUrl}

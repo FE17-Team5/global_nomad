@@ -120,12 +120,12 @@ const NotificationModal = ({ isOpen, onClose }: NotificationModalProps) => {
 
   return (
     <div
-      className="fixed z-50 bg-white rounded-lg shadow-lg border border-gray-200
+      className="absolute z-50 bg-white rounded-lg shadow-[0px_2px_8px_0px_rgba(120,116,134,0.25)]
                  w-[20.4375rem] sm-tablet:w-[14.4375rem] sm-mobile:w-[20.4375rem]
-                 top-[3.875rem] left-[1.5rem] sm-tablet:top-[4.1875rem] sm-tablet:left-[23.25rem] sm-mobile:top-[4.1875rem] sm-mobile:left-[85.8125rem]"
+                 top-[calc(100%+0.5rem)] right-0"
     >
       {/* 헤더 */}
-      <div className="flex items-center justify-between px-5 py-4 border-b border-gray-200">
+      <div className="flex items-center justify-between px-5 py-4 border-b border-gray-100">
         <h2 className="font-bold text-[1rem] leading-[100%] tracking-[-0.025em] text-gray-950">
           알림 {totalCount}개
         </h2>
@@ -156,7 +156,7 @@ const NotificationModal = ({ isOpen, onClose }: NotificationModalProps) => {
               return (
                 <div
                   key={notification.id}
-                  className={!isLast ? "border-b border-gray-200" : ""}
+                  className={!isLast ? "border-b border-gray-100" : ""}
                 >
                   <NotificationItem notification={notification} />
                 </div>

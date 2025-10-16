@@ -5,6 +5,11 @@ import Dropdown from "../../Dropdown/dropdown";
 import Pagination from "../../Pagination/pagination";
 import ActivityFilters from "./activity-filters";
 import ActivityGrid from "./activity-grid";
+import iconArt from "../../../assets/icon/icon_art.svg";
+import iconFood from "../../../assets/icon/icon_food.svg";
+import iconSport from "../../../assets/icon/icon_sport.svg";
+import iconTour from "../../../assets/icon/icon_tour.svg";
+import iconBus from "../../../assets/icon/icon_bus.svg";
 
 interface AllActivitiesProps {
   searchKeyword?: string;
@@ -35,6 +40,16 @@ const AllActivities = ({ searchKeyword }: AllActivitiesProps) => {
     handlePageChange,
     setKeyword, // 검색어 설정 함수
   } = useActivitiesData(); // 활동 데이터 관리
+
+  // Category icon mapping
+  const categoryIcons: Record<string, string> = {
+    "문화 · 예술": iconArt,
+    "식음료": iconFood,
+    "스포츠": iconSport,
+    "투어": iconTour,
+    "관광": iconBus,
+    "웰빙": iconFood, // Using food icon for wellness as fallback
+  };
 
   // 검색어가 변경되면 적용
   useEffect(() => {
@@ -117,7 +132,14 @@ const AllActivities = ({ searchKeyword }: AllActivitiesProps) => {
 
           {/* Filters */}
           <div className="sm-tablet:hidden sm-mobile:hidden">
-            <ActivityFilters />
+            <ActivityFilters
+              categories={categories}
+              sortOptions={sortOptions}
+              selectedCategories={selectedCategories}
+              selectedSort={sortBy}
+              handleCategoryChange={handleCategoryChange}
+              handleSortChange={handleSortChange}
+            />
           </div>
 
           {/* Mobile & Tablet: Category Filters Only */}
@@ -150,13 +172,20 @@ const AllActivities = ({ searchKeyword }: AllActivitiesProps) => {
                       onClick={() =>
                         !isDragging && handleCategoryChange(category)
                       }
-                      className={`px-4 py-2 rounded-full border transition-colors duration-200 whitespace-nowrap text-center
+                      className={`px-4 py-2 rounded-full border transition-colors duration-200 whitespace-nowrap text-center flex items-center
                       ty-16_M sm-mobile:ty-14_M ${
                         selectedCategories.includes(category)
                           ? "bg-primary-500 text-white border-primary-500"
-                          : "bg-white text-gray-700 border-gray-300 hover:border-primary-300"
+                          : "bg-white text-gray-700 border-[#D8D8D8] hover:border-primary-300"
                       }`}
                     >
+                      {categoryIcons[category] && (
+                        <img
+                          src={categoryIcons[category]}
+                          alt=""
+                          className="w-5 h-5 mr-1.5 flex-shrink-0"
+                        />
+                      )}
                       {category}
                     </button>
                   ))}
