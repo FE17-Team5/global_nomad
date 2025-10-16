@@ -14,9 +14,11 @@ type InputState = {
 type ReturnType = () => [
   input: InputState,
   error: InputState,
+  isOpen: boolean,
   handleInputChange: (e: ChangeEvent<HTMLInputElement>) => void,
   hanldeSubmit: (e: React.FormEvent<HTMLFormElement>) => void,
-  handleInitData: () => void
+  handleInitData: () => void,
+  handleModalClose: () => void
 ];
 
 const useUpdateUserInfo: ReturnType = () => {
@@ -24,6 +26,16 @@ const useUpdateUserInfo: ReturnType = () => {
   const { data: user, isSuccess } = useMyProfile(accessToken);
   const userMutation = useUpdateMyProfile(accessToken!);
   const queryClient = useQueryClient();
+
+  const [isOpen, setIsOpen] = useState(false);
+
+  const handleModalOpen = () => {
+    setIsOpen(true);
+  };
+
+  const handleModalClose = () => {
+    setIsOpen(false);
+  };
 
   const [error, setError] = useState({
     email: "",
@@ -135,6 +147,7 @@ const useUpdateUserInfo: ReturnType = () => {
             password: "",
             validatePassword: "",
           }));
+          handleModalOpen();
           setError({
             email: "",
             nickname: "",
@@ -157,7 +170,15 @@ const useUpdateUserInfo: ReturnType = () => {
     }
   }, [isSuccess, user]);
 
-  return [input, error, handleInputChange, handleSubmit, handleInitData];
+  return [
+    input,
+    error,
+    isOpen,
+    handleInputChange,
+    handleSubmit,
+    handleInitData,
+    handleModalClose,
+  ];
 };
 
 export default useUpdateUserInfo;

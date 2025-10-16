@@ -45,7 +45,7 @@ const ReviewModal = ({
     setHoverRating(0);
   };
 
-  const handleCLose = () => {
+  const handleClose = () => {
     setInput({
       review: "",
       rating: 0,
@@ -62,15 +62,18 @@ const ReviewModal = ({
       containerClassName="fixed inset-0 z-50 flex items-center justify-center px-6 bg-black/50"
       modalClassName="w-full max-w-[385px] flex flex-col px-[30px] py-[24px] rounded-[30px] shadow-[0_4px_24px_0_#9CB4CA33]"
     >
-      <>
+      <div>
         <div className="w-full flex justify-end">
           <img
+            role="button"
+            tabIndex={0}
             src={closeImg}
             alt="close"
             width={24}
             height={24}
             className="w-6 h-6 cursor-pointer"
-            onClick={handleCLose}
+            onClick={handleClose}
+            onKeyDown={handleClose}
           />
         </div>
         <form action="" className="flex flex-col gap-[30px]">
@@ -112,6 +115,7 @@ const ReviewModal = ({
             </div>
           </div>
           <button
+            type="submit"
             disabled={!input.rating && !input.review}
             className={`w-full px-[40px] py-3.5 rounded-2xl ty-16_B 
               ${
@@ -123,7 +127,7 @@ const ReviewModal = ({
             작성하기
           </button>
         </form>
-      </>
+      </div>
     </CustomModal>
   );
 };

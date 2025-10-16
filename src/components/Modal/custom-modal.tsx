@@ -91,7 +91,7 @@ const CustomModal = ({
         {children}
       </div>
     </div>,
-    portal,
+    portal
   );
 };
 
