@@ -19,7 +19,7 @@ type ReturnType = () => [
   handleModalClose: () => void,
   handleInputChage: (e: ChangeEvent<HTMLInputElement>) => void,
   handleInputBlur: (e: ChangeEvent<HTMLInputElement>) => void,
-  handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void,
+  handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void
 ];
 
 const useLoginValidate: ReturnType = () => {
@@ -98,6 +98,7 @@ const useLoginValidate: ReturnType = () => {
         onSuccess: (data: LoginResponse) => {
           localStorage.setItem("accessToken", data.accessToken);
           localStorage.setItem("refreshToken", data.refreshToken);
+          localStorage.setItem("myProfileTab", "0");
           // 이전 사용자 캐시 삭제 (새 사용자 정보로 갱신)
           queryClient.removeQueries({ queryKey: ["user", "me"] });
           navigate("/");
@@ -105,10 +106,10 @@ const useLoginValidate: ReturnType = () => {
         onError: (err: Error) => {
           setIsOpen(true);
           setModalText(
-            err.message ? err.message : "알 수 없는 에러가 발생하였습니다.",
+            err.message ? err.message : "알 수 없는 에러가 발생하였습니다."
           );
         },
-      },
+      }
     );
   };
   return [
