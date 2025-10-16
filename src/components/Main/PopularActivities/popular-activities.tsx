@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useActivitiesList } from "../../../hooks/queries/useActivitiesList";
 import { matchKoreanSearch } from "../../../utils/korean-search";
 import ActivityCard from "./activity-card";
@@ -10,7 +10,6 @@ interface PopularActivitiesProps {
 const PopularActivities = ({ searchKeyword = "" }: PopularActivitiesProps) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [itemsPerView, setItemsPerView] = useState(4);
-  const _scrollContainerRef = useRef<HTMLDivElement>(null);
 
   const { data: response, isLoading: loading } = useActivitiesList({
     method: "offset",
@@ -50,6 +49,7 @@ const PopularActivities = ({ searchKeyword = "" }: PopularActivitiesProps) => {
   }, []);
 
   // 검색어 변경 시 인덱스 리셋
+  // biome-ignore lint/correctness/useExhaustiveDependencies: searchKeyword is a valid dependency for resetting index
   useEffect(() => {
     setCurrentIndex(0);
   }, [searchKeyword]);
@@ -99,6 +99,7 @@ const PopularActivities = ({ searchKeyword = "" }: PopularActivitiesProps) => {
               <>
                 {/* Previous Button */}
                 <button
+                  type="button"
                   onClick={handlePrevious}
                   disabled={!canScrollLeft}
                   className={`absolute left-[-1.25rem] top-[calc(50%-2rem)] sm-tablet:top-[calc(50%-1.5rem)] sm-mobile:top-[calc(50%-1.5rem)] z-10 transform -translate-y-1/2 w-10 h-10 rounded-full shadow-lg transition-all duration-200 ${
@@ -106,6 +107,7 @@ const PopularActivities = ({ searchKeyword = "" }: PopularActivitiesProps) => {
                       ? "bg-white hover:bg-gray-50 text-gray-700 hover:text-gray-900"
                       : "bg-gray-100 text-gray-300 cursor-not-allowed"
                   }`}
+                  aria-label="이전 체험 보기"
                 >
                   <svg
                     width="24"
@@ -113,6 +115,7 @@ const PopularActivities = ({ searchKeyword = "" }: PopularActivitiesProps) => {
                     viewBox="0 0 24 24"
                     fill="none"
                     className="mx-auto"
+                    aria-hidden="true"
                   >
                     <path
                       d="M15 18L9 12L15 6"
@@ -126,6 +129,7 @@ const PopularActivities = ({ searchKeyword = "" }: PopularActivitiesProps) => {
 
                 {/* Next Button */}
                 <button
+                  type="button"
                   onClick={handleNext}
                   disabled={!canScrollRight}
                   className={`absolute right-[-1.25rem] top-[calc(50%-2rem)] sm-tablet:top-[calc(50%-1.5rem)] sm-mobile:top-[calc(50%-1.5rem)] z-10 transform -translate-y-1/2 w-10 h-10 rounded-full shadow-lg transition-all duration-200 ${
@@ -133,6 +137,7 @@ const PopularActivities = ({ searchKeyword = "" }: PopularActivitiesProps) => {
                       ? "bg-white hover:bg-gray-50 text-gray-700 hover:text-gray-900"
                       : "bg-gray-100 text-gray-300 cursor-not-allowed"
                   }`}
+                  aria-label="다음 체험 보기"
                 >
                   <svg
                     width="24"
@@ -140,6 +145,7 @@ const PopularActivities = ({ searchKeyword = "" }: PopularActivitiesProps) => {
                     viewBox="0 0 24 24"
                     fill="none"
                     className="mx-auto"
+                    aria-hidden="true"
                   >
                     <path
                       d="M9 18L15 12L9 6"

@@ -50,7 +50,9 @@ const ActivityCard = ({ activity, className = "" }: ActivityCardProps) => {
             <span className="ty-20_B narrow-desktop:ty-16_B narrow-card:ty-12_B text-white truncate">
               ₩{activity.price.toLocaleString()}
             </span>
-            <span className="ty-12_M narrow-card:ty-11_M text-white/80 whitespace-nowrap">/ 인</span>
+            <span className="ty-12_M narrow-card:ty-11_M text-white/80 whitespace-nowrap">
+              / 인
+            </span>
           </div>
 
           {/* Review Count - Hide in narrow layouts */}

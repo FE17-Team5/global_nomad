@@ -20,11 +20,10 @@
  * - 모바일(375px): left 24px, top 62px
  */
 
-import { useState, useEffect, useRef } from "react";
-import type { Notification } from "../../lib/my-notifications/types";
-import NotificationItem from "./notification-item";
+import { useEffect, useRef, useState } from "react";
 import closeIcon from "../../assets/icon/icon_delete.svg";
 import { useMyNotificationsList } from "../../hooks/queries/useMyNotificationsList";
+import NotificationItem from "./notification-item";
 
 interface NotificationModalProps {
   isOpen: boolean;
@@ -37,7 +36,6 @@ const NotificationModal = ({ isOpen, onClose }: NotificationModalProps) => {
   // API 데이터 가져오기
   const { data: notificationsResponse, isLoading } = useMyNotificationsList(
     {
-      cursorId: null,
       size: 10,
     },
     authToken,
@@ -87,9 +85,7 @@ const NotificationModal = ({ isOpen, onClose }: NotificationModalProps) => {
     // 스크롤 다운: 하단에 가까워졌을 때 다음 2개 로드
     if (scrollDirection === "down" && scrollBottom < 5) {
       if (startIndex + displayCount < totalCount) {
-        setDisplayCount((prev) =>
-          Math.min(prev + 2, totalCount - startIndex),
-        );
+        setDisplayCount((prev) => Math.min(prev + 2, totalCount - startIndex));
       }
     }
 
@@ -130,11 +126,12 @@ const NotificationModal = ({ isOpen, onClose }: NotificationModalProps) => {
           알림 {totalCount}개
         </h2>
         <button
+          type="button"
           onClick={onClose}
           className="w-6 h-6 flex items-center justify-center hover:bg-gray-100 rounded transition-colors duration-200"
           aria-label="알림 닫기"
         >
-          <img src={closeIcon} alt="" role="presentation" className="w-6 h-6" />
+          <img src={closeIcon} alt="" className="w-6 h-6" />
         </button>
       </div>
 
