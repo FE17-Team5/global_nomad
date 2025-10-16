@@ -6,5 +6,7 @@ export const qk = {
   myNotifications: (filters?: unknown) =>
     ["my-notifications", filters] as const,
   myReservations: (filters?: unknown) => ["my-reservations", filters] as const,
+  myReservationsInfinite: (size?: number, filters?: unknown) =>
+    ["my-reservations", size, filters] as const,
   activityDetail: (id: number | string) => ["activity", id] as const,
 };
