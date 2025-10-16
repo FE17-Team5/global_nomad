@@ -9,6 +9,19 @@ import bellIconOn from "../../assets/icon/icon_bell_on.svg";
 import { useMyProfile } from "../../hooks/queries/useMyProfile";
 import { useMyNotificationsList } from "../../hooks/queries/useMyNotificationsList";
 import { Dropdown } from "../Dropdown";
+/**
+ * 헤더 컴포넌트
+ *
+ * 전역 네비게이션 헤더
+ * - 로고 및 홈 링크
+ * - 로그인/회원가입 버튼 (비로그인 상태)
+ * - 사용자 메뉴 (로그인 상태):
+ *   - 알림 (NotificationModal)
+ *   - 프로필 이미지 및 닉네임
+ *   - 드롭다운 메뉴 (로그아웃, 마이 페이지)
+ * - 반응형: 데스크탑, 모바일 별도 로고
+ */
+
 import NotificationModal from "../Notification/notification-modal";
 
 const Header = () => {
@@ -18,11 +31,11 @@ const Header = () => {
   // 알림 모달 상태
   const [isNotificationOpen, setIsNotificationOpen] = useState(false);
 
-  // 로그인 상태 확인 (팀원분 방식: localStorage)
+  // 로그인 상태 확인 (localStorage에서 accessToken 확인)
   const authToken = localStorage.getItem("accessToken");
   const isLoggedIn = !!authToken;
 
-  // 사용자 정보 가져오기
+  // 사용자 프로필 정보 가져오기
   const { data: userProfile } = useMyProfile(authToken);
   const profileImageUrl = userProfile?.profileImageUrl || defaultProfile;
   const nickname = userProfile?.nickname || "사용자";

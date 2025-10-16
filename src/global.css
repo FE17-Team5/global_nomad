@@ -478,7 +478,7 @@ body {
 }
 
 /* =========================================
-   🔄 Scroll Utilities
+   🔄 스크롤바 숨기기 유틸리티
    ========================================= */
 @layer utilities {
   .scrollbar-hide {
@@ -491,15 +491,15 @@ body {
 }
 
 /* =========================================
-   🎨 Custom Shadow Utilities
+   🎨 커스텀 그림자 유틸리티
    ========================================= */
 @layer utilities {
-  /* Card shadow: 0px 4px 24px 0px #9CB4CA33 */
+  /* 카드 그림자: 0px 4px 24px 0px #9CB4CA33 */
   .shadow-card {
     box-shadow: 0px 4px 24px 0px rgba(156, 180, 202, 0.2);
   }
 
-  /* Search shadow: 0px 6px 10px 0px #0D99FF0D */
+  /* 검색 그림자: 0px 6px 10px 0px #0D99FF0D */
   .shadow-search {
     box-shadow: 0px 6px 10px 0px rgba(13, 153, 255, 0.05);
   }

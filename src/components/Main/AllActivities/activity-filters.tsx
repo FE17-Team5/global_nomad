@@ -1,3 +1,13 @@
+/**
+ * 체험 필터 컴포넌트
+ *
+ * 카테고리 필터와 정렬 옵션을 제공하는 컴포넌트
+ * - 카테고리 필터: 전체, 문화·예술, 식음료, 스포츠, 투어, 관광, 웰빙
+ * - 정렬 옵션: 최신순, 가격 높은순, 가격 낮은순, 리뷰 많은순
+ * - 반응형: 데스크탑(가로 배치), 모바일(세로 배치)
+ * - 데스크탑에서만 사용 (모바일/태블릿은 all-activities에서 별도 처리)
+ */
+
 import Dropdown from "../../Dropdown/dropdown";
 import iconArt from "../../../assets/icon/icon_art.svg";
 import iconFood from "../../../assets/icon/icon_food.svg";
@@ -23,19 +33,19 @@ const ActivityFilters = ({
   handleSortChange,
 }: ActivityFiltersProps) => {
 
-  // Category icon mapping
+  // 카테고리 아이콘 매핑
   const categoryIcons: Record<string, string> = {
     "문화 · 예술": iconArt,
     "식음료": iconFood,
     "스포츠": iconSport,
     "투어": iconTour,
     "관광": iconBus,
-    "웰빙": iconFood, // Using food icon for wellness as fallback
+    "웰빙": iconFood, // 웰빙은 식음료 아이콘 사용
   };
 
   return (
     <div className="flex items-center justify-between mb-6 sm-tablet:mb-4 sm-mobile:flex-col sm-mobile:items-start sm-mobile:gap-4">
-      {/* Category Filters - Left / Mobile: Horizontal Scroll */}
+      {/* 카테고리 필터 - 데스크탑: 왼쪽 / 모바일: 가로 스크롤 */}
       <div className="flex gap-2 sm-tablet:flex-wrap sm-mobile:overflow-x-auto sm-mobile:scrollbar-hide sm-mobile:w-full sm-mobile:pb-2">
         <div className="flex gap-2 sm-mobile:flex-nowrap sm-mobile:min-w-max">
           {categories.map((category) => (
@@ -73,7 +83,7 @@ const ActivityFilters = ({
         </div>
       </div>
 
-      {/* Sort Options - Right / Mobile: Full width */}
+      {/* 정렬 옵션 - 데스크탑: 오른쪽 / 모바일: 전체 너비 */}
       <div className="sm-mobile:w-full sm-mobile:flex sm-mobile:justify-end">
         <Dropdown
           align="right"
