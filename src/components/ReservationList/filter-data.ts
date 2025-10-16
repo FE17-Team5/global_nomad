@@ -1,7 +1,7 @@
 import type { components } from "../../types/api-types";
 
 export interface FilterListType {
-  status: components["schemas"]["ReservationStatus"];
+  status: components["schemas"]["ReservationStatus"] | undefined;
   title: string;
   badgeBg: string;
   badgeTextColor: string;
@@ -10,7 +10,7 @@ export interface FilterListType {
 export const filterList: FilterListType[] = [
   {
     status: "pending",
-    title: "예약 완료",
+    title: "예약 신청",
     badgeBg: "bg-green-100",
     badgeTextColor: "text-green-500",
   },

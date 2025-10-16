@@ -1,15 +1,17 @@
 import type { components } from "../../../types/api-types";
-import { dateCalc, timeCalc } from "../../../utils/date-time";
+import { dateCalc } from "../../../utils/date-time";
 import { filterList } from "../filter-data";
-import sampleImg from "../../../assets/img/image4.png";
 import { useState } from "react";
 import { ConfirmModal } from "../../Modal";
 import ReviewModal from "../../Review/review";
+import { useCancelMyReservation } from "../../../hooks/mutations";
+import { useQueryClient } from "@tanstack/react-query";
 
 const ReservationCard = (
-  props: components["schemas"]["ReservationWithActivityResponseDto"],
+  props: components["schemas"]["ReservationWithActivityResponseDto"]
 ) => {
   const {
+    id,
     status,
     activity,
     date,
@@ -19,6 +21,9 @@ const ReservationCard = (
     headCount,
     reviewSubmitted,
   } = props;
+  const accessToken = localStorage.getItem("accessToken");
+  const cancelMutation = useCancelMyReservation(accessToken!);
+  const queryClient = useQueryClient();
   const filterStatus = filterList.find((data) => data.status === status);
   const [isOpen, setIsOpen] = useState({
     cancel: false,
@@ -61,7 +66,7 @@ const ReservationCard = (
               <span className="tablet:hidden">{dateCalc(date)}</span>
               <span className="tablet:hidden">∙</span>
               <span>
-                {timeCalc(startTime)} - {timeCalc(endTime)}
+                {startTime} - {endTime}
               </span>
             </div>
             <div className="w-full flex justify-between">
@@ -75,12 +80,14 @@ const ReservationCard = (
                 {filterStatus?.status === "pending" && (
                   <>
                     <button
+                      type="button"
                       onClick={() => console.log("예약 변경")}
                       className="px-2.5 py-1.5 rounded-[8px] border border-gray-50 bg-white ty-14_M text-gray-600 cursor-pointer"
                     >
                       예약 변경
                     </button>
                     <button
+                      type="button"
                       name="cancel"
                       onClick={handleModalOpen}
                       className="px-2.5 py-1.5 rounded-[8px] border border-gray-50 bg-gray-50 ty-14_M text-gray-600 cursor-pointer"
@@ -90,23 +97,23 @@ const ReservationCard = (
                   </>
                 )}
                 {filterStatus?.status === "completed" && !reviewSubmitted && (
-                  <>
-                    <button
-                      name="review"
-                      onClick={handleModalOpen}
-                      className="px-2.5 py-1.5 rounded-[8px] bg-primary-500 ty-14_M text-white cursor-pointer"
-                    >
-                      후기 작성
-                    </button>
-                  </>
+                  <button
+                    type="button"
+                    name="review"
+                    onClick={handleModalOpen}
+                    className="px-2.5 py-1.5 rounded-[8px] bg-primary-500 ty-14_M text-white cursor-pointer"
+                  >
+                    후기 작성
+                  </button>
                 )}
               </div>
             </div>
           </div>
           <img
-            src={sampleImg}
+            src={activity.bannerImageUrl}
             alt="사진"
-            className="h-full max-w-[38%] absolute top-0 -right-[32%] z-0 rounded-tr-4xl rounded-br-4xl tablet:max-w-[136px] tablet:rounded-tr-3xl tablet:rounded-br-3xl"
+            className="bg-gray-50 bg-center bg-no-repeat bg-cover h-full w-full max-w-[38%] absolute top-0 -right-[32%] z-0 rounded-tr-4xl rounded-br-4xl 
+             tablet:rounded-tr-3xl tablet:rounded-br-3xl"
           />
         </div>
       </div>
@@ -114,12 +121,14 @@ const ReservationCard = (
         {filterStatus?.status === "pending" && (
           <>
             <button
+              type="button"
               onClick={() => console.log("예약변경")}
               className="grow p-2.5 rounded-[8px] border border-gray-50 bg-white ty-14_M text-gray-600 text-center cursor-pointer"
             >
               예약 변경
             </button>
             <button
+              type="button"
               name="cancel"
               onClick={handleModalOpen}
               className="grow p-2.5 rounded-[8px] border border-gray-50 bg-gray-50 ty-14_M text-gray-600 cursor-pointer"
@@ -129,15 +138,14 @@ const ReservationCard = (
           </>
         )}
         {filterStatus?.status === "completed" && !reviewSubmitted && (
-          <>
-            <button
-              name="review"
-              onClick={handleModalOpen}
-              className="grow p-2.5 rounded-[8px] bg-primary-500 ty-14_M text-white cursor-pointer"
-            >
-              후기 작성
-            </button>
-          </>
+          <button
+            type="button"
+            name="review"
+            onClick={handleModalOpen}
+            className="grow p-2.5 rounded-[8px] bg-primary-500 ty-14_M text-white cursor-pointer"
+          >
+            후기 작성
+          </button>
         )}
       </div>
       <ConfirmModal
@@ -145,7 +153,16 @@ const ReservationCard = (
         confirmText="취소하기"
         isOpen={isOpen.cancel}
         onClose={() => handleModalClose("cancel")}
-        onConfirm={() => console.log("취소하기")}
+        onConfirm={() => {
+          cancelMutation.mutate(id, {
+            onSuccess: () => {
+              queryClient.invalidateQueries({
+                queryKey: ["my-reservations"],
+              });
+              handleModalClose("cancel");
+            },
+          });
+        }}
       />
       <ReviewModal
         {...props}

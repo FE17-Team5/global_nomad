@@ -6,8 +6,10 @@ const FilterBadgeList = ({
   selectedBadge,
   onClick,
 }: {
-  selectedBadge: components["schemas"]["ReservationStatus"] | null;
-  onClick: (status: components["schemas"]["ReservationStatus"] | null) => void;
+  selectedBadge: components["schemas"]["ReservationStatus"] | undefined;
+  onClick: (
+    status: components["schemas"]["ReservationStatus"] | undefined
+  ) => void;
 }) => {
   return (
     <div className="w-full max-w-[483px] overflow-hidden">
