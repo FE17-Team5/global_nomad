@@ -1,166 +1,147 @@
 import { dateCalc2 } from "../../../utils/date-time";
 import CustomModal from "../../Modal/custom-modal";
 import closeBtn from "../../../assets/icon/icon_delete.svg";
+import { useState } from "react";
+import { formatDateToString } from "../../../utils/date";
+import {
+  useActivityReservations,
+  useReservedSchedule,
+} from "../../../hooks/queries";
+import ScheduleDropdown from "../Dropdown/schedule-dropdown";
+import type { UpdateReservationStatusBody } from "../../../lib/my-activities/types";
+import StatusContentList from "../Status/status-content-list";
+
+const STATUS_TABS: {
+  index: number;
+  label: string;
+  countKey: UpdateReservationStatusBody["status"];
+}[] = [
+  { index: 0, label: "신청", countKey: "pending" },
+  { index: 1, label: "승인", countKey: "confirmed" },
+  { index: 2, label: "거절", countKey: "declined" },
+];
 
 const ReservationStatusModal = ({
   date,
+  activityId,
   isOpen,
   onClose,
 }: {
   date: Date;
+  activityId: number;
   isOpen: boolean;
   onClose: () => void;
 }) => {
+  const accessToken = localStorage.getItem("accessToken");
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [scheduleId, setScheduleId] = useState(-1);
+  const [title, setTitle] = useState("시간 선택");
+  const initialCounts = { pending: 0, confirmed: 0, declined: 0 };
+
+  const { data: schedules } = useReservedSchedule(
+    activityId,
+    {
+      date: formatDateToString(date),
+    },
+    accessToken
+  );
+
+  const { data: reservations } = useActivityReservations(
+    activityId,
+    {
+      scheduleId,
+      status: STATUS_TABS[selectedIndex].countKey,
+    },
+    accessToken
+  );
+
+  const totalCounts = schedules?.reduce((prev, next) => {
+    prev.pending += next.count.pending;
+    prev.confirmed += next.count.confirmed;
+    prev.declined += next.count.declined;
+    return prev;
+  }, initialCounts);
+
+  const currentStatusKey = STATUS_TABS[selectedIndex].countKey;
+
+  const filteredSchedules = schedules?.filter(
+    (schedule) => schedule.count[currentStatusKey] > 0
+  );
+
+  const handleStatusClick = (index: number) => {
+    setSelectedIndex(index);
+    setScheduleId(-1);
+    handleTitle("시간 선택");
+  };
+
+  const handleTitle = (title: string) => {
+    setTitle(title);
+  };
+
+  const handleScheduleId = (scheduleId: number) => {
+    setScheduleId(scheduleId);
+  };
+  console.log(schedules);
+
   return (
     <CustomModal
       withAnimation={true}
       containerClassName="fixed inset-0 z-50 flex items-center justify-center bg-black/50 tablet:items-end"
       modalClassName="w-full max-w-[340px] flex flex-col px-[30px] py-[24px] rounded-[30px] shadow-[0_4px_24px_0_#9CB4CA33]
-      tablet:max-w-full tablet:rounded-b-[0px]"
+      tablet:max-w-full tablet:min-h-[400px] tablet:rounded-b-[0px]"
       isOpen={isOpen}
-      onClose={onClose}
+      onClose={() => {
+        onClose();
+        setSelectedIndex(0);
+        setScheduleId(-1);
+      }}
     >
       <div className="flex flex-col gap-[30px]">
         <div className="flex justify-between">
           <h3 className="ty-20_B">{dateCalc2(date.toString())}</h3>
-          <img
-            src={closeBtn}
-            alt="close-button"
-            onClick={onClose}
-            width={24}
-            height={24}
-          />
+          <button
+            type="button"
+            onClick={() => {
+              onClose();
+              setSelectedIndex(0);
+              setScheduleId(-1);
+            }}
+            className="cursor-pointer"
+          >
+            <img src={closeBtn} alt="close-button" width={24} height={24} />
+          </button>
         </div>
         <div className="flex gap-2 border-b border-gray-100">
-          <button className="grow px-3.5 py-2.5 ty-16_B focus:text-primary-500 focus:border-b-2 focus:border-primary-500">
-            신청 2
-          </button>
-          <button className="grow px-3.5 py-2.5 ty-16_B focus:text-primary-500 focus:border-b-2 focus:border-primary-500">
-            승인 0
-          </button>
-          <button className="grow px-3.5 py-2.5 ty-16_B focus:text-primary-500 focus:border-b-2 focus:border-primary-500">
-            거절 0
-          </button>
+          {STATUS_TABS.map(({ index, label, countKey }) => (
+            <button
+              key={index}
+              type="button"
+              onClick={() => handleStatusClick(index)}
+              className={`grow px-3.5 py-2.5 ty-16_B cursor-pointer ${
+                selectedIndex === index
+                  ? "text-primary-500 border-b-2 border-primary-500"
+                  : ""
+              }`}
+            >
+              {label} {totalCounts?.[countKey]}
+            </button>
+          ))}
         </div>
         <div className="flex flex-col gap-[30px] tablet:flex-row mobile:flex-col">
           <div className="flex flex-col gap-3 tablet:grow mobile:grow-0">
-            <label htmlFor="time" className="ty-18_B">
-              예약 시간
-            </label>
-            <select
-              name="time"
-              id="time"
-              className="px-5 py-4 border border-gray-100 rounded-2xl shadow-[0_2px_6px_0_#00000005]"
-            >
-              <option value="0">14:00 - 15:00</option>
-              <option value="1">15:00 - 16:00</option>
-            </select>
+            <ScheduleDropdown
+              title={title}
+              schedules={filteredSchedules}
+              handleTitle={handleTitle}
+              handleSchedule={handleScheduleId}
+            />
           </div>
-          <div className="flex flex-col gap-3 tablet:grow mobile:grow-0">
-            <h3 className="flex gap-3 ty-18_B">예약 내역</h3>
-            <div className="max-h-[214px] flex flex-col gap-3.5 overflow-auto">
-              <div className="w-full flex px-4 py-3.5 justify-between items-center border border-gray-100 rounded-2xl">
-                <div className="flex gap-2.5">
-                  <div className="flex flex-col gap-2">
-                    <span className="ty-16_B text-gray-500">닉네임</span>
-                    <span className="ty-16_B text-gray-500">인원</span>
-                  </div>
-                  <div className="flex flex-col gap-2">
-                    <span className="ty-16_M text-[#1b1b1b]">정만철</span>
-                    <span className="ty-16_M text-[#1b1b1b]">10명</span>
-                  </div>
-                </div>
-                <div className="flex flex-col gap-2">
-                  <button className="px-2.5 py-1.5 border border-gray-50 rounded-[8px] ty-14_M text-gray-600">
-                    승인하기
-                  </button>
-                  <button className="px-2.5 py-1.5 border border-gray-50 rounded-[8px] ty-14_M bg-gray-50 text-gray-600">
-                    거절하기
-                  </button>
-                </div>
-              </div>
-              <div className="w-full flex px-4 py-3.5 justify-between items-center border border-gray-100 rounded-2xl">
-                <div className="flex gap-2.5">
-                  <div className="flex flex-col gap-2">
-                    <span className="ty-16_B text-gray-500">닉네임</span>
-                    <span className="ty-16_B text-gray-500">인원</span>
-                  </div>
-                  <div className="flex flex-col gap-2">
-                    <span className="ty-16_M text-[#1b1b1b]">정만철</span>
-                    <span className="ty-16_M text-[#1b1b1b]">10명</span>
-                  </div>
-                </div>
-                <div className="flex flex-col gap-2">
-                  <button className="px-2.5 py-1.5 border border-gray-50 rounded-[8px] ty-14_M text-gray-600">
-                    승인하기
-                  </button>
-                  <button className="px-2.5 py-1.5 border border-gray-50 rounded-[8px] ty-14_M bg-gray-50 text-gray-600">
-                    거절하기
-                  </button>
-                </div>
-              </div>
-              <div className="w-full flex px-4 py-3.5 justify-between items-center border border-gray-100 rounded-2xl">
-                <div className="flex gap-2.5">
-                  <div className="flex flex-col gap-2">
-                    <span className="ty-16_B text-gray-500">닉네임</span>
-                    <span className="ty-16_B text-gray-500">인원</span>
-                  </div>
-                  <div className="flex flex-col gap-2">
-                    <span className="ty-16_M text-[#1b1b1b]">정만철</span>
-                    <span className="ty-16_M text-[#1b1b1b]">10명</span>
-                  </div>
-                </div>
-                <div className="flex flex-col gap-2">
-                  <button className="px-2.5 py-1.5 border border-gray-50 rounded-[8px] ty-14_M text-gray-600">
-                    승인하기
-                  </button>
-                  <button className="px-2.5 py-1.5 border border-gray-50 rounded-[8px] ty-14_M bg-gray-50 text-gray-600">
-                    거절하기
-                  </button>
-                </div>
-              </div>
-              <div className="w-full flex px-4 py-3.5 justify-between items-center border border-gray-100 rounded-2xl">
-                <div className="flex gap-2.5">
-                  <div className="flex flex-col gap-2">
-                    <span className="ty-16_B text-gray-500">닉네임</span>
-                    <span className="ty-16_B text-gray-500">인원</span>
-                  </div>
-                  <div className="flex flex-col gap-2">
-                    <span className="ty-16_M text-[#1b1b1b]">정만철</span>
-                    <span className="ty-16_M text-[#1b1b1b]">10명</span>
-                  </div>
-                </div>
-                <div className="flex flex-col gap-2">
-                  <button className="px-2.5 py-1.5 border border-gray-50 rounded-[8px] ty-14_M text-gray-600">
-                    승인하기
-                  </button>
-                  <button className="px-2.5 py-1.5 border border-gray-50 rounded-[8px] ty-14_M bg-gray-50 text-gray-600">
-                    거절하기
-                  </button>
-                </div>
-              </div>
-              <div className="w-full flex px-4 py-3.5 justify-between items-center border border-gray-100 rounded-2xl">
-                <div className="flex gap-2.5">
-                  <div className="flex flex-col gap-2">
-                    <span className="ty-16_B text-gray-500">닉네임</span>
-                    <span className="ty-16_B text-gray-500">인원</span>
-                  </div>
-                  <div className="flex flex-col gap-2">
-                    <span className="ty-16_M text-[#1b1b1b]">정만철</span>
-                    <span className="ty-16_M text-[#1b1b1b]">10명</span>
-                  </div>
-                </div>
-                <div className="flex flex-col gap-2">
-                  <button className="px-2.5 py-1.5 border border-gray-50 rounded-[8px] ty-14_M text-gray-600">
-                    승인하기
-                  </button>
-                  <button className="px-2.5 py-1.5 border border-gray-50 rounded-[8px] ty-14_M bg-gray-50 text-gray-600">
-                    거절하기
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
+          {reservations && (
+            <StatusContentList
+              reservations={reservations.reservations}
+              handleTitle={handleTitle}
+            />
+          )}
         </div>
       </div>
     </CustomModal>

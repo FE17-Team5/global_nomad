@@ -102,6 +102,23 @@
   .calendar_container .react-calendar__tile:enabled:hover,
   .calendar_container .react-calendar__tile:enabled:focus {
     cursor: pointer;
-    background-color: var(--color-primary-100);
+    background-color: var(--color-gray-50);
   }
+}
+
+.react-calendar__tile.has-dot abbr {
+  position: relative;
+  padding-right: 10px;
+}
+
+.react-calendar__tile.has-dot abbr::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 30%;
+
+  width: 5px;
+  height: 5px;
+  background-color: red;
+  border-radius: 50%;
 }
