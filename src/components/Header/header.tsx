@@ -42,8 +42,8 @@ const Header = () => {
 
   // 알림 목록 가져오기 (알림 개수 확인용)
   const { data: notificationsResponse } = useMyNotificationsList(
-    { cursorId: null, size: 10 },
-    authToken,
+    { size: 10 },
+    authToken
   );
   const hasNotifications = (notificationsResponse?.totalCount || 0) > 0;
 
