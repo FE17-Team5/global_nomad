@@ -1,11 +1,14 @@
 import CustomModal from "../Modal/custom-modal";
 import closeImg from "../../assets/icon/icon_delete.svg";
 import type { components } from "../../types/api-types";
-import { dateCalc, timeCalc } from "../../utils/date-time";
-import { useState, type ChangeEvent } from "react";
+import { dateCalc } from "../../utils/date-time";
+import { useState, type ChangeEvent, type FormEvent } from "react";
 import Rating from "./Rating/rating";
+import { useCreateReservationReview } from "../../hooks/mutations";
+import { useQueryClient } from "@tanstack/react-query";
 
 const ReviewModal = ({
+  id,
   activity,
   date,
   startTime,
@@ -21,7 +24,14 @@ const ReviewModal = ({
     review: "",
     rating: 0,
   });
+  const accessToken = localStorage.getItem("accessToken");
+  const queryClient = useQueryClient();
   const [hoverRating, setHoverRating] = useState(0);
+  const reviewMutation = useCreateReservationReview(
+    id,
+    activity.id,
+    accessToken!
+  );
 
   const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setInput((prevInput) => ({
@@ -53,6 +63,29 @@ const ReviewModal = ({
     onClose();
   };
 
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    reviewMutation.mutate(
+      {
+        rating: input.rating,
+        content: input.review,
+      },
+      {
+        onSuccess: () => {
+          queryClient.invalidateQueries({
+            queryKey: ["my-reservations"],
+          });
+          onClose();
+          setInput({
+            rating: 0,
+            review: "",
+          });
+        },
+      }
+    );
+  };
+
   const displayRating = hoverRating || input.rating;
 
   return (
@@ -76,14 +109,18 @@ const ReviewModal = ({
             onKeyDown={handleClose}
           />
         </div>
-        <form action="" className="flex flex-col gap-[30px]">
+        <form
+          noValidate
+          onSubmit={handleSubmit}
+          className="flex flex-col gap-[30px]"
+        >
           <div className="flex flex-col gap-1.5 items-center">
             <h3 className="ty-16_B text-black-nomad">{activity.title}</h3>
             <div className="flex gap-1 ty-14_M text-gray-500">
               <span>{dateCalc(date)}</span>
               <span>/</span>
               <span>
-                {timeCalc(startTime)} - {timeCalc(endTime)}
+                {startTime} - {endTime}
               </span>
               <span>({headCount}명)</span>
             </div>
