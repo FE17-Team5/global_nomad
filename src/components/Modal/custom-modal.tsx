@@ -86,7 +86,6 @@ const CustomModal = ({
           "tablet:transition-all tablet:duration-300 tablet:ease-in-out"
         } ${modalClassName} ${slideClass}`}
         onClick={(e) => e.stopPropagation()}
-        onKeyDown={(e) => e.stopPropagation()}
       >
         {children}
       </div>

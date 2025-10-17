@@ -4,7 +4,6 @@ import ReservationList from "../../../components/ReservationList/reservation-lis
 import MyExperiences from "../../../components/MyExperiences/my-experiences";
 import ReservationStatus from "../../../components/ReservationStatus/reservation-status";
 import type { JSX } from "react";
-import type { User } from "../../../lib/users/types";
 
 export interface ProfileMenuDataListType {
   id: number;
