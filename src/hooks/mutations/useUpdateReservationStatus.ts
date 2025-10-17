@@ -12,7 +12,7 @@ import { qk } from "../../lib/queryKeys";
 
 export const useUpdateReservationStatus = (
   activityId: number,
-  authToken: string,
+  authToken: string
 ) => {
   const queryClient = useQueryClient();
 
@@ -32,6 +32,10 @@ export const useUpdateReservationStatus = (
       // 대시보드 갱신
       queryClient.invalidateQueries({
         queryKey: [...qk.myActivities(), activityId, "reservation-dashboard"],
+      });
+      // 예약 후 스케줄 목록 경신
+      queryClient.invalidateQueries({
+        queryKey: [...qk.myActivities(), activityId, "reserved-schedule"],
       });
     },
   });
