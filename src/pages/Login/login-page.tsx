@@ -16,6 +16,7 @@ const LoginPage = () => {
     handleInputChange,
     handleInputBlur,
     handleSubmit,
+    handleKakaoLogin,
   ] = useLoginValidate();
   return (
     <div className="h-dvh flex-col-center mobile:px-[24px]">
@@ -87,10 +88,11 @@ const LoginPage = () => {
           </div>
           <button
             type="submit"
+            onClick={handleKakaoLogin}
             className="w-full h-[54px] flex justify-center items-center border border-gray-200 gap-1 rounded-2xl cursor-pointer"
           >
             <img src={kakaoLogoImage} alt="kakao_logo" width={24} height={24} />
-            <span className="ty-16_M text-gray-600">카카오 로그인</span>
+            <span className="ty-16_M text-gray-600">카카오 간편 로그인</span>
           </button>
           <div className="flex justify-center gap-1">
             <span className="ty-16_M text-gray-400">회원이 아니신가요?</span>
