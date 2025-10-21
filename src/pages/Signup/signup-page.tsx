@@ -16,6 +16,7 @@ const SignupPage = () => {
     handleInputChange,
     handleInputBlur,
     handleSubmit,
+    handleKakaoSignup,
   ] = useSignupValidate();
 
   return (
@@ -116,10 +117,11 @@ const SignupPage = () => {
           </div>
           <button
             type="button"
+            onClick={handleKakaoSignup}
             className="w-full h-[54px] flex justify-center items-center border border-gray-200 gap-1 rounded-2xl cursor-pointer"
           >
             <img src={kakaoLogoImage} alt="kakao_logo" width={24} height={24} />
-            <span className="ty-16_M text-gray-600">카카오 로그인</span>
+            <span className="ty-16_M text-gray-600">카카오 간편 회원가입</span>
           </button>
           <div className="flex justify-center gap-1">
             <span className="ty-16_M text-gray-400">회원이신가요?</span>

@@ -10,6 +10,8 @@ import SignupPage from "./pages/Signup/signup-page";
 import UpdateExperiencesPage from "./pages/UpdateExperiences/update-experiences-page";
 import MiddlewareLoggedIn from "./pages/Middleware/middleware-loggedin";
 import MiddlewareLoggedOut from "./pages/Middleware/middleware-loggedout";
+import KakaoLogin from "./pages/Kakao/kakao-login";
+import KakaoSignup from "./pages/Kakao/kakao-signup";
 
 function App() {
   return (
@@ -19,6 +21,8 @@ function App() {
         <Route element={<MiddlewareLoggedIn />}>
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
+          <Route path="/oauth/login" element={<KakaoLogin />} />
+          <Route path="/oauth/signup" element={<KakaoSignup />} />
         </Route>
 
         {/**헤더가 있는 페이지 */}

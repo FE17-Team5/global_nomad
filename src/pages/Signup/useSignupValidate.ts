@@ -2,6 +2,7 @@ import { useState, type ChangeEvent } from "react";
 import { useSignUp } from "../../hooks/mutations";
 import { validateEmail, validatePassword } from "../../utils/validate-regex";
 import { useNavigate } from "react-router-dom";
+import useKakaoLogin from "../Kakao/useKakaoLogin";
 
 type InputState = {
   email: string;
@@ -19,12 +20,14 @@ type ReturnType = () => [
   handleModalClose: () => void,
   handleInputChage: (e: ChangeEvent<HTMLInputElement>) => void,
   handleInputBlur: (e: ChangeEvent<HTMLInputElement>) => void,
-  handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void
+  handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void,
+  handleKakaoSignup: () => void
 ];
 
 const useSignupValidate: ReturnType = () => {
   const signUpMutation = useSignUp();
   const navigate = useNavigate();
+  useKakaoLogin();
 
   const [isOpen, setIsOpen] = useState(false);
   const [modalText, setModalText] = useState("");
@@ -100,6 +103,17 @@ const useSignupValidate: ReturnType = () => {
     }));
   };
 
+  const handleKakaoSignup = () => {
+    if (!window.Kakao || !window.Kakao.isInitialized()) {
+      console.error("Kakao SDK가 로드되지 않았거나 초기화되지 않았습니다.");
+      return;
+    }
+
+    window.Kakao.Auth.authorize({
+      redirectUri: import.meta.env.VITE_KAKAO_SIGNUP_REDIRECT_URI,
+    });
+  };
+
   const isFormValid =
     Object.values(input).every((value) => value.length > 0) &&
     Object.values(error).every((value) => value === "") &&
@@ -139,6 +153,7 @@ const useSignupValidate: ReturnType = () => {
     handleInputChange,
     handleInputBlur,
     handleSubmit,
+    handleKakaoSignup,
   ];
 };
 

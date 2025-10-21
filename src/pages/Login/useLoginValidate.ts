@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useLogin } from "../../hooks/mutations";
 import type { LoginResponse } from "../../lib/auth/types";
 import { validateEmail, validatePassword } from "../../utils/validate-regex";
+import useKakaoLogin from "../Kakao/useKakaoLogin";
 
 type InputState = {
   email: string;
@@ -19,13 +20,15 @@ type ReturnType = () => [
   handleModalClose: () => void,
   handleInputChage: (e: ChangeEvent<HTMLInputElement>) => void,
   handleInputBlur: (e: ChangeEvent<HTMLInputElement>) => void,
-  handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void
+  handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void,
+  handleKakaoLogin: () => void
 ];
 
 const useLoginValidate: ReturnType = () => {
   const loginMutation = useLogin();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
+  useKakaoLogin();
 
   const [isOpen, setIsOpen] = useState(false);
   const [modalText, setModalText] = useState("");
@@ -82,6 +85,17 @@ const useLoginValidate: ReturnType = () => {
     }));
   };
 
+  const handleKakaoLogin = () => {
+    if (!window.Kakao || !window.Kakao.isInitialized()) {
+      console.error("Kakao SDK가 로드되지 않았거나 초기화되지 않았습니다.");
+      return;
+    }
+
+    window.Kakao.Auth.authorize({
+      redirectUri: import.meta.env.VITE_KAKAO_LOGIN_REDIRECT_URI,
+    });
+  };
+
   const isFormValid =
     Object.values(input).every((value) => value.length > 0) &&
     Object.values(error).every((value) => value === "");
@@ -122,6 +136,7 @@ const useLoginValidate: ReturnType = () => {
     handleInputChange,
     handleInputBlur,
     handleSubmit,
+    handleKakaoLogin,
   ];
 };
 
