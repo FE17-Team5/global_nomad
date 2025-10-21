@@ -12,7 +12,7 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 
 const KakaoSignup = () => {
   const navigate = useNavigate();
-  const [searchParams, setSerchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
 
   const accessCode = searchParams.get("code");
 
