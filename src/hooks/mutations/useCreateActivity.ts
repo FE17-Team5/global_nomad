@@ -22,6 +22,11 @@ export const useCreateActivity = (authToken: string) => {
         queryKey: ["my-activities"],
         exact: false,
       });
+      // 무한스크롤 목록 갱신
+      queryClient.invalidateQueries({
+        queryKey: ["my-activities-infinite"],
+        exact: false,
+      });
     },
   });
 };
