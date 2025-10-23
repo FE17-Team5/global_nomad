@@ -51,6 +51,24 @@ export async function apiFetch<T>(
     } catch {
       err = { message: res.statusText };
     }
+
+    // 401 Unauthorized: 토큰 만료 또는 유효하지 않음
+    if (res.status === 401) {
+      // localStorage에서 토큰 삭제
+      if (typeof window !== "undefined") {
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("refreshToken");
+        // 로그인 페이지로 리다이렉트 (현재 페이지가 로그인/회원가입이 아닐 때만)
+        if (
+          !window.location.pathname.startsWith("/login") &&
+          !window.location.pathname.startsWith("/signup") &&
+          !window.location.pathname.startsWith("/oauth")
+        ) {
+          window.location.href = "/login";
+        }
+      }
+    }
+
     throw {
       status: res.status,
       ...(typeof err === "object" ? err : { message: String(err) }),

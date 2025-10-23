@@ -13,9 +13,14 @@ export const useDeleteMyActivity = (authToken: string) => {
   return useMutation({
     mutationFn: (activityId: number) => deleteMyActivity(activityId, authToken),
     onSuccess: () => {
-      // 일반 목록 + 무한스크롤 목록 모두 갱신
+      // 일반 목록 갱신
       queryClient.invalidateQueries({
         queryKey: ["my-activities"],
+        exact: false,
+      });
+      // 무한스크롤 목록 갱신
+      queryClient.invalidateQueries({
+        queryKey: ["my-activities-infinite"],
         exact: false,
       });
     },
