@@ -10,9 +10,10 @@
 
 import { useState } from "react";
 import { AllActivities } from "../../components/Main/AllActivities";
-import { HeroSection } from "../../components/Main/HeroSection";
+import { HeroCarousel } from "../../components/Main/HeroSection";
 import { PopularActivities } from "../../components/Main/PopularActivities";
 import { SearchSection } from "../../components/Main/SearchSection";
+import { CloudBackground } from "../../components/Main/CloudBackground";
 
 const MainPage = () => {
   // 검색 키워드 상태 관리
@@ -24,12 +25,15 @@ const MainPage = () => {
   };
 
   return (
-    <div className="min-h-screen pb-[218px]">
-      <HeroSection />
-      <SearchSection onSearch={handleSearch} />
-      <PopularActivities searchKeyword={searchKeyword} />
-      <div id="all-activities">
-        <AllActivities searchKeyword={searchKeyword} />
+    <div className="min-h-screen pb-[218px] relative">
+      <CloudBackground />
+      <div className="relative z-10">
+        <HeroCarousel />
+        <SearchSection onSearch={handleSearch} />
+        <PopularActivities searchKeyword={searchKeyword} />
+        <div id="all-activities">
+          <AllActivities searchKeyword={searchKeyword} />
+        </div>
       </div>
     </div>
   );
