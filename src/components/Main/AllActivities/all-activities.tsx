@@ -105,11 +105,25 @@ const AllActivities = ({ searchKeyword }: AllActivitiesProps) => {
             {/* 데스크탑: 제목만 */}
             <div className="sm-tablet:hidden sm-mobile:hidden mb-[2.25rem]">
               <h2 className="ty-32_B text-gray-950">🏔️ 모든 체험</h2>
+              {/* 검색 결과 텍스트 */}
+              {searchKeyword && (
+                <p className="ty-16_M text-gray-600 mt-2">
+                  '<span className="font-bold text-gray-950">{searchKeyword}</span>' 검색 결과 (총 {totalCount}개)
+                </p>
+              )}
             </div>
 
             {/* 태블릿 & 모바일: 제목과 정렬이 같은 줄 */}
             <div className="hidden sm-tablet:flex sm-mobile:flex items-center justify-between mb-4">
-              <h2 className="ty-32_B text-gray-950">🏔️ 모든 체험</h2>
+              <div className="flex flex-col gap-1">
+                <h2 className="ty-32_B text-gray-950">🏔️ 모든 체험</h2>
+                {/* 검색 결과 텍스트 */}
+                {searchKeyword && (
+                  <p className="ty-14_M text-gray-600">
+                    '<span className="font-bold text-gray-950">{searchKeyword}</span>' 검색 결과 (총 {totalCount}개)
+                  </p>
+                )}
+              </div>
 
               {/* 정렬 옵션 - 태블릿 & 모바일 */}
               <div className="sm-tablet:block sm-mobile:block">

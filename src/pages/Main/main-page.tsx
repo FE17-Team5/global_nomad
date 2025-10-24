@@ -30,7 +30,8 @@ const MainPage = () => {
       <div className="relative z-10">
         <HeroCarousel />
         <SearchSection onSearch={handleSearch} />
-        <PopularActivities searchKeyword={searchKeyword} />
+        {/* 검색 중이 아닐 때만 인기 체험 표시 */}
+        {!searchKeyword && <PopularActivities />}
         <div id="all-activities">
           <AllActivities searchKeyword={searchKeyword} />
         </div>
