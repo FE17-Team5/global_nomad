@@ -20,8 +20,8 @@ const SignupPage = () => {
   ] = useSignupValidate();
 
   return (
-    <div className="h-full flex-col-center mobile:px-[24px]">
-      <div className="w-full max-w-[640px] flex flex-col gap-[62px] mobile:gap-[42px]">
+    <div className="flex-col-center mobile:px-[24px]">
+      <div className="w-full h-full max-w-[640px] flex flex-col gap-[62px] mobile:gap-[42px]">
         <div className="flex-col-center">
           <Link to={"/"} className="flex-col-center gap-6">
             <img
