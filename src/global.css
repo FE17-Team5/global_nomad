@@ -6,7 +6,8 @@
    ========================================= */
 @theme {
   /* ===== 시안 2: 폰트 ===== */
-  --font-sans: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-sans: "Pretendard Variable", Pretendard, -apple-system,
+    BlinkMacSystemFont, "Segoe UI", sans-serif;
 
   --font-weight-medium: 500;
   --font-weight-semibold: 600;
@@ -16,8 +17,8 @@
   --color-white: #ffffff;
   --color-black: #000000;
 
-  --color-gray-25:  #f8f8f8;
-  --color-gray-50:  #edeef2;
+  --color-gray-25: #f8f8f8;
+  --color-gray-50: #edeef2;
   --color-gray-100: #e0e0e5;
   --color-gray-200: #c6c8cf;
   --color-gray-300: #b3b4bc;
@@ -37,67 +38,68 @@
   --color-yellow-star: #ffcb02;
 
   /* ===== 시안 2: 타이포 사이즈 (px → rem) ===== */
-  --text-11: 0.6875rem;  /* 11px */
-  --text-12: 0.75rem;    /* 12px */
-  --text-13: 0.8125rem;  /* 13px */
-  --text-14: 0.875rem;   /* 14px */
-  --text-16: 1rem;       /* 16px */
-  --text-18: 1.125rem;   /* 18px */
-  --text-20: 1.25rem;    /* 20px */
-  --text-24: 1.5rem;     /* 24px */
-  --text-32: 2rem;       /* 32px */
+  --text-11: 0.6875rem; /* 11px */
+  --text-12: 0.75rem; /* 12px */
+  --text-13: 0.8125rem; /* 13px */
+  --text-14: 0.875rem; /* 14px */
+  --text-16: 1rem; /* 16px */
+  --text-18: 1.125rem; /* 18px */
+  --text-20: 1.25rem; /* 20px */
+  --text-24: 1.5rem; /* 24px */
+  --text-32: 2rem; /* 32px */
 
   /* ===== 시안 2: 본문(body) 전용 line-height 포함 ===== */
-  --text-14-body: 0.875rem;  /* 14px */
+  --text-14-body: 0.875rem; /* 14px */
   --text-14-body--line-height: 1.8;
 
-  --text-16-body: 1rem;      /* 16px */
+  --text-16-body: 1rem; /* 16px */
   --text-16-body--line-height: 1.8;
 
-  --text-18-body: 1.125rem;  /* 18px */
+  --text-18-body: 1.125rem; /* 18px */
   --text-18-body--line-height: 1.4;
 
-  --text-20-body: 1.25rem;   /* 20px */
+  --text-20-body: 1.25rem; /* 20px */
   --text-20-body--line-height: 1.6;
-
 
   /* 시안 1: 기존 색상 (하위 호환성 - Header/Footer 등 다른 페이지에서 사용) */
   --color-black-nomad: #112211;
 
-  --color-green-1: #0B3B2D;
-  --color-green-2: #00AC07;
-  --color-green-3: #CED8D5;
+  --color-green-1: #0b3b2d;
+  --color-green-2: #00ac07;
+  --color-green-3: #ced8d5;
 
-  --color-red-1: #FF472E;
-  --color-red-2: #FFC2BA;
-  --color-red-3: #FFE4E0;
+  --color-red-1: #ff472e;
+  --color-red-2: #ffc2ba;
+  --color-red-3: #ffe4e0;
 
-  --color-orange-1: #FF7C1D;
-  --color-orange-2: #FFF4E8;
+  --color-orange-1: #ff7c1d;
+  --color-orange-2: #fff4e8;
 
-  --color-blue-1: #0085FF;
-  --color-blue-2: #2EB4FF;
-  --color-blue-3: #E5F3FF;
+  --color-blue-1: #0085ff;
+  --color-blue-2: #2eb4ff;
+  --color-blue-3: #e5f3ff;
 
   /* Gray 단계(진→연) */
-  --color-gray-1: #4B4B4B;
-  --color-gray-2: #79747E;
-  --color-gray-3: #A1A1A1;
-  --color-gray-4: #A4A1AA;
-  --color-gray-5: #ADAEB8;
-  --color-gray-6: #CBC9CF;
-  --color-gray-8: #EEEEEE;
-  --color-gray-9: #FAFAFA;
+  --color-gray-1: #4b4b4b;
+  --color-gray-2: #79747e;
+  --color-gray-3: #a1a1a1;
+  --color-gray-4: #a4a1aa;
+  --color-gray-5: #adaeb8;
+  --color-gray-6: #cbc9cf;
+  --color-gray-8: #eeeeee;
+  --color-gray-9: #fafafa;
 
   /* 추가 색상 (Detail Page용) */
-  --color-border-light: #DDDDDD;
-  
+  --color-border-light: #dddddd;
+
   /* Shadow 색상 */
   --shadow-blue-light: rgba(156, 180, 202, 0.2);
 }
 
 /* 데스크탑 우선 */
-@theme { --breakpoint-*: initial; }
+@theme {
+  --breakpoint-*: initial;
+}
 @custom-variant tablet (@media (max-width: 80rem)); /* 1280px */
 @custom-variant mobile (@media (max-width: 48rem)); /* 768px */
 
@@ -110,17 +112,18 @@
 @custom-variant wide-tablet (@media (min-width: 32.6875rem) and (max-width: 46.5rem)); /* 523px ~ 744px */
 @custom-variant narrow-card (@media (max-width: 32.625rem)); /* 522px 이하 */
 
- /* =========================================
+/* =========================================
    🔔 Modal Styles
    ========================================= */
 @layer components {
   /* 모바일 모달 패딩 조정 */
-  @media (max-width: 23.4375rem) { /* 375px - 기존 작업물 유지 */
+  @media (max-width: 23.4375rem) {
+    /* 375px - 기존 작업물 유지 */
     .modal-container {
       padding-top: 34px !important;
       padding-bottom: 30px !important;
     }
-    
+
     /* 확인 모달 하단 패딩 조정 */
     .confirm-modal-container {
       padding-bottom: 24px !important;
@@ -137,49 +140,150 @@
 ========================================= */
 
 /* ===== Heading ===== */
-@utility ty-11_M { font-size: var(--text-11); line-height: normal; font-weight: var(--font-weight-medium); }
-@utility ty-11_B { font-size: var(--text-11); line-height: normal; font-weight: var(--font-weight-bold); }
+@utility ty-11_M {
+  font-size: var(--text-11);
+  line-height: normal;
+  font-weight: var(--font-weight-medium);
+}
+@utility ty-11_B {
+  font-size: var(--text-11);
+  line-height: normal;
+  font-weight: var(--font-weight-bold);
+}
 
-@utility ty-12_M { font-size: var(--text-12); line-height: normal; font-weight: var(--font-weight-medium); }
-@utility ty-12_B { font-size: var(--text-12); line-height: normal; font-weight: var(--font-weight-bold); }
+@utility ty-12_M {
+  font-size: var(--text-12);
+  line-height: normal;
+  font-weight: var(--font-weight-medium);
+}
+@utility ty-12_B {
+  font-size: var(--text-12);
+  line-height: normal;
+  font-weight: var(--font-weight-bold);
+}
 
-@utility ty-13_M { font-size: var(--text-13); line-height: normal; font-weight: var(--font-weight-medium); }
-@utility ty-13_B { font-size: var(--text-13); line-height: normal; font-weight: var(--font-weight-bold); }
+@utility ty-13_M {
+  font-size: var(--text-13);
+  line-height: normal;
+  font-weight: var(--font-weight-medium);
+}
+@utility ty-13_B {
+  font-size: var(--text-13);
+  line-height: normal;
+  font-weight: var(--font-weight-bold);
+}
 
-@utility ty-14_M { font-size: var(--text-14); line-height: normal; font-weight: var(--font-weight-medium); }
-@utility ty-14_B { font-size: var(--text-14); line-height: normal; font-weight: var(--font-weight-bold); }
+@utility ty-14_M {
+  font-size: var(--text-14);
+  line-height: normal;
+  font-weight: var(--font-weight-medium);
+}
+@utility ty-14_B {
+  font-size: var(--text-14);
+  line-height: normal;
+  font-weight: var(--font-weight-bold);
+}
 
-@utility ty-16_M { font-size: var(--text-16); line-height: normal; font-weight: var(--font-weight-medium); }
-@utility ty-16_B { font-size: var(--text-16); line-height: normal; font-weight: var(--font-weight-bold); }
+@utility ty-16_M {
+  font-size: var(--text-16);
+  line-height: normal;
+  font-weight: var(--font-weight-medium);
+}
+@utility ty-16_B {
+  font-size: var(--text-16);
+  line-height: normal;
+  font-weight: var(--font-weight-bold);
+}
 
-@utility ty-18_M { font-size: var(--text-18); line-height: normal; font-weight: var(--font-weight-medium); }
-@utility ty-18_B { font-size: var(--text-18); line-height: normal; font-weight: var(--font-weight-bold); }
+@utility ty-18_M {
+  font-size: var(--text-18);
+  line-height: normal;
+  font-weight: var(--font-weight-medium);
+}
+@utility ty-18_B {
+  font-size: var(--text-18);
+  line-height: normal;
+  font-weight: var(--font-weight-bold);
+}
 
-@utility ty-20_M { font-size: var(--text-20); line-height: normal; font-weight: var(--font-weight-medium); }
-@utility ty-20_B { font-size: var(--text-20); line-height: normal; font-weight: var(--font-weight-bold); }
+@utility ty-20_M {
+  font-size: var(--text-20);
+  line-height: normal;
+  font-weight: var(--font-weight-medium);
+}
+@utility ty-20_B {
+  font-size: var(--text-20);
+  line-height: normal;
+  font-weight: var(--font-weight-bold);
+}
 
-@utility ty-24_M { font-size: var(--text-24); line-height: normal; font-weight: var(--font-weight-medium); }
-@utility ty-24_B { font-size: var(--text-24); line-height: normal; font-weight: var(--font-weight-bold); }
+@utility ty-24_M {
+  font-size: var(--text-24);
+  line-height: normal;
+  font-weight: var(--font-weight-medium);
+}
+@utility ty-24_B {
+  font-size: var(--text-24);
+  line-height: normal;
+  font-weight: var(--font-weight-bold);
+}
 
-@utility ty-32_M { font-size: var(--text-32); line-height: normal; font-weight: var(--font-weight-medium); }
-@utility ty-32_B { font-size: var(--text-32); line-height: normal; font-weight: var(--font-weight-bold); }
+@utility ty-32_M {
+  font-size: var(--text-32);
+  line-height: normal;
+  font-weight: var(--font-weight-medium);
+}
+@utility ty-32_B {
+  font-size: var(--text-32);
+  line-height: normal;
+  font-weight: var(--font-weight-bold);
+}
 
 /* ===== Semibold 추가 ===== */
-@utility ty-14_SB { font-size: var(--text-14); line-height: normal; font-weight: var(--font-weight-semibold); }
-@utility ty-24_SB { font-size: var(--text-24); line-height: normal; font-weight: var(--font-weight-semibold); }
+@utility ty-14_SB {
+  font-size: var(--text-14);
+  line-height: normal;
+  font-weight: var(--font-weight-semibold);
+}
+@utility ty-24_SB {
+  font-size: var(--text-24);
+  line-height: normal;
+  font-weight: var(--font-weight-semibold);
+}
 
 /* ===== Body ===== */
-@utility body-14_M { font-size: var(--text-14-body); line-height: var(--text-14-body--line-height); font-weight: var(--font-weight-medium); }
-@utility body-16_M { font-size: var(--text-16-body); line-height: var(--text-16-body--line-height); font-weight: var(--font-weight-medium); }
-@utility body-18_B { font-size: var(--text-18-body); line-height: var(--text-18-body--line-height); font-weight: var(--font-weight-bold); }
-@utility body-20_B { font-size: var(--text-20-body); line-height: var(--text-20-body--line-height); font-weight: var(--font-weight-bold); }
+@utility body-14_M {
+  font-size: var(--text-14-body);
+  line-height: var(--text-14-body--line-height);
+  font-weight: var(--font-weight-medium);
+}
+@utility body-16_M {
+  font-size: var(--text-16-body);
+  line-height: var(--text-16-body--line-height);
+  font-weight: var(--font-weight-medium);
+}
+@utility body-18_B {
+  font-size: var(--text-18-body);
+  line-height: var(--text-18-body--line-height);
+  font-weight: var(--font-weight-bold);
+}
+@utility body-20_B {
+  font-size: var(--text-20-body);
+  line-height: var(--text-20-body--line-height);
+  font-weight: var(--font-weight-bold);
+}
 
 @utility flex-between {
-  display: flex; align-items: center; justify-content: space-between;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 @utility flex-col-center {
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 @utility text-center {
@@ -187,23 +291,47 @@
 }
 
 @utility absolute-center {
-  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 @utility visually-hidden {
-  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 @utility bg-main-gradient {
-  background: linear-gradient(180deg, #BBDDFF -6.85%, #F7FBFF 22.43%, #FFFFFF 100%);
+  background: linear-gradient(
+    180deg,
+    #bbddff -6.85%,
+    #f7fbff 22.43%,
+    #ffffff 100%
+  );
 }
 
 /* === Base === */
-html, body, #__next { height: 100%; }
+html,
+body,
+#__next {
+  height: 100%;
+}
 body {
   font-family: var(--font-sans);
   color: var(--color-gray-950);
   background: #ffffff;
+}
+
+body #root {
+  height: 100%;
 }
 
 /* =========================================
@@ -218,8 +346,7 @@ body {
     font-family: var(--font-sans);
     padding: 0;
   }
-  
-  
+
   /* Navigation */
   .base-calendar .react-calendar__navigation {
     display: flex;
@@ -228,7 +355,7 @@ body {
     height: auto;
     margin-bottom: 0;
   }
-  
+
   .base-calendar .react-calendar__navigation__label {
     font-size: 1rem;
     font-weight: 500;
@@ -239,11 +366,11 @@ body {
     text-align: left;
     padding: 0;
   }
-  
+
   .base-calendar .react-calendar__navigation__label:hover {
     background: transparent;
   }
-  
+
   .base-calendar .react-calendar__navigation__arrow {
     background: transparent;
     border: none;
@@ -255,25 +382,25 @@ body {
     align-items: center;
     justify-content: center;
   }
-  
+
   .base-calendar .react-calendar__navigation__arrow:hover {
     background: transparent;
   }
-  
+
   .base-calendar .react-calendar__navigation__arrow:disabled {
     opacity: 0.3;
     cursor: not-allowed;
   }
-  
+
   .base-calendar .react-calendar__navigation__prev-button {
     order: 2;
     margin-right: 24px;
   }
-  
+
   .base-calendar .react-calendar__navigation__next-button {
     order: 3;
   }
-  
+
   /* Weekdays */
   .base-calendar .react-calendar__month-view__weekdays {
     display: flex;
@@ -281,20 +408,20 @@ body {
     margin-top: 8px;
     margin-bottom: 4px;
   }
-  
+
   @media (max-width: 46.5rem) {
     .base-calendar .react-calendar__month-view__weekdays {
       margin-bottom: 37px;
     }
   }
-  
+
   @media (max-width: 23.4375rem) {
     .base-calendar .react-calendar__month-view__weekdays {
       gap: 0;
       margin-bottom: 4px;
     }
   }
-  
+
   .base-calendar .react-calendar__month-view__weekdays__weekday {
     font-family: var(--font-sans);
     font-size: 1rem;
@@ -318,11 +445,11 @@ body {
     text-transform: uppercase;
     box-sizing: border-box;
   }
-  
+
   .base-calendar .react-calendar__month-view__weekdays__weekday abbr {
     text-decoration: none;
   }
-  
+
   /* Days Grid */
   .base-calendar .react-calendar__month-view__days {
     display: grid !important;
@@ -332,14 +459,14 @@ body {
     overflow: hidden;
     max-height: calc(46px * 5 + 4px * 4);
   }
-  
+
   @media (max-width: 46.5rem) {
     .base-calendar .react-calendar__month-view__days {
       row-gap: 37px;
       max-height: calc(46px * 5 + 37px * 4);
     }
   }
-  
+
   @media (max-width: 23.4375rem) {
     .base-calendar .react-calendar__month-view__days {
       column-gap: 0;
@@ -347,7 +474,7 @@ body {
       max-height: calc(46px * 5 + 4px * 4);
     }
   }
-  
+
   /* Day Tiles */
   .base-calendar .react-calendar__tile {
     width: 46px;
@@ -364,38 +491,38 @@ body {
     border-radius: 50%;
     transition: all 0.2s;
   }
-  
+
   .base-calendar .react-calendar__tile:hover:not(:disabled) {
     background: var(--color-gray-50);
   }
-  
+
   .base-calendar .react-calendar__tile:disabled {
     color: var(--color-gray-300) !important;
     font-weight: 500;
     cursor: not-allowed;
     opacity: 1;
   }
-  
+
   .base-calendar .react-calendar__month-view__days__day--neighboringMonth {
     color: var(--color-gray-300) !important;
     font-weight: 500;
     visibility: visible;
   }
-  
+
   /* Today */
   .base-calendar .react-calendar__tile--now {
     background: var(--color-primary-100);
     color: var(--color-primary-500) !important;
     font-weight: 500;
   }
-  
+
   .base-calendar .react-calendar__tile--now:disabled {
     background: var(--color-primary-100);
     color: var(--color-primary-500) !important;
     font-weight: 500;
     cursor: not-allowed;
   }
-  
+
   /* Selected */
   .base-calendar .react-calendar__tile--active,
   .base-calendar .react-calendar__tile--active:hover {
@@ -403,7 +530,7 @@ body {
     color: #ffffff !important;
     font-weight: 700;
   }
-  
+
   /* Hide Year/Decade/Century Views */
   .base-calendar .react-calendar__year-view,
   .base-calendar .react-calendar__decade-view,
@@ -482,11 +609,11 @@ body {
    ========================================= */
 @layer utilities {
   .scrollbar-hide {
-    -ms-overflow-style: none;  /* Internet Explorer 10+ */
-    scrollbar-width: none;  /* Firefox */
+    -ms-overflow-style: none; /* Internet Explorer 10+ */
+    scrollbar-width: none; /* Firefox */
   }
   .scrollbar-hide::-webkit-scrollbar {
-    display: none;  /* Safari and Chrome */
+    display: none; /* Safari and Chrome */
   }
 }
 
