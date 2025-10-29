@@ -11,27 +11,27 @@ const ActivityCard = ({ activity, className = "" }: ActivityCardProps) => {
   return (
     <Link
       to={`/detail/${activity.id}`}
-      className={`relative w-full h-[22.875rem] rounded-[2rem] overflow-hidden shadow-card hover:shadow-md transition-shadow duration-200 block ${className}`}
+      className={`group relative w-full h-[22.875rem] rounded-[2rem] overflow-hidden shadow-card hover:shadow-xl transition-all duration-300 block ${className}`}
     >
       {/* Background Image */}
       <div
-        className="absolute inset-0 bg-cover bg-center"
+        className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
         style={{ backgroundImage: `url(${activity.bannerImageUrl})` }}
         role="img"
         aria-label={activity.title}
       />
 
-      {/* Dark Overlay */}
-      <div className="absolute inset-0 bg-black/30" />
+      {/* Gradient Overlay - Softer and more balanced */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-black/15 to-black/5 group-hover:from-black/50 transition-all duration-300" />
 
-      {/* Rating Badge */}
-      <div className="absolute top-[1.125rem] right-[1.125rem] bg-black/60 text-white rounded-full px-2 py-1 flex items-center gap-1">
+      {/* Rating Badge - Softer with semi-transparent background */}
+      <div className="absolute top-[1.125rem] right-[1.125rem] bg-white/85 backdrop-blur-sm text-gray-900 rounded-full px-2 py-1 flex items-center gap-1 shadow-sm transform group-hover:scale-105 transition-transform duration-200">
         <img src={starIcon} alt="" className="w-3 h-3" aria-hidden="true" />
-        <span className="ty-12_M">{activity.rating}</span>
+        <span className="ty-12_M font-semibold">{activity.rating}</span>
       </div>
 
       {/* Content Overlay */}
-      <div className="absolute bottom-0 left-0 right-0 text-white py-5 px-[1.875rem] sm-mobile:px-4">
+      <div className="absolute bottom-0 left-0 right-0 text-white py-5 px-[1.875rem] sm-mobile:px-4 transform group-hover:translate-y-[-0.25rem] transition-transform duration-300" style={{ textShadow: '0 2px 4px rgba(0, 0, 0, 0.5)' }}>
         {/* Title */}
         <h3 className="ty-16_B text-white mb-[1.125rem] narrow-desktop:mb-2 narrow-card:mb-2 line-clamp-2">
           {activity.title}
