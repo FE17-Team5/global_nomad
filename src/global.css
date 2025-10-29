@@ -631,7 +631,6 @@ body #root {
     box-shadow: 0px 6px 10px 0px rgba(13, 153, 255, 0.05);
   }
 }
-<<<<<<< HEAD
 
 /* =========================================
    ✨ 스켈레톤 애니메이션
@@ -644,5 +643,4 @@ body #root {
     transform: translateX(100%);
   }
 }
-=======
->>>>>>> develop
+
