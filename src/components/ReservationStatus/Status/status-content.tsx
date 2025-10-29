@@ -67,7 +67,8 @@ const StatusContent = ({
                     }
                   );
                 }}
-                className="cursor-pointer px-2.5 py-1.5 border border-gray-50 rounded-[8px] ty-14_M text-gray-600"
+                className="cursor-pointer px-2.5 py-1.5 border border-gray-50 rounded-[8px] ty-14_M text-gray-600
+                transition transform duration-200 hover:scale-105 hover:shadow-md"
               >
                 승인하기
               </button>
@@ -86,7 +87,8 @@ const StatusContent = ({
                     }
                   );
                 }}
-                className="cursor-pointer px-2.5 py-1.5 border border-gray-50 rounded-[8px] ty-14_M bg-gray-50 text-gray-600"
+                className="cursor-pointer px-2.5 py-1.5 border border-gray-50 rounded-[8px] ty-14_M bg-gray-50 text-gray-600
+                transition transform duration-200 hover:scale-105 hover:shadow-md"
               >
                 거절하기
               </button>
