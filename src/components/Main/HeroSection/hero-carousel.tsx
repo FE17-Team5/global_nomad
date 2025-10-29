@@ -237,8 +237,8 @@ const HeroCarousel = () => {
                 />
               </div>
 
-              {/* 어두운 오버레이 */}
-              <div className="absolute inset-0 bg-black/40 z-20" />
+              {/* 그라데이션 오버레이 - 텍스트 가독성 유지하면서 이미지 밝게 */}
+              <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-black/20 to-black/40 z-20" />
 
               {/* 컨텐츠 - 데스크탑 */}
               <div
