@@ -22,6 +22,7 @@ const categories = ["문화 · 예술", "식음료", "스포츠", "투어", "관
 const sortOptions = [
   { value: "latest", label: "최신순" },
   { value: "most_reviewed", label: "리뷰 많은 순" },
+  { value: "rating_desc", label: "별점 높은 순" },
   { value: "price_asc", label: "가격 낮은 순" },
   { value: "price_desc", label: "가격 높은 순" },
 ];
@@ -42,6 +43,9 @@ export const useActivitiesData = () => {
   }, [keyword]);
 
   // API 호출 파라미터 구성
+  // rating_desc는 API에서 지원하지 않으므로 latest로 가져와서 클라이언트에서 정렬
+  const apiSort = selectedSort === "rating_desc" ? "latest" : selectedSort;
+
   const queryParams = {
     method: "offset" as const,
     page: 1,
@@ -56,7 +60,7 @@ export const useActivitiesData = () => {
             | "관광"
             | "웰빙")
         : undefined,
-    sort: selectedSort as "latest" | "most_reviewed" | "price_asc" | "price_desc",
+    sort: apiSort as "latest" | "most_reviewed" | "price_asc" | "price_desc",
   };
 
   // API에서 체험 데이터 가져오기
@@ -64,18 +68,30 @@ export const useActivitiesData = () => {
 
   const allActivities = response?.activities || [];
 
-  // 클라이언트 사이드 필터링: 한글 초성 검색 지원
+  // 클라이언트 사이드 필터링 및 정렬
   const filteredActivities = useMemo(() => {
-    // 검색어가 없으면 전체 목록 반환
-    if (!keyword || !keyword.trim()) {
-      return allActivities;
+    // 1. 검색어 필터링
+    let filtered = allActivities;
+    if (keyword && keyword.trim()) {
+      filtered = allActivities.filter((activity) => {
+        return matchKoreanSearch(activity.title, keyword);
+      });
     }
 
-    // 한글 초성 검색으로 필터링
-    return allActivities.filter((activity) => {
-      return matchKoreanSearch(activity.title, keyword);
-    });
-  }, [allActivities, keyword]);
+    // 2. 별점 높은 순 정렬 (클라이언트 사이드)
+    if (selectedSort === "rating_desc") {
+      filtered = [...filtered].sort((a, b) => {
+        // 평점이 높은 순
+        if (b.rating !== a.rating) {
+          return b.rating - a.rating;
+        }
+        // 평점이 같으면 리뷰 많은 순
+        return b.reviewCount - a.reviewCount;
+      });
+    }
+
+    return filtered;
+  }, [allActivities, keyword, selectedSort]);
 
   // 페이지네이션: 현재 페이지에 표시할 체험 계산
   const totalCount = filteredActivities.length;
