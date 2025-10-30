@@ -1,50 +1,21 @@
-import { useState } from "react";
 import EmptyData from "./EmptyData/empty-data";
 import FilterBadgeList from "./FilterBadge/filter-badge-list";
-import type { components } from "../../types/api-types";
 import ReservationCardList from "./Card/reservation-card-list";
-import { useMyReservationsInfinite } from "../../hooks/queries/useMyReservationsInfinite";
-import { useInfiniteScroll } from "../../hooks/useInfiniteScroll";
+import { useReservationList } from "./useReservationList";
+import SkeletonUi from "./skeleton-ui";
 
 const ReservationList = () => {
-  const accessToken = localStorage.getItem("accessToken");
-  const [selectedBadge, setSelectedBadge] = useState<
-    components["schemas"]["ReservationStatus"] | undefined
-  >(undefined);
-
-  const {
-    data,
-    fetchNextPage,
-    hasNextPage,
-    isFetchingNextPage,
+  const [
+    reservations,
     isLoading,
     error,
-  } = useMyReservationsInfinite(accessToken, 5, selectedBadge);
-
-  const observerTarget = useInfiniteScroll(
-    fetchNextPage,
-    hasNextPage,
-    isFetchingNextPage
-  );
-
-  const reservations = data?.pages.flatMap((page) => page.reservations) || [];
-
-  const handleBadgeClick = (
-    status: components["schemas"]["ReservationStatus"] | undefined
-  ) => {
-    if (selectedBadge === status) {
-      setSelectedBadge(undefined);
-    } else {
-      setSelectedBadge(status!);
-    }
-  };
+    observerTarget,
+    selectedBadge,
+    handleBadgeClick,
+  ] = useReservationList();
 
   if (isLoading) {
-    return (
-      <div className="flex justify-center items-center py-20">
-        <p className="ty-16_M text-gray-400">로딩 중...</p>
-      </div>
-    );
+    return <SkeletonUi />;
   }
 
   if (error) {

@@ -1,25 +1,12 @@
 import { dateCalc2 } from "../../../utils/date-time";
 import CustomModal from "../../Modal/custom-modal";
 import closeBtn from "../../../assets/icon/icon_delete.svg";
-import { useState } from "react";
-import { formatDateToString } from "../../../utils/date";
-import {
-  useActivityReservations,
-  useReservedSchedule,
-} from "../../../hooks/queries";
 import ScheduleDropdown from "../Dropdown/schedule-dropdown";
-import type { UpdateReservationStatusBody } from "../../../lib/my-activities/types";
 import StatusContentList from "../Status/status-content-list";
-
-const STATUS_TABS: {
-  index: number;
-  label: string;
-  countKey: UpdateReservationStatusBody["status"];
-}[] = [
-  { index: 0, label: "신청", countKey: "pending" },
-  { index: 1, label: "승인", countKey: "confirmed" },
-  { index: 2, label: "거절", countKey: "declined" },
-];
+import {
+  STATUS_TABS,
+  useReservationStatusModal,
+} from "./useReservationStatusModal";
 
 const ReservationStatusModal = ({
   date,
@@ -32,56 +19,18 @@ const ReservationStatusModal = ({
   isOpen: boolean;
   onClose: () => void;
 }) => {
-  const accessToken = localStorage.getItem("accessToken");
-  const [selectedIndex, setSelectedIndex] = useState(0);
-  const [scheduleId, setScheduleId] = useState(-1);
-  const [title, setTitle] = useState("시간 선택");
-  const initialCounts = { pending: 0, confirmed: 0, declined: 0 };
-
-  const { data: schedules } = useReservedSchedule(
-    activityId,
-    {
-      date: formatDateToString(date),
-    },
-    accessToken
-  );
-
-  const { data: reservations } = useActivityReservations(
-    activityId,
-    {
-      scheduleId,
-      status: STATUS_TABS[selectedIndex].countKey,
-    },
-    accessToken
-  );
-
-  const totalCounts = schedules?.reduce((prev, next) => {
-    prev.pending += next.count.pending;
-    prev.confirmed += next.count.confirmed;
-    prev.declined += next.count.declined;
-    return prev;
-  }, initialCounts);
-
-  const currentStatusKey = STATUS_TABS[selectedIndex].countKey;
-
-  const filteredSchedules = schedules?.filter(
-    (schedule) => schedule.count[currentStatusKey] > 0
-  );
-
-  const handleStatusClick = (index: number) => {
-    setSelectedIndex(index);
-    setScheduleId(-1);
-    handleTitle("시간 선택");
-  };
-
-  const handleTitle = (title: string) => {
-    setTitle(title);
-  };
-
-  const handleScheduleId = (scheduleId: number) => {
-    setScheduleId(scheduleId);
-  };
-  console.log(schedules);
+  const [
+    reservations,
+    selectedIndex,
+    title,
+    totalCounts,
+    filteredSchedules,
+    setScheduleId,
+    setSelectedIndex,
+    handleScheduleId,
+    handleStatusClick,
+    handleTitle,
+  ] = useReservationStatusModal(activityId, date);
 
   return (
     <CustomModal
@@ -106,7 +55,7 @@ const ReservationStatusModal = ({
               setSelectedIndex(0);
               setScheduleId(-1);
             }}
-            className="cursor-pointer"
+            className="cursor-pointer transition transform duration-200 hover:scale-105 hover:shadow-md rounded-full"
           >
             <img src={closeBtn} alt="close-button" width={24} height={24} />
           </button>
