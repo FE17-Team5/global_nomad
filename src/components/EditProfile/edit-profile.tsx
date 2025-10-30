@@ -77,14 +77,16 @@ const EditProfile = ({ onClick }: { onClick: () => void }) => {
               handleInitData();
               onClick();
             }}
-            className="hidden grow px-[40px] py-3.5 rounded-[14px] border border-gray-200 ty-16_M text-gray-600 mobile:block cursor-pointer"
+            className="hidden grow px-[40px] py-3.5 rounded-[14px] border border-gray-200 ty-16_M text-gray-600 mobile:block cursor-pointer
+            transition transform duration-200 hover:scale-105 hover:shadow-md"
           >
             취소하기
           </button>
           <button
             type="submit"
             className={`px-[40px] py-3 rounded-xl ty-16_B cursor-pointer bg-primary-500 text-white
-           mobile:grow mobile:py-3.5 mobile:rounded-[14px]`}
+           mobile:grow mobile:py-3.5 mobile:rounded-[14px]
+           transition transform duration-200 hover:scale-105 hover:shadow-md`}
           >
             저장하기
           </button>

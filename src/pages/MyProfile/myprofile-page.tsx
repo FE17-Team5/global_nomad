@@ -1,43 +1,13 @@
-import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
 import backImage from "../../assets/icon/icon_back.svg";
 import CustomFileInput from "./FileInput/custom-file-input";
 import MenuListComponent from "./Menu/menu-list-component";
 import MenuTitleAndContent from "./Menu/menu-title-content";
 import { menuComponentList } from "./Menu/profile-menu-data";
+import useMyProfile from "./useMyProfile";
 
 const MyProfilePage = () => {
-  const location = useLocation();
-
-  // ============ API 연동: 탭 상태 유지 (새로고침 시 탭 초기화 방지) ============
-  // localStorage에서 마지막 탭 상태 불러오기
-  const [selectedIndex, setSelectedIndex] = useState(() => {
-    const saved = localStorage.getItem("myProfileTab");
-    return saved ? Number(saved) : 0;
-  });
-  const [isSelected, setIsSelected] = useState(false);
-
-  // 탭 변경 시 localStorage에 저장 (새로고침해도 마지막 탭 유지)
-  useEffect(() => {
-    localStorage.setItem("myProfileTab", selectedIndex.toString());
-  }, [selectedIndex]);
-
-  // 등록/수정 후 특정 탭으로 이동
-  useEffect(() => {
-    if (location.state?.activeTab !== undefined) {
-      setSelectedIndex(location.state.activeTab);
-    }
-  }, [location.state]);
-  // ============================================================================
-
-  const handleClick = (id: number) => {
-    setSelectedIndex(id);
-    setIsSelected(!isSelected);
-  };
-
-  const handleCancel = () => {
-    setIsSelected(false);
-  };
+  const [selectedIndex, isSelected, setIsSelected, handleClick, handleCancel] =
+    useMyProfile();
 
   return (
     <div className="flex my-10 gap-[50px] items-start justify-center tablet:gap-[30px] tablet:px-[30px] mobile:px-6">
@@ -64,7 +34,8 @@ const MyProfilePage = () => {
         <button
           type="button"
           onClick={() => setIsSelected(!isSelected)}
-          className="hidden absolute top-5 right-0 mobile:block bg-transparent border-none p-0 cursor-pointer"
+          className="hidden absolute top-5 right-0 mobile:block bg-transparent border-none p-1 cursor-pointer 
+          transition transform duration-200 hover:scale-105 hover:shadow-md rounded-full"
           aria-label="뒤로가기"
         >
           <img src={backImage} alt="뒤로가기" />

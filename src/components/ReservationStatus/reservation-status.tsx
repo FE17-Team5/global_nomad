@@ -1,17 +1,10 @@
-import { useState } from "react";
-import { useMyActivitiesList } from "../../hooks/queries";
 import ReservationStatusCalendar from "./Calendar/reservation-status-calendar";
 import MyReservationDropdown from "./Dropdown/my-reservation-dropdown";
 import EmptyData from "./EmptyData/empty-data";
+import { useReservationStatus } from "./useReservationStatus";
 
 const ReservationStatus = () => {
-  const accessToken = localStorage.getItem("accessToken");
-  const { data } = useMyActivitiesList({}, accessToken);
-  const [activityId, setActivityId] = useState<number>(-1);
-
-  const handleSchedule = (id: number) => {
-    setActivityId(id);
-  };
+  const [data, activityId, handleSchedule] = useReservationStatus();
 
   return data?.totalCount! > 0 ? (
     <div className="flex flex-col gap-[30px]">

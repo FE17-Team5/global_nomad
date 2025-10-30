@@ -1,6 +1,6 @@
-import { useEffect, useRef, useState } from "react";
 import dropdownBtn from "../../../assets/icon/icon_alt arrow_down.svg";
 import type { ReservedScheduleResponse } from "../../../lib/my-activities/types";
+import { useScheduleDropdown } from "./useScheduleDropdown";
 
 const ScheduleDropdown = ({
   schedules,
@@ -13,54 +13,15 @@ const ScheduleDropdown = ({
   handleSchedule: (id: number) => void;
   handleTitle: (title: string) => void;
 }) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
-
-  const handleItemClick = (id: number) => {
-    setIsOpen(false);
-    handleSchedule(id);
-  };
-
-  useEffect(() => {
-    const handleClickOutside = (e: MouseEvent) => {
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(e.target as Node)
-      ) {
-        setIsOpen(false);
-      }
-    };
-
-    if (isOpen) {
-      document.addEventListener("mousedown", handleClickOutside);
-    }
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [isOpen]);
-
-  useEffect(() => {
-    const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        setIsOpen(false);
-      }
-    };
-
-    if (isOpen) {
-      document.addEventListener("keydown", handleEscape);
-    }
-
-    return () => {
-      document.removeEventListener("keydown", handleEscape);
-    };
-  }, [isOpen]);
+  const [isOpen, dropdownRef, setIsOpen, handleItemClick] =
+    useScheduleDropdown(handleSchedule);
 
   return (
     <div className="relative" ref={dropdownRef}>
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full px-5 py-4 flex items-center rounded-2xl border border-gray-100 shadow-[0_2px_6px_0_#00000005]"
+        className="w-full px-5 py-4 flex items-center rounded-2xl border border-gray-100 shadow-[0_2px_6px_0_#00000005] cursor-pointer"
       >
         <div className="grow text-start ty-16_M mobile:ty-14_M">{title}</div>
         <img src={dropdownBtn} alt="dropdown-button" width={24} height={24} />

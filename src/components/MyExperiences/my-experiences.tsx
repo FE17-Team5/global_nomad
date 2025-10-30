@@ -1,43 +1,21 @@
-import { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-import { useMyActivitiesInfinite } from "../../hooks/queries/useMyActivitiesInfinite";
-import { useInfiniteScroll } from "../../hooks/useInfiniteScroll";
 import { Modal } from "../Modal";
 import ExperienceCardList from "./Card/experience-card-list";
 import EmptyData from "./EmptyData/empty-data";
+import SkeletonUi from "./skeleton-ui";
+import { useMyExperiences } from "./useMyExperiences";
 
 const MyExperiences = () => {
-  const navigate = useNavigate();
-  const location = useLocation();
-  const authToken = localStorage.getItem("accessToken");
-  const [deleteSuccessModalOpen, setDeleteSuccessModalOpen] = useState(false);
-
-  // 무한스크롤 쿼리
-  const {
+  const [
     data,
-    fetchNextPage,
-    hasNextPage,
-    isFetchingNextPage,
+    navigate,
+    authToken,
     isLoading,
+    deleteSuccessModalOpen,
     error,
-    refetch,
-  } = useMyActivitiesInfinite(authToken, 10);
-
-  // 무한스크롤 트리거
-  const observerTarget = useInfiniteScroll(
-    fetchNextPage,
-    hasNextPage,
+    observerTarget,
     isFetchingNextPage,
-  );
-
-  // 등록/수정 후 데이터 갱신
-  useEffect(() => {
-    if (location.state?.shouldRefetch) {
-      refetch();
-      // state 초기화 (뒤로가기 시 재실행 방지)
-      window.history.replaceState({}, document.title);
-    }
-  }, [location.state, refetch]);
+    setDeleteSuccessModalOpen,
+  ] = useMyExperiences();
 
   if (!authToken) {
     navigate("/login");
@@ -45,11 +23,7 @@ const MyExperiences = () => {
   }
 
   if (isLoading) {
-    return (
-      <div className="flex justify-center items-center py-20">
-        <p className="ty-16_M text-gray-400">로딩 중...</p>
-      </div>
-    );
+    return <SkeletonUi />;
   }
 
   if (error) {

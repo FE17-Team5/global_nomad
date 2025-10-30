@@ -2,12 +2,10 @@ import Calendar from "react-calendar";
 import "./reservation-status-calendar.css";
 import leftBtn from "../../../assets/icon/icon_alt arrow_left.svg";
 import rightBtn from "../../../assets/icon/icon_alt arrow_right.svg";
-import { useState } from "react";
-import type { Value } from "react-calendar/src/shared/types.js";
 import ReservationStatusModal from "../Modal/reservation-status-modal";
-import { useReservationDashboard } from "../../../hooks/queries";
 import { formatDateToString } from "../../../utils/date";
 import CalendarReservationStatus from "../Status/calendar-reservation-status";
+import { useReservationStatusCalendar } from "./useReservationStatusCalendar";
 
 type FormatType = (locale?: string, date?: Date) => string;
 
@@ -27,56 +25,14 @@ const formatDay: FormatType = (_locale, date) => {
 };
 
 const ReservationStatusCalendar = ({ activityId }: { activityId: number }) => {
-  const accessToken = localStorage.getItem("accessToken");
-  const [currentTile, setCurrentTile] = useState(new Date());
-  const [isOpen, setIsOpen] = useState(false);
-  const [date, setDate] = useState({
-    year: String(new Date().getFullYear()),
-    month: String(new Date().getMonth() + 1).padStart(2, "0"),
-  });
-
-  const { data } = useReservationDashboard(
-    activityId,
-    {
-      year: date.year,
-      month: date.month,
-    },
-    accessToken
-  );
-
-  const handleDateClick = (
-    value: Value,
-    event: React.MouseEvent<HTMLButtonElement>
-  ) => {
-    if (value instanceof Date && event.currentTarget) {
-      setCurrentTile(value);
-      handleModalOpen();
-    }
-  };
-
-  const handleModalOpen = () => {
-    setIsOpen(true);
-  };
-
-  const handleModalClose = () => {
-    setIsOpen(false);
-  };
-
-  const handleActiveStartDateChange = ({
-    activeStartDate,
-  }: {
-    activeStartDate: Date | null;
-  }) => {
-    if (activeStartDate instanceof Date) {
-      const year = String(activeStartDate.getFullYear());
-      const month = String(activeStartDate.getMonth() + 1).padStart(2, "0");
-
-      setDate({
-        year,
-        month,
-      });
-    }
-  };
+  const [
+    currentTile,
+    isOpen,
+    data,
+    handleDateClick,
+    handleModalClose,
+    handleActiveStartDateChange,
+  ] = useReservationStatusCalendar(activityId);
 
   return (
     <div className="calendar_container">
